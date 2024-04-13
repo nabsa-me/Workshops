@@ -1,0 +1,58 @@
+{
+    "extends": ["eslint:recommended"],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": 11,
+        "sourceType": "module"
+    },
+    "env": {
+        "browser": true,
+        "es6": true,
+        "node": true
+    },
+    "globals": {
+        "Atomics": "readonly",
+        "SharedArrayBuffer": "readonly"
+    },
+    "plugins": ["@typescript-eslint", "prettier"],
+    "rules": {
+        "prettier/prettier": [
+            "warn",
+            {
+                "eslintIntegration": true,
+                "printWidth": 120,
+                "tabWidth": 2,
+                "semi": false,
+                "singleQuote": true,
+                "jsxSingleQuote": true,
+                "trailingComma": "none",
+                "endOfLine": "crlf"
+            }
+        ],
+        "no-case-declarations": 0,
+        "no-unexpected-multiline": "warn",
+        "no-debugger": "warn",
+        "no-unused-vars": "off",
+        "@typescript-eslint/no-unused-vars": ["warn"],
+        "linebreak-style": ["error", "windows"],
+        "quotes": [
+            "warn",
+            "single",
+            {
+                "avoidEscape": true
+            }
+        ],
+        "semi": ["error", "never"]
+    },
+    "overrides": [
+        {
+            "files": ["**/*.spec.js", "**/*.spec.jsx", "**/*.test.js", "**/*.test.jsx"],
+            "env": {
+                "jest": true
+            }
+        }
+    ]
+}
