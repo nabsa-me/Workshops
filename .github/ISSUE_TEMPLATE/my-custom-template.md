@@ -1,10 +1,24 @@
 ---
-name: My custom template
-about: The purpose
-title: Some custome title
+name: New Workshop template
+about: Template for every new Workshop or Certification
+title: WORKSHOP PLATFORM - Workshop title
 labels: AWS
 assignees: ''
+milestones: AWS-Certified__Cloud-Practitioner
 
 ---
 
-My tasks
+**Debug environment**
+- [ ] event files
+- [ ] config .launcher
+
+**Local Stack & AWS toolkit**
+- [ ] Task 1
+- [ ] Task 2 
+
+**Jest**
+- [ ] Task 1
+- [ ] Task 2
+
+**JSDocs documentation**
+**README.md**
