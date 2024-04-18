@@ -4,7 +4,7 @@ about: Template for every new Workshop or Certification
 title: WORKSHOP PLATFORM - Workshop title
 labels: AWS
 assignees: ''
-milestones: AWS-Certified__Cloud-Practitioner
+milestone: AWS-Certified__Cloud-Practitioner
 
 ---
 
