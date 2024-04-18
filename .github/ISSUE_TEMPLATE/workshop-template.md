@@ -1,5 +1,4 @@
 ---
-# name: New Workshop template
 # labels: frontend, backend, devOps, config, AWS, QA, react
 # milestone: AWS-Certified__Cloud-Practitioner
 
