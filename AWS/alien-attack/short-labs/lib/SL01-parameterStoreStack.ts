@@ -13,12 +13,12 @@ export class parameterStoreStack extends Stack {
     Tags.of(this).add('Project', 'Workshops')
 
     //#endregion
-
+    const lab = 'Short-Lab-01'
     //#region STRING PARAMETER
     const stringParameter = new StringParameter(this, 'WS-AlienAttack-Lab01-StringParameter', {
       stringValue: '{"url" : "https://www.amazon.com"}',
       description: 'string parameter will be consumed by the api',
-      parameterName: '/WS/Alien-Attack/lab01/stringParameter',
+      parameterName: `/WS/Alien-Attack/${lab}/configuration`,
       tier: ParameterTier.STANDARD,
       dataType: ParameterDataType.TEXT
     })
@@ -70,7 +70,7 @@ export class parameterStoreStack extends Stack {
       endpointConfiguration: { types: [EndpointType.REGIONAL] }
     })
 
-    api.root.addResource('config').addMethod(
+    api.root.addResource('getconfig').addMethod(
       'GET',
       new AwsIntegration({
         service: 'ssm',
@@ -79,11 +79,11 @@ export class parameterStoreStack extends Stack {
         path: '/',
         options: {
           credentialsRole: ssmRole,
-          passthroughBehavior: PassthroughBehavior.WHEN_NO_MATCH,
+          passthroughBehavior: PassthroughBehavior.WHEN_NO_TEMPLATES,
           requestParameters: { 'X-Amz-Target': 'AmazonSSM.GetParameter', 'Content-Type': 'application/x-amz-json-1.1' },
           cacheKeyParameters: ['X-Amz-Target', 'Content-Type'],
           requestTemplates: {
-            'application/json': '{ "Name": "/WS/Alien-Attack/$input.params(system)/stringParameter" }'
+            'application/json': '{ "Name": "/WS/Alien-Attack/${lab}/configuration" }'
           }
         }
       })

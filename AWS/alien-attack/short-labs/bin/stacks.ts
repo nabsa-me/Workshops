@@ -1,5 +1,5 @@
 import { App } from 'aws-cdk-lib'
-import { parameterStoreStack } from '../lib/parameterStoreStack'
+import { parameterStoreStack } from '../lib/SL01-parameterStoreStack'
 
 const app = new App()
 

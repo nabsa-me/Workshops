@@ -1,5 +1,5 @@
 {
-  "alien-attack_parameter-store-lambda": "npx ts-node short-labs/lab01/bin/stacks.ts",
+  "app": "npx ts-node short-labs/bin/stacks.ts",
   "context": {
     "aws-cdk:enableDiffNoFail": "true"
   }
