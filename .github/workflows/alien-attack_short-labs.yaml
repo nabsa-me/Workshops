@@ -31,7 +31,7 @@ jobs:
       
       - name: Install packages
         working-directory: ./
-        run: 'npx ci'
+        run: 'npm ci && cd ./AWS && npm ci'
 
       - name: Deploy CDK stack
         working-directory: ./AWS/alien-attack
