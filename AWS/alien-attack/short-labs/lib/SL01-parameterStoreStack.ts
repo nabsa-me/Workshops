@@ -71,22 +71,23 @@ export class parameterStoreStack extends Stack {
     })
 
     api.root.addResource('getconfig').addMethod(
-      'GET',
-      new AwsIntegration({
-        service: 'ssm',
-        region: this.region,
-        integrationHttpMethod: 'POST',
-        path: '/',
-        options: {
-          credentialsRole: ssmRole,
-          passthroughBehavior: PassthroughBehavior.WHEN_NO_TEMPLATES,
-          requestParameters: { 'X-Amz-Target': 'AmazonSSM.GetParameter', 'Content-Type': 'application/x-amz-json-1.1' },
-          cacheKeyParameters: ['X-Amz-Target', 'Content-Type'],
-          requestTemplates: {
-            'application/json': '{ "Name": "/WS/Alien-Attack/${lab}/configuration" }'
-          }
-        }
-      })
+      'GET'
+      // new AwsIntegration({
+      //   service: 'ssm',
+      //   region: this.region,
+      //   integrationHttpMethod: 'POST',
+      //   path: '/',
+      //   options: {
+      //     cacheNamespace: 'Alien-Attack_CacheNameSpace',
+      //     cacheKeyParameters: ['X-Amz-Target', 'Content-Type'],
+      //     credentialsRole: ssmRole,
+      //     passthroughBehavior: PassthroughBehavior.WHEN_NO_TEMPLATES,
+      //     requestParameters: { 'X-Amz-Target': 'AmazonSSM.GetParameter', 'Content-Type': 'application/x-amz-json-1.1' },
+      //     requestTemplates: {
+      //       'application/json': '{ "Name": "/WS/Alien-Attack/${lab}/configuration" }'
+      //     }
+      //   }
+      // })
     )
 
     //#endregion
