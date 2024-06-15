@@ -1,5 +1,5 @@
 import { App, Stack, StackProps, Tags } from 'aws-cdk-lib'
-import { Definition, GraphqlApi, SchemaFile } from 'aws-cdk-lib/aws-appsync'
+import { CfnDataSource, Definition, GraphqlApi, SchemaFile } from 'aws-cdk-lib/aws-appsync'
 import { Effect, Policy, PolicyStatement, Role, ServicePrincipal } from 'aws-cdk-lib/aws-iam'
 import { ParameterDataType, StringParameter } from 'aws-cdk-lib/aws-ssm'
 import path from 'path'
@@ -45,15 +45,6 @@ export class parameterStoreAppSyncStack extends Stack {
 
     //#endregion
 
-    //#region GRAPHQL API
-    const schema = new SchemaFile({ filePath: path.join(__dirname, '../src/SL02-schema.graphql') })
-    new GraphqlApi(this, 'WS-AlienAttack-Lab02-API', {
-      name: 'WS-AlienAttack-Lab02-API',
-      definition: Definition.fromSchema(schema)
-    })
-
-    //#endregion
-
     //#region IAM ROLE
     const ssmRole = new Role(this, 'WS-AlienAttack-Lab02-Role', {
       assumedBy: new ServicePrincipal('appsync.amazonaws.com'),
@@ -82,12 +73,34 @@ export class parameterStoreAppSyncStack extends Stack {
         statements: [
           new PolicyStatement({
             effect: Effect.ALLOW,
-            actions: ['ssm:GetParameterByPath'],
+            actions: ['ssm:GetParametersByPath'],
             resources: [`arn:aws:ssm:${this.region}:${this.account}:parameter${baseParameterName}`]
           })
         ]
       })
     )
+
+    //#endregion
+
+    //#region GRAPHQL API
+    const schema = new SchemaFile({ filePath: path.join(__dirname, '../src/SL02-schema.graphql') })
+    const api = new GraphqlApi(this, 'WS-AlienAttack-Lab02-API', {
+      name: 'WS-AlienAttack-Lab02-API',
+      definition: Definition.fromSchema(schema)
+    })
+    new CfnDataSource(this, 'dataSource', {
+      apiId: api.apiId,
+      name: 'WS-AlienAttack-Lab02-DataSource',
+      type: 'HTTP',
+      serviceRoleArn: ssmRole.roleArn,
+      httpConfig: {
+        endpoint: `https://ssm.${this.region}.amazonaws.com/`,
+        authorizationConfig: {
+          authorizationType: 'AWS_IAM',
+          awsIamConfig: { signingRegion: this.region, signingServiceName: 'ssm' }
+        }
+      }
+    })
 
     //#endregion
   }
