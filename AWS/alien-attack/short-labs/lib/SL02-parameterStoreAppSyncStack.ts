@@ -88,7 +88,7 @@ export class parameterStoreAppSyncStack extends Stack {
       name: 'WS-AlienAttack-Lab02-API',
       definition: Definition.fromSchema(schema)
     })
-    const dataSource = new CfnDataSource(this, 'dataSource', {
+    new CfnDataSource(this, 'WS-AlienAttack-Lab02-DataSource', {
       apiId: api.apiId,
       name: 'ssm_dataSource',
       type: 'HTTP',
@@ -101,11 +101,11 @@ export class parameterStoreAppSyncStack extends Stack {
         }
       }
     })
-    new Resolver(this, 'resolver', {
+    new Resolver(this, 'WS-AlienAttack-Lab02-Resolver', {
       api: api,
       fieldName: 'getSystemSettings(...): SystemSettings',
       typeName: 'Unit Resolver (VTL only)',
-      dataSource: api.addHttpDataSource('data', `https://ssm.${this.region}.amazonaws.com/`, dataSource),
+      // dataSource: api.addHttpDataSource('data', `https://ssm.${this.region}.amazonaws.com/`, dataSource),
       requestMappingTemplate: {
         renderTemplate: () => `#set( $ssmRequestBody = 
     {
