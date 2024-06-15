@@ -13,12 +13,12 @@ export class parameterStoreStack extends Stack {
     Tags.of(this).add('Project', 'Workshops')
 
     //#endregion
-    const lab = 'Short-Lab-01'
+
     //#region STRING PARAMETER
     const stringParameter = new StringParameter(this, 'WS-AlienAttack-Lab01-StringParameter', {
       stringValue: '{"url" : "https://www.amazon.com"}',
       description: 'string parameter will be consumed by the api',
-      parameterName: `/WS/Alien-Attack/${lab}/configuration`,
+      parameterName: '/WS/Alien-Attack/Short-Lab-01/configuration',
       tier: ParameterTier.STANDARD,
       dataType: ParameterDataType.TEXT
     })
@@ -90,7 +90,19 @@ export class parameterStoreStack extends Stack {
               Name: "/WS/Alien-Attack/$input.params('lab')/configuration"
             })
           },
-          integrationResponses: [{ statusCode: '200' }]
+          integrationResponses: [
+            {
+              statusCode: '200',
+              responseTemplates: {
+                'application/json': `#set($inputRoot=$input.path('$'))
+#if ($inputRoot.Parameter.Value && $inputRoot.Parameter.Value!="")
+{
+  "data" : $input.path('$').Parameter.Value
+}
+#end`
+              }
+            }
+          ]
         }
       }),
       {
