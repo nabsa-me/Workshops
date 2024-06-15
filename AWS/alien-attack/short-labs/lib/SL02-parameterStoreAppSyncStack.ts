@@ -1,5 +1,5 @@
 import { App, Stack, StackProps, Tags } from 'aws-cdk-lib'
-import { CfnDataSource, Definition, GraphqlApi, SchemaFile } from 'aws-cdk-lib/aws-appsync'
+import { CfnDataSource, Definition, GraphqlApi, Resolver, SchemaFile } from 'aws-cdk-lib/aws-appsync'
 import { Effect, Policy, PolicyStatement, Role, ServicePrincipal } from 'aws-cdk-lib/aws-iam'
 import { ParameterDataType, StringParameter } from 'aws-cdk-lib/aws-ssm'
 import path from 'path'
@@ -17,26 +17,26 @@ export class parameterStoreAppSyncStack extends Stack {
     //#region STRING PARAMETERS
     const baseParameterName = '/WS/Alien-Attack/Short-Lab-02/'
 
-    /*const SSMClientID = */ new StringParameter(this, 'WS-AlienAttack-Lab02-SSM_ClientID', {
+    new StringParameter(this, 'WS-AlienAttack-Lab02-SSM_ClientID', {
       stringValue: 'abcd01',
       description: 'application client ID',
       parameterName: `${baseParameterName}clientid`,
       dataType: ParameterDataType.TEXT
     })
 
-    /*const SSMUrl = */ new StringParameter(this, 'WS-AlienAttack-Lab02-SSM_Url', {
+    new StringParameter(this, 'WS-AlienAttack-Lab02-SSM_Url', {
       stringValue: 'shortlab.alienattack.nabsa.me',
       description: 'The system URL',
       parameterName: `${baseParameterName}url`,
       dataType: ParameterDataType.TEXT
     })
-    /*const SSMReview = */ new StringParameter(this, 'WS-AlienAttack-Lab02-SSM_Review', {
+    new StringParameter(this, 'WS-AlienAttack-Lab02-SSM_Review', {
       stringValue: 'null',
       description: 'Date of the latest well-architected review',
       parameterName: `${baseParameterName}latestReview`,
       dataType: ParameterDataType.TEXT
     })
-    /*const SSMPeriodicity = */ new StringParameter(this, 'WS-AlienAttack-Lab02-SSM_Periodicity', {
+    new StringParameter(this, 'WS-AlienAttack-Lab02-SSM_Periodicity', {
       stringValue: '90',
       description: 'Periodicity of WARs',
       parameterName: `${baseParameterName}reviewPeriodicityInDays`,
@@ -88,7 +88,7 @@ export class parameterStoreAppSyncStack extends Stack {
       name: 'WS-AlienAttack-Lab02-API',
       definition: Definition.fromSchema(schema)
     })
-    new CfnDataSource(this, 'dataSource', {
+    const dataSource = new CfnDataSource(this, 'dataSource', {
       apiId: api.apiId,
       name: 'WS-AlienAttack-Lab02-DataSource',
       type: 'HTTP',
@@ -99,6 +99,48 @@ export class parameterStoreAppSyncStack extends Stack {
           authorizationType: 'AWS_IAM',
           awsIamConfig: { signingRegion: this.region, signingServiceName: 'ssm' }
         }
+      }
+    })
+    new Resolver(this, 'resolver', {
+      api: api,
+      fieldName: 'getSystemSettings(...): SystemSettings',
+      typeName: 'Unit Resolver (VTL only)',
+      dataSource: api.addHttpDataSource('data', `https://ssm.${this.region}.amazonaws.com/`, dataSource),
+      requestMappingTemplate: {
+        renderTemplate: () => `#set( $ssmRequestBody = 
+    {
+    "Path":  "/systems/$context.args.systemName",
+    "Recursive" : true
+    }
+)
+{
+    "version": "2018-05-29",
+    "method": "POST",
+    "resourcePath": "/",
+    "params":{
+        "headers": {
+            "X-Amz-Target" : "AmazonSSM.GetParametersByPath",
+            "Content-Type" :     "application/x-amz-json-1.1"
+        },
+        "body" : $util.toJson($ssmRequestBody)
+    }
+}`
+      },
+      responseMappingTemplate: {
+        renderTemplate: () => `#if($ctx.error)
+    $util.error($ctx.error.message, $ctx.error.type)
+#end
+#if($ctx.result.statusCode == 200)
+    #set( $body = $util.parseJson($ctx.result.body) )
+    #set($arrayOfParameters = [])
+    #foreach( $item in $body.Parameters )
+        $util.qr( $arrayOfParameters.add( { "Name" : $item.Name, "Value" : $item.Value } ) )
+    #end
+    $util.toJson( { "SystemName" : $ctx.arguments.systemName , "Parameters" : $arrayOfParameters }  )
+#else
+    $util.toJson($ctx.error)
+    $utils.appendError($ctx.result.body, "$ctx.result.statusCode")
+#end`
       }
     })
 
