@@ -1,5 +1,5 @@
 import { App, Stack, StackProps, Tags } from 'aws-cdk-lib'
-import { CfnDataSource, Definition, GraphqlApi, Resolver, SchemaFile } from 'aws-cdk-lib/aws-appsync'
+import { CfnDataSource, Definition, GraphqlApi, HttpDataSource, Resolver, SchemaFile } from 'aws-cdk-lib/aws-appsync'
 import { Effect, Policy, PolicyStatement, Role, ServicePrincipal } from 'aws-cdk-lib/aws-iam'
 import { ParameterDataType, StringParameter } from 'aws-cdk-lib/aws-ssm'
 import path from 'path'
@@ -89,7 +89,7 @@ export class parameterStoreAppSyncStack extends Stack {
       definition: Definition.fromSchema(schema)
     })
 
-    const data = new CfnDataSource(this, 'WS-AlienAttack-Lab02-DataSource', {
+    new CfnDataSource(this, 'WS-AlienAttack-Lab02-DataSource', {
       apiId: api.apiId,
       name: 'ssm_dataSource',
       type: 'HTTP',
@@ -102,7 +102,7 @@ export class parameterStoreAppSyncStack extends Stack {
         }
       }
     })
-    api.addHttpDataSource('dataSource', `https://ssm.${this.region}.amazonaws.com/`, data)
+    // api.addHttpDataSource('dataSource', `https://ssm.${this.region}.amazonaws.com/`, data)
 
     //     new Resolver(this, 'WS-AlienAttack-Lab02-Resolver', {
     //       api: api,
