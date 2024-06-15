@@ -78,7 +78,6 @@ export class parameterStoreStack extends Stack {
         integrationHttpMethod: 'POST',
         path: '/',
         options: {
-          cacheNamespace: 'Alien-Attack_CacheNameSpace',
           credentialsRole: ssmRole,
           passthroughBehavior: PassthroughBehavior.WHEN_NO_TEMPLATES,
           requestParameters: {
