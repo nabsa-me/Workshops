@@ -90,7 +90,7 @@ export class parameterStoreAppSyncStack extends Stack {
     })
     const dataSource = new CfnDataSource(this, 'dataSource', {
       apiId: api.apiId,
-      name: 'WS-AlienAttack-Lab02-DataSource',
+      name: 'ssm_dataSource',
       type: 'HTTP',
       serviceRoleArn: ssmRole.roleArn,
       httpConfig: {
