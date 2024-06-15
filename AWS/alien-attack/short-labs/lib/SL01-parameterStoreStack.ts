@@ -87,10 +87,17 @@ export class parameterStoreStack extends Stack {
           cacheKeyParameters: ['integration.request.header.X-Amz-Target', 'integration.request.header.Content-Type'],
           requestTemplates: {
             'application/json': '{ "Name": "/WS/Alien-Attack/Short-Lab-01/configuration" }'
-          },
-          integrationResponses: [{ statusCode: '200' }]
+          }
+          // integrationResponses: [{ statusCode: '200' }]
         }
-      })
+      }),
+      {
+        methodResponses: [
+          {
+            statusCode: '200'
+          }
+        ]
+      }
     )
 
     //#endregion
