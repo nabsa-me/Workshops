@@ -1,5 +1,6 @@
 import { App, Stack, StackProps, Tags } from 'aws-cdk-lib'
 import { Definition, GraphqlApi, SchemaFile } from 'aws-cdk-lib/aws-appsync'
+import { Effect, Policy, PolicyStatement, Role, ServicePrincipal } from 'aws-cdk-lib/aws-iam'
 import { ParameterDataType, StringParameter } from 'aws-cdk-lib/aws-ssm'
 import path from 'path'
 
@@ -22,6 +23,7 @@ export class parameterStoreAppSyncStack extends Stack {
       parameterName: `${baseParameterName}clientid`,
       dataType: ParameterDataType.TEXT
     })
+
     /*const SSMUrl = */ new StringParameter(this, 'WS-AlienAttack-Lab02-SSM_Url', {
       stringValue: 'shortlab.alienattack.nabsa.me',
       description: 'The system URL',
@@ -49,6 +51,43 @@ export class parameterStoreAppSyncStack extends Stack {
       name: 'WS-AlienAttack-Lab02-API',
       definition: Definition.fromSchema(schema)
     })
+
+    //#endregion
+
+    //#region IAM ROLE
+    const ssmRole = new Role(this, 'WS-AlienAttack-Lab02-Role', {
+      assumedBy: new ServicePrincipal('appsync.amazonaws.com'),
+      roleName: 'WS-AlienAttack-Lab02-Role',
+      description: 'permissions for the Appsync API'
+    })
+
+    ssmRole.addToPolicy(
+      new PolicyStatement({
+        effect: Effect.ALLOW,
+        resources: ['*'],
+        actions: [
+          'logs:CreateLogGroup',
+          'logs:CreateLogStream',
+          'logs:DescribeLogGroups',
+          'logs:DescribeLogStreams',
+          'logs:PutLogEvents',
+          'logs:GetLogEvents',
+          'logs:FilterLogEvents'
+        ]
+      })
+    )
+    ssmRole.attachInlinePolicy(
+      new Policy(this, 'WS-AlienAttack-Lab02-Policy', {
+        policyName: 'WS-AlienAttack-Lab02-Policy',
+        statements: [
+          new PolicyStatement({
+            effect: Effect.ALLOW,
+            actions: ['ssm:GetParameterByPath'],
+            resources: [`arn:aws:ssm:${this.region}:${this.account}:parameter${baseParameterName}`]
+          })
+        ]
+      })
+    )
 
     //#endregion
   }
