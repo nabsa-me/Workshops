@@ -1,0 +1,17 @@
+type SystemSettings @model {
+    SystemName: String!
+    Parameters: [Parameter]
+}
+
+type Parameter @model {
+    Name: String!
+    Value: String!
+}
+
+type Query {
+    getSystemSettings(systemName: String): SystemSettings
+}
+
+schema {
+    query: Query
+}
