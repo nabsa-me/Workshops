@@ -79,13 +79,13 @@ export class parameterStoreStack extends Stack {
         path: '/',
         options: {
           cacheNamespace: 'Alien-Attack_CacheNameSpace',
-          cacheKeyParameters: [/*'X-Amz-Target',*/ 'Content-Type'],
+          // cacheKeyParameters: ['X-Amz-Target', 'Content-Type'],
           credentialsRole: ssmRole,
           passthroughBehavior: PassthroughBehavior.WHEN_NO_TEMPLATES,
-          requestParameters: {
-            // 'X-Amz-Target': "'AmazonSSM.GetParameter'",
-            'Content-Type': "'application/x-amz-json-1.1'"
-          },
+          // requestParameters: {
+          //   'X-Amz-Target': "'AmazonSSM.GetParameter'",
+          //   'Content-Type': "'application/x-amz-json-1.1'"
+          // },
           requestTemplates: {
             'application/json': '{ "Name": "/WS/Alien-Attack/Short-Lab-01/configuration" }'
           }
