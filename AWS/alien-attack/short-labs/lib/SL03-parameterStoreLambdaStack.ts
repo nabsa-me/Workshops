@@ -67,7 +67,7 @@ export class parameterStoreLambdaStack extends Stack {
       functionName: `${baseIDresource}-Lambda`,
       runtime: Runtime.NODEJS_18_X,
       architecture: Architecture.ARM_64,
-      handler: 'lambda.handler',
+      handler: 'handler',
       entry: path.join(__dirname, '../src/SL03-lambda.ts'),
       role: lambdaRole
     })
