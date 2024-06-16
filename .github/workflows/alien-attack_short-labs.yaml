@@ -34,5 +34,5 @@ jobs:
         run: 'npm ci && cd ./AWS && npm ci'
 
       - name: Deploy CDK stack
-        working-directory: ./AWS/alien-attack/cdk
+        working-directory: ./AWS/alien-attack/short-labs/cdk
         run: 'npx cdk deploy --require-approval never --all'
