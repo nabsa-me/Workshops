@@ -1,10 +1,10 @@
 import { App } from 'aws-cdk-lib'
-import { parameterStoreStack } from '../lib/SL01-parameterStoreStack'
+import { parameterStoreApiGatewayStack } from '../lib/SL01-parameterStoreApiGatewayStack'
 import { parameterStoreAppSyncStack } from '../lib/SL02-parameterStoreAppSyncStack'
 
 const app = new App()
 
-new parameterStoreStack(app, 'WS-AlienAttack-Lab01-Stack', {
+new parameterStoreApiGatewayStack(app, 'WS-AlienAttack-Lab01-Stack', {
   description: 'Stack for the creation of Alien Attack - Parameter Store API with API Gateway resources',
   stackName: 'WS-AlienAttack-Lab01-Stack'
 })

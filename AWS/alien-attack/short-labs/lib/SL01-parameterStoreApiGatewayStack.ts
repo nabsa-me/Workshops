@@ -4,7 +4,7 @@ import { PassthroughBehavior } from 'aws-cdk-lib/aws-apigatewayv2'
 import { Effect, Policy, PolicyStatement, Role, ServicePrincipal } from 'aws-cdk-lib/aws-iam'
 import { ParameterDataType, ParameterTier, StringParameter } from 'aws-cdk-lib/aws-ssm'
 
-export class parameterStoreStack extends Stack {
+export class parameterStoreApiGatewayStack extends Stack {
   constructor(scope: App, id: string, props: StackProps) {
     super(scope, id, props)
 

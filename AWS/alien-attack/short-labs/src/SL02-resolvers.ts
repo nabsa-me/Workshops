@@ -1,8 +1,9 @@
 export const baseParameterName = '/WS/Alien-Attack/Short-Lab-02'
+
 export const requestTemplate = `
 #set( $ssmRequestBody = 
     {
-    "Path":  "/WS/Alien-Attack/Short-Lab-02/$context.args.systemName",
+    "Path":  "${baseParameterName}/$context.args.systemName",
     "Recursive" : true
     }
 )
@@ -20,7 +21,7 @@ export const requestTemplate = `
 }` as string
 
 export const responseTemplate = `
-      #if($ctx.error)
+#if($ctx.error)
     $util.error($ctx.error.message, $ctx.error.type)
 #end
 #if($ctx.result.statusCode == 200)
