@@ -23,31 +23,31 @@ export class parameterStoreAppSyncStack extends Stack {
     //#endregion
 
     //#region STRING PARAMETERS
-    const baseParameterName = '/WS/Alien-Attack/Short-Lab-02/'
+    const baseParameterName = '/WS/Alien-Attack/Short-Lab-02'
 
     new StringParameter(this, 'WS-AlienAttack-Lab02-SSM_ClientID', {
       stringValue: 'abcd01',
       description: 'application client ID',
-      parameterName: `${baseParameterName}clientid`,
+      parameterName: `${baseParameterName}/clientid`,
       dataType: ParameterDataType.TEXT
     })
 
     new StringParameter(this, 'WS-AlienAttack-Lab02-SSM_Url', {
       stringValue: 'shortlab.alienattack.nabsa.me',
       description: 'The system URL',
-      parameterName: `${baseParameterName}url`,
+      parameterName: `${baseParameterName}/url`,
       dataType: ParameterDataType.TEXT
     })
     new StringParameter(this, 'WS-AlienAttack-Lab02-SSM_Review', {
       stringValue: 'null',
       description: 'Date of the latest well-architected review',
-      parameterName: `${baseParameterName}latestReview`,
+      parameterName: `${baseParameterName}/latestReview`,
       dataType: ParameterDataType.TEXT
     })
     new StringParameter(this, 'WS-AlienAttack-Lab02-SSM_Periodicity', {
       stringValue: '90',
       description: 'Periodicity of WARs',
-      parameterName: `${baseParameterName}reviewPeriodicityInDays`,
+      parameterName: `${baseParameterName}/reviewPeriodicityInDays`,
       dataType: ParameterDataType.TEXT
     })
 
@@ -82,7 +82,7 @@ export class parameterStoreAppSyncStack extends Stack {
           new PolicyStatement({
             effect: Effect.ALLOW,
             actions: ['ssm:GetParametersByPath'],
-            resources: [`arn:aws:ssm:${this.region}:${this.account}:parameter${baseParameterName}`]
+            resources: [`arn:aws:ssm:${this.region}:${this.account}:parameter${baseParameterName}/*`]
           })
         ]
       })
