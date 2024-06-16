@@ -10,7 +10,7 @@ import {
 import { Effect, Policy, PolicyStatement, Role, ServicePrincipal } from 'aws-cdk-lib/aws-iam'
 import { ParameterDataType, StringParameter } from 'aws-cdk-lib/aws-ssm'
 import path from 'path'
-import { requestTemplate, responseTemplate } from '../src/SL02-resolvers'
+import { baseParameterName, requestTemplate, responseTemplate } from '../src/SL02-resolvers'
 
 export class parameterStoreAppSyncStack extends Stack {
   constructor(scope: App, id: string, props: StackProps) {
@@ -23,8 +23,6 @@ export class parameterStoreAppSyncStack extends Stack {
     //#endregion
 
     //#region STRING PARAMETERS
-    const baseParameterName = '/WS/Alien-Attack/Short-Lab-02'
-
     new StringParameter(this, 'WS-AlienAttack-Lab02-SSM_ClientID', {
       stringValue: 'abcd01',
       description: 'application client ID',
@@ -38,12 +36,14 @@ export class parameterStoreAppSyncStack extends Stack {
       parameterName: `${baseParameterName}/url`,
       dataType: ParameterDataType.TEXT
     })
+
     new StringParameter(this, 'WS-AlienAttack-Lab02-SSM_Review', {
       stringValue: 'null',
       description: 'Date of the latest well-architected review',
       parameterName: `${baseParameterName}/latestReview`,
       dataType: ParameterDataType.TEXT
     })
+
     new StringParameter(this, 'WS-AlienAttack-Lab02-SSM_Periodicity', {
       stringValue: '90',
       description: 'Periodicity of WARs',

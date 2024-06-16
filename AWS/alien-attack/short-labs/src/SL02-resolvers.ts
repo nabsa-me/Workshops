@@ -1,3 +1,4 @@
+export const baseParameterName = '/WS/Alien-Attack/Short-Lab-02'
 export const requestTemplate = `
 #set( $ssmRequestBody = 
     {
