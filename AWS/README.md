@@ -15,3 +15,9 @@ To work with the integration of SSM service with API Gateway, using the provided
 To integrate the SSM service with AppSync using the specified parameters, we will start by creating a String Parameter with the required configuration and defining IAM roles with the appropriate policies to access the SSM resources. Next, we'll connect our GraphQl API to SSM by assigning the created role and setting up the resolvers to fetch and use SSM values and properties.
 
 We can consume our API in AWS Console, AppSync service
+
+### [Integrate Parameter Store with Lambda](https://catalog.us-east-1.prod.workshops.aws/workshops/3ae476e4-e66d-4e78-b22f-6190c79ddee2/en-US/aws-services/lambda/write-to-ssm/) *#level_100*
+
+To integrate the SSM service with Lambda using the specified parameters, we will begin by creating a String Parameter with the necessary configuration and defining IAM roles with the appropriate policies to access the SSM resources. Next, we'll link our Lambda function to SSM by assigning the created role and retrieve and use SSM values and properties.
+
+We can test the resources on AWS Console - Lambda
