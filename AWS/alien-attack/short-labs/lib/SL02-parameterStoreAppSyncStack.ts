@@ -112,10 +112,10 @@ export class parameterStoreAppSyncStack extends Stack {
     })
     // api.addHttpDataSource('dataSource', `https://ssm.${this.region}.amazonaws.com/`, data)
 
-    new CfnResolver(this, 'resolver', {
+    new CfnResolver(this, 'WS-AlienAttack-Lab02-Resolver', {
       apiId: api.apiId,
-      fieldName: 'Query.getSystemSettings(...): SystemSettings',
-      typeName: 'Velocity Template Language (VTL)',
+      fieldName: 'getSystemSettings',
+      typeName: 'Query',
       dataSourceName: dataSource.name,
       requestMappingTemplate: `
       #set( $ssmRequestBody = 
