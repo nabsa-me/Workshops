@@ -10,7 +10,7 @@ import {
 import { Effect, Policy, PolicyStatement, Role, ServicePrincipal } from 'aws-cdk-lib/aws-iam'
 import { ParameterDataType, StringParameter } from 'aws-cdk-lib/aws-ssm'
 import path from 'path'
-import { baseParameterName, requestTemplate, responseTemplate } from '../src/SL02-resolvers'
+import { baseParameterName, requestTemplate, responseTemplate } from '../../src/SL02-resolvers'
 
 export class parameterStoreAppSyncStack extends Stack {
   constructor(scope: App, id: string, props: StackProps) {
@@ -91,7 +91,7 @@ export class parameterStoreAppSyncStack extends Stack {
     //#endregion
 
     //#region GRAPHQL API
-    const schema = new SchemaFile({ filePath: path.join(__dirname, '../src/SL02-schema.graphql') })
+    const schema = new SchemaFile({ filePath: path.join(__dirname, '../../src/SL02-schema.graphql') })
     const api = new GraphqlApi(this, 'WS-AlienAttack-Lab02-API', {
       name: 'WS-AlienAttack-Lab02-API',
       definition: Definition.fromSchema(schema)
