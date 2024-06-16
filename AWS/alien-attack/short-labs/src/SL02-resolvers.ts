@@ -1,7 +1,7 @@
 export const requestTemplate = `
 #set( $ssmRequestBody = 
     {
-    "Path":  "/systems/$context.args.systemName",
+    "Path":  "/WS/Alien-Attack/Short-Lab-02/$context.args.systemName",
     "Recursive" : true
     }
 )
