@@ -114,8 +114,8 @@ export class parameterStoreAppSyncStack extends Stack {
 
     new CfnResolver(this, 'resolver', {
       apiId: api.apiId,
-      fieldName: 'getSettings',
-      typeName: 'Unit Resolver',
+      fieldName: 'Query.getSystemSettings(...): SystemSettings',
+      typeName: 'Velocity Template Language (VTL)',
       dataSourceName: dataSource.name,
       requestMappingTemplate: `
       #set( $ssmRequestBody = 
