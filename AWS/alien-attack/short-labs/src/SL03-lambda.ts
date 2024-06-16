@@ -1,13 +1,11 @@
 import { SSMClient, GetParameterCommand } from '@aws-sdk/client-ssm'
-import { Handler } from 'aws-cdk-lib/aws-lambda'
 const SSM = new SSMClient()
 
-export const handler: Handler = async (event) => {
+export const handler = async (event: Record<'Name', string>) => {
   // logging the received event
   console.log(event)
-  console.log(event.type)
-  let responseFromSSM = null
-  let result = null
+  let responseFromSSM
+  let result
 
   if (!event.Name)
     // event does not have the proper format
@@ -31,10 +29,9 @@ export const handler: Handler = async (event) => {
         statusCode: 200,
         body: JSON.stringify(value)
       }
-    } catch (err) {
+    } catch (err: any) {
       console.log('ERROR')
       console.log(err)
-      console.log(err.type)
       if (err.StatusCode)
         result = {
           statusCode: err.StatusCode,
