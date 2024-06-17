@@ -1,9 +1,9 @@
 import { App, Stack, StackProps, Tags } from 'aws-cdk-lib'
 import { EndpointType, LambdaIntegration, RestApi } from 'aws-cdk-lib/aws-apigateway'
-import { Effect, Policy, PolicyStatement, Role, ServicePrincipal } from 'aws-cdk-lib/aws-iam'
+// import { Effect, Policy, PolicyStatement, Role, ServicePrincipal } from 'aws-cdk-lib/aws-iam'
 import { Architecture, Runtime } from 'aws-cdk-lib/aws-lambda'
 import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs'
-import { ParameterDataType, ParameterTier, StringParameter } from 'aws-cdk-lib/aws-ssm'
+// import { ParameterDataType, ParameterTier, StringParameter } from 'aws-cdk-lib/aws-ssm'
 import path from 'path'
 
 export class kinesisDataStreamsStack extends Stack {
@@ -18,51 +18,51 @@ export class kinesisDataStreamsStack extends Stack {
     const baseIDresource = 'WS-AlienAttack-Lab04'
 
     //#region STRING PARAMETER
-    const stringParameter = new StringParameter(this, 'WS-AlienAttack-Lab01-StringParameter', {
-      stringValue: '{"url" : "https://www.amazon.com"}',
-      description: 'string parameter will be consumed by the api',
-      parameterName: '/WS/Alien-Attack/Short-Lab-01/configuration',
-      tier: ParameterTier.STANDARD,
-      dataType: ParameterDataType.TEXT
-    })
-    const arnParameter = stringParameter.parameterArn
+    // const stringParameter = new StringParameter(this, 'WS-AlienAttack-Lab01-StringParameter', {
+    //   stringValue: '{"url" : "https://www.amazon.com"}',
+    //   description: 'string parameter will be consumed by the api',
+    //   parameterName: '/WS/Alien-Attack/Short-Lab-01/configuration',
+    //   tier: ParameterTier.STANDARD,
+    //   dataType: ParameterDataType.TEXT
+    // })
+    // const arnParameter = stringParameter.parameterArn
 
     //#endregion
 
     //#region IAM ROLE
-    const ssmRole = new Role(this, 'WS-AlienAttack-Lab01-Role', {
-      assumedBy: new ServicePrincipal('apigateway.amazonaws.com'),
-      roleName: 'WS-AlienAttack-Lab01-Role',
-      description: 'role that will be counsumed by the api'
-    })
+    // const ssmRole = new Role(this, 'WS-AlienAttack-Lab01-Role', {
+    //   assumedBy: new ServicePrincipal('apigateway.amazonaws.com'),
+    //   roleName: 'WS-AlienAttack-Lab01-Role',
+    //   description: 'role that will be counsumed by the api'
+    // })
 
-    ssmRole.addToPolicy(
-      new PolicyStatement({
-        effect: Effect.ALLOW,
-        resources: ['*'],
-        actions: [
-          'logs:CreateLogGroup',
-          'logs:CreateLogStream',
-          'logs:DescribeLogGroups',
-          'logs:DescribeLogStreams',
-          'logs:PutLogEvents',
-          'logs:GetLogEvents',
-          'logs:FilterLogEvents'
-        ]
-      })
-    )
-    ssmRole.attachInlinePolicy(
-      new Policy(this, 'WS-AlienAttack-Lab01-Policy', {
-        policyName: 'WS-AlienAttack-Lab01-Policy',
-        statements: [
-          new PolicyStatement({
-            effect: Effect.ALLOW,
-            actions: ['ssm:GetParameter'],
-            resources: [`${arnParameter}`]
-          })
-        ]
-      })
-    )
+    // ssmRole.addToPolicy(
+    //   new PolicyStatement({
+    //     effect: Effect.ALLOW,
+    //     resources: ['*'],
+    //     actions: [
+    //       'logs:CreateLogGroup',
+    //       'logs:CreateLogStream',
+    //       'logs:DescribeLogGroups',
+    //       'logs:DescribeLogStreams',
+    //       'logs:PutLogEvents',
+    //       'logs:GetLogEvents',
+    //       'logs:FilterLogEvents'
+    //     ]
+    //   })
+    // )
+    // ssmRole.attachInlinePolicy(
+    //   new Policy(this, 'WS-AlienAttack-Lab01-Policy', {
+    //     policyName: 'WS-AlienAttack-Lab01-Policy',
+    //     statements: [
+    //       new PolicyStatement({
+    //         effect: Effect.ALLOW,
+    //         actions: ['ssm:GetParameter'],
+    //         resources: [`${arnParameter}`]
+    //       })
+    //     ]
+    //   })
+    // )
 
     //#endregion
 
