@@ -77,8 +77,8 @@ export class kinesisDataStreamsStack extends Stack {
       handler: 'handler',
       entry: path.join(__dirname, '../../src/SL04-lambda.ts')
     })
-    const stream = new kinesis.Stream(this,`${baseIDresource}-KinesisStream`)
-    
+    const stream = new kinesis.Stream(this,`${baseIDresource}-KinesisStream`,{streamName:`${baseIDresource}-KinesisStream`,shardCount:1})
+
     lambda.addEventSource(new KinesisEventSource(stream, {
       batchSize:10,
       startingPosition:StartingPosition.TRIM_HORIZON
