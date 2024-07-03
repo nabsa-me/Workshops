@@ -61,7 +61,7 @@ export class kinesisDataStreamsStack extends Stack {
         statements: [
           new PolicyStatement({
             effect: Effect.ALLOW,
-            actions: ['kinesis:PutRecord'],
+            actions: ['kinesis:*'],
             resources: ['*']
           })
         ]
@@ -77,7 +77,6 @@ export class kinesisDataStreamsStack extends Stack {
       architecture: Architecture.ARM_64,
       handler: 'handler',
       entry: path.join(__dirname, '../../src/SL04-lambda.ts'),
-      role: kinesisRole
     })
     const stream = new kinesis.Stream(this,`${baseIDresource}-KinesisStream`,{streamName:`${baseIDresource}-KinesisStream`,shardCount:1})
 
