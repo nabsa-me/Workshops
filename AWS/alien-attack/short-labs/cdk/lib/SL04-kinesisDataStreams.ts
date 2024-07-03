@@ -1,10 +1,13 @@
 import { App, Stack, StackProps, Tags } from 'aws-cdk-lib'
 import { EndpointType, LambdaIntegration, RestApi } from 'aws-cdk-lib/aws-apigateway'
+import * as kinesis from 'aws-cdk-lib/aws-kinesis'
 // import { Effect, Policy, PolicyStatement, Role, ServicePrincipal } from 'aws-cdk-lib/aws-iam'
-import { Architecture, Runtime } from 'aws-cdk-lib/aws-lambda'
+import { Architecture, Runtime, StartingPosition } from 'aws-cdk-lib/aws-lambda'
+import { KinesisEventSource } from 'aws-cdk-lib/aws-lambda-event-sources'
 import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs'
 // import { ParameterDataType, ParameterTier, StringParameter } from 'aws-cdk-lib/aws-ssm'
 import path from 'path'
+
 
 export class kinesisDataStreamsStack extends Stack {
   constructor(scope: App, id: string, props: StackProps) {
@@ -74,6 +77,12 @@ export class kinesisDataStreamsStack extends Stack {
       handler: 'handler',
       entry: path.join(__dirname, '../../src/SL04-lambda.ts')
     })
+    const stream = new kinesis.Stream(this,`${baseIDresource}-KinesisStream`)
+    
+    lambda.addEventSource(new KinesisEventSource(stream, {
+      batchSize:10,
+      startingPosition:StartingPosition.TRIM_HORIZON
+    }))
 
     //#endregion
     //#region REST API
@@ -83,50 +92,7 @@ export class kinesisDataStreamsStack extends Stack {
       endpointConfiguration: { types: [EndpointType.REGIONAL] }
     })
 
-    api.root.addResource('putorder').addMethod(
-      'POST',
-      new LambdaIntegration(lambda)
-      // new AwsIntegration({
-      //   service: 'lambda',
-      //   region: this.region,
-      //   integrationHttpMethod: 'POST',
-      //   path: '/',
-      //   options: {
-      //     credentialsRole: ssmRole,
-      //     passthroughBehavior: PassthroughBehavior.WHEN_NO_TEMPLATES,
-      //     requestParameters: {
-      //       'integration.request.header.X-Amz-Target': "'AmazonSSM.GetParameter'",
-      //       'integration.request.header.Content-Type': "'application/x-amz-json-1.1'"
-      //     },
-      //     cacheKeyParameters: ['integration.request.header.X-Amz-Target', 'integration.request.header.Content-Type'],
-      //     requestTemplates: {
-      //       'application/json': JSON.stringify({
-      //         Name: "/WS/Alien-Attack/$input.params('lab')/configuration"
-      //       })
-      //     },
-      //     integrationResponses: [
-      //       {
-      //         statusCode: '200',
-      //         responseTemplates: {
-      //           'application/json': `#set($inputRoot=$input.path('$'))
-      // #if ($inputRoot.Parameter.Value && $inputRoot.Parameter.Value!="")
-      // {
-      //   "data" : $input.path('$').Parameter.Value
-      // }
-      // #end`
-      //         }
-      //       }
-      //     ]
-      //   }
-      // }),
-      // {
-      //   methodResponses: [
-      //     {
-      //       statusCode: '200'
-      //     }
-      //   ]
-      // }
-    )
+    api.root.addResource('putorder').addMethod('POST', new LambdaIntegration(lambda))
 
     //#endregion
   }
