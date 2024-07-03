@@ -36,7 +36,7 @@ export class kinesisDataStreamsStack extends Stack {
     //#region KINESIS ROLE
     const kinesisRole = new Role(this, `${baseIDresource}-Role`, {
       assumedBy: new ServicePrincipal('kinesis.amazonaws.com'),
-      roleName: `${baseIDresource}-Lambda`,
+      roleName: `${baseIDresource}-Role`,
       description: 'role that will be counsumed by the api'
     })
 
@@ -76,7 +76,8 @@ export class kinesisDataStreamsStack extends Stack {
       runtime: Runtime.NODEJS_18_X,
       architecture: Architecture.ARM_64,
       handler: 'handler',
-      entry: path.join(__dirname, '../../src/SL04-lambda.ts')
+      entry: path.join(__dirname, '../../src/SL04-lambda.ts'),
+      role: kinesisRole
     })
     const stream = new kinesis.Stream(this,`${baseIDresource}-KinesisStream`,{streamName:`${baseIDresource}-KinesisStream`,shardCount:1})
 
@@ -103,7 +104,7 @@ export class kinesisDataStreamsStack extends Stack {
         passthroughBehavior: PassthroughBehavior.WHEN_NO_TEMPLATES,
         
 //         requestParameters: {
-//           'integration.request.header.X-Amz-Target': "'AmazonSSM.GetParameter'",
+//           'integration.request.header.X-Amz-Target': "'Amazon.GetParameter'",
 //           'integration.request.header.Content-Type': "'application/x-amz-json-1.1'"
 //         },
 //         cacheKeyParameters: ['integration.request.header.X-Amz-Target', 'integration.request.header.Content-Type'],
