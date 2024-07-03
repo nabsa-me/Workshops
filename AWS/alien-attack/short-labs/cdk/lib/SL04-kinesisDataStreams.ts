@@ -97,7 +97,6 @@ export class kinesisDataStreamsStack extends Stack {
       service: 'kinesis',
       region: this.region,
       integrationHttpMethod: 'POST',
-      path: '/',
       action:"PutRecord",
       options: {
         credentialsRole: kinesisRole,
