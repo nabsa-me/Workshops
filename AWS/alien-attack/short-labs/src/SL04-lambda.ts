@@ -15,18 +15,18 @@ export const handler = async (event:any) => {
           let receivedTst = new Date(record.kinesis.approximateArrivalTimestamp*1000);
           console.log(`Received tst: ${receivedTst}`);
       }
+      const response = {
+        statusCode: 200,
+        body: JSON.stringify({})
+      }
+      return response
   } catch(e) {
       //let's handle the errors, if any
       console.log("Error:",e);
       const response = {
-          statusCode : 200,
-          body : e
+          statusCode : 500,
+          body : JSON.stringify(e)
       };
       return response;
   }
-  // this is a successful processing
-  const response = {
-      statusCode: 200
-  };
-  return response;
 };
