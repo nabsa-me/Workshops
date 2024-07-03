@@ -55,18 +55,17 @@ export class kinesisDataStreamsStack extends Stack {
         ]
       })
     )
-    kinesisRole.attachInlinePolicy(
-      new Policy(this, `${baseIDresource}-Policy`, {
-        policyName: `${baseIDresource}-Policy`,
-        statements: [
-          new PolicyStatement({
-            effect: Effect.ALLOW,
-            actions: ['kinesis:*'],
-            resources: ['*']
-          })
-        ]
-      })
-    )
+    const kinesisPolicy= new Policy(this, `${baseIDresource}-Policy`, {
+      policyName: `${baseIDresource}-Policy`,
+      statements: [
+        new PolicyStatement({
+          effect: Effect.ALLOW,
+          actions: ['kinesis:*'],
+          resources: ['*']
+        })
+      ]
+    })
+    kinesisRole.attachInlinePolicy(kinesisPolicy)
 
     //#endregion
 
@@ -90,7 +89,8 @@ export class kinesisDataStreamsStack extends Stack {
     const api = new RestApi(this, `${baseIDresource}-API`, {
       restApiName: `${baseIDresource}-API`,
       description: 'api to fetch stored string parameters',
-      endpointConfiguration: { types: [EndpointType.REGIONAL] }
+      endpointConfiguration: { types: [EndpointType.REGIONAL] },
+      policy:kinesisPolicy.document
     })
 
     api.root.addResource('putorder').addMethod('POST', new AwsIntegration({
