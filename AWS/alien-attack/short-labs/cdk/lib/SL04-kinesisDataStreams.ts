@@ -130,7 +130,13 @@ export class kinesisDataStreamsStack extends Stack {
           {
             statusCode: '200',
             responseTemplates: {
-              'application/json': ``
+              'application/json':
+              `#set($inputPath = $input.path('$'))
+              {
+              "PartitionKey" : "$inputPath.User#$inputPath.Client#$inputPath.Order.Symbol#$inputPath.Order.Volume#$inputPath.Order.Price#$inputPath.Timestamp",
+              "Data" : "$util.base64Encode("$input.json('$')")",
+              "StreamName" : ${kinesisStream.streamName}
+              }`
             }
           }
         ]
