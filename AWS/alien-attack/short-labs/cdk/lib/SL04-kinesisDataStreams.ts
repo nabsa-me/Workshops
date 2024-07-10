@@ -128,7 +128,10 @@ export class kinesisDataStreamsStack extends Stack {
         },
         integrationResponses: [
           {
-            statusCode: '200'
+            statusCode: '200',
+            responseTemplates: {
+              'application/json': ``
+            }
           }
         ]
       }
