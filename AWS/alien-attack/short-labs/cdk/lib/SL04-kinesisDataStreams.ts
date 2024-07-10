@@ -67,7 +67,7 @@ export class kinesisDataStreamsStack extends Stack {
       roleName: `${baseIDresource}-LambdaRole`,
       description: 'role for the lambda to manage kinesis data and write on dynamo db',
     })
-    lambdaRole.addToPolicy(generalLogsPolicy)
+    // lambdaRole.addToPolicy(generalLogsPolicy)
     lambdaRole.addToPolicy(dynamoPolicy)
     lambdaRole.addToPolicy(kinesisPolicy)
 
@@ -77,7 +77,7 @@ export class kinesisDataStreamsStack extends Stack {
       roleName: `${baseIDresource}-ApiRole`,
       description: 'role for the rest api to send kinesis events to lambda',
     })
-    apiRole.addToPolicy(generalLogsPolicy)
+    // apiRole.addToPolicy(generalLogsPolicy)
     apiRole.addToPolicy(kinesisPolicy)
 
     //#endregion
