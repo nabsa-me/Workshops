@@ -49,11 +49,6 @@ export class kinesisDataStreamsStack extends Stack {
       actions: ['kinesis:*'],
       resources: [kinesisStream.streamArn]
     })
-    // const generalLogsPolicy = new PolicyStatement({
-    //   effect: Effect.ALLOW,
-    //   actions: ['logs:CreateLogGroup', 'logs:CreateLogStream', 'logs:PutLogEvents'],
-    //   resources: [`arn:aws:lambda:${this.region}:${this.account}:function:*`]
-    // })
 
     //role for the LAMBDA
     const lambdaRole = new Role(this, `${baseIDresource}-LambdaRole`, {

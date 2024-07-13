@@ -1,11 +1,12 @@
 import { DynamoDBClient } from '@aws-sdk/client-dynamodb'
 import { BatchWriteCommand, DynamoDBDocumentClient } from '@aws-sdk/lib-dynamodb'
+import { KinesisStreamEvent } from 'aws-lambda'
 
 const client = new DynamoDBClient()
 const documentClient = DynamoDBDocumentClient.from(client)
 const tableName = process.env.tableName
 
-export const handler = async (event: any) => {
+export const handler = async (event: KinesisStreamEvent) => {
   // let's log the incoming event
   let payloadAsString = JSON.stringify(event)
   console.log(payloadAsString)
