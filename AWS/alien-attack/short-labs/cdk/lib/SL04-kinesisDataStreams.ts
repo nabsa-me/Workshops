@@ -50,7 +50,8 @@ export class kinesisDataStreamsStack extends Stack {
     })
     const generalLogsPolicy = new PolicyStatement({
       effect: Effect.ALLOW,
-      actions: ['logs:CreateLogGroup', 'logs:CreateLogStream', 'logs:PutLogEvents']
+      actions: ['logs:CreateLogGroup', 'logs:CreateLogStream', 'logs:PutLogEvents'],
+      resources: [`arn:aws:lambda:${this.region}:${this.account}:function:*`]
     })
 
     //role for the LAMBDA
@@ -59,6 +60,7 @@ export class kinesisDataStreamsStack extends Stack {
       roleName: `${baseIDresource}-LambdaRole`,
       description: 'role for the lambda to manage kinesis data and write on dynamo db'
     })
+    lambdaRole.addToPolicy(generalLogsPolicy)
     lambdaRole.addToPolicy(dynamoPolicy)
     lambdaRole.addToPolicy(kinesisPolicy)
 
@@ -82,8 +84,6 @@ export class kinesisDataStreamsStack extends Stack {
       role: lambdaRole,
       environment: { tableName: table.tableName }
     })
-    generalLogsPolicy.addResources(lambda.functionArn)
-    lambda.addToRolePolicy(generalLogsPolicy)
 
     lambda.addEventSource(
       new KinesisEventSource(kinesisStream, {
