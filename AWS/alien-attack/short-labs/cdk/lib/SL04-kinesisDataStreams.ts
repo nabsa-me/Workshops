@@ -19,6 +19,7 @@ export class kinesisDataStreamsStack extends Stack {
     //#endregion
 
     const baseIDresource = 'WS-AlienAttack-Lab04'
+    const logsPolicy = 'arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole'
 
     //#region DYNAMO DB
     const table = new TableV2(this, `${baseIDresource}-Table`, {
@@ -60,9 +61,9 @@ export class kinesisDataStreamsStack extends Stack {
       roleName: `${baseIDresource}-LambdaRole`,
       description: 'role for the lambda to manage kinesis data and write on dynamo db'
     })
-    // lambdaRole.addToPolicy(generalLogsPolicy)
     lambdaRole.addToPolicy(dynamoPolicy)
     lambdaRole.addToPolicy(kinesisPolicy)
+    lambdaRole.addManagedPolicy({ managedPolicyArn: logsPolicy })
 
     //role for the API
     const apiRole = new Role(this, `${baseIDresource}-ApiRole`, {
@@ -71,6 +72,7 @@ export class kinesisDataStreamsStack extends Stack {
       description: 'role for the rest api to send kinesis events to lambda'
     })
     apiRole.addToPolicy(kinesisPolicy)
+    apiRole.addManagedPolicy({ managedPolicyArn: logsPolicy })
 
     //#endregion
 
@@ -83,9 +85,6 @@ export class kinesisDataStreamsStack extends Stack {
       entry: path.join(__dirname, '../../src/SL04-lambda.ts'),
       role: lambdaRole,
       environment: { tableName: table.tableName }
-    })
-    lambdaRole.addManagedPolicy({
-      managedPolicyArn: 'arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole'
     })
     lambda.addEventSource(
       new KinesisEventSource(kinesisStream, {
@@ -133,10 +132,6 @@ export class kinesisDataStreamsStack extends Stack {
       })
     )
     putOrders.addMethodResponse({ statusCode: '200', responseModels: { 'application/json': Model.EMPTY_MODEL } })
-    apiRole.addManagedPolicy({
-      managedPolicyArn: 'arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole'
-    })
-    // generalLogsPolicy.addResources(api.arnForExecuteApi('POST', '/putorder'))
 
     //#endregion
   }
