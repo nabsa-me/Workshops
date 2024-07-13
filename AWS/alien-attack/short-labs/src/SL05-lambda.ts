@@ -15,10 +15,10 @@ export const handler = async (event: Record<string, any>) => {
       new PutCommand({
         TableName: tableName,
         Item: {
-          id: event.Id,
-          descreipion: event.Description,
-          latestUpdate: event.LatestStockUpdate,
-          suppliers: event.Suppliers
+          Id: event.Id,
+          Description: event.Description,
+          LatestUpdate: event.LatestStockUpdate,
+          Suppliers: event.Suppliers
         }
       })
     )
