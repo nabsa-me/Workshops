@@ -48,11 +48,11 @@ export class kinesisDataStreamsStack extends Stack {
       actions: ['kinesis:*'],
       resources: [kinesisStream.streamArn]
     })
-    const generalLogsPolicy = new PolicyStatement({
-      effect: Effect.ALLOW,
-      actions: ['logs:CreateLogGroup', 'logs:CreateLogStream', 'logs:PutLogEvents'],
-      resources: [`arn:aws:lambda:${this.region}:${this.account}:function:*`]
-    })
+    // const generalLogsPolicy = new PolicyStatement({
+    //   effect: Effect.ALLOW,
+    //   actions: ['logs:CreateLogGroup', 'logs:CreateLogStream', 'logs:PutLogEvents'],
+    //   resources: [`arn:aws:lambda:${this.region}:${this.account}:function:*`]
+    // })
 
     //role for the LAMBDA
     const lambdaRole = new Role(this, `${baseIDresource}-LambdaRole`, {
@@ -60,7 +60,7 @@ export class kinesisDataStreamsStack extends Stack {
       roleName: `${baseIDresource}-LambdaRole`,
       description: 'role for the lambda to manage kinesis data and write on dynamo db'
     })
-    lambdaRole.addToPolicy(generalLogsPolicy)
+    // lambdaRole.addToPolicy(generalLogsPolicy)
     lambdaRole.addToPolicy(dynamoPolicy)
     lambdaRole.addToPolicy(kinesisPolicy)
 
@@ -84,7 +84,9 @@ export class kinesisDataStreamsStack extends Stack {
       role: lambdaRole,
       environment: { tableName: table.tableName }
     })
-
+    lambdaRole.addManagedPolicy({
+      managedPolicyArn: 'arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole'
+    })
     lambda.addEventSource(
       new KinesisEventSource(kinesisStream, {
         batchSize: 10,
@@ -131,7 +133,10 @@ export class kinesisDataStreamsStack extends Stack {
       })
     )
     putOrders.addMethodResponse({ statusCode: '200', responseModels: { 'application/json': Model.EMPTY_MODEL } })
-    generalLogsPolicy.addResources(api.arnForExecuteApi('POST', '/putorder'))
+    apiRole.addManagedPolicy({
+      managedPolicyArn: 'arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole'
+    })
+    // generalLogsPolicy.addResources(api.arnForExecuteApi('POST', '/putorder'))
 
     //#endregion
   }
