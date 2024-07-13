@@ -5,7 +5,7 @@ const client = new DynamoDBClient()
 const documentClient = DynamoDBDocumentClient.from(client)
 const tableName = process.env.tableName
 
-export const handler = async (event) => {
+export const handler = async (event: Record<string, any>) => {
   // let's log the incoming event
   let payloadAsString = JSON.stringify(event)
   console.log(payloadAsString)
