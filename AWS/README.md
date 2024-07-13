@@ -38,3 +38,22 @@ We could test the whole system passing that object to our api,
         "Price" : 104.987
     }
 }
+
+### [Create Your First DynamoDB Table](https://catalog.us-east-1.prod.workshops.aws/workshops/3ae476e4-e66d-4e78-b22f-6190c79ddee2/en-US/aws-services/dynamodb/my-first-table/) *#level_100*
+
+IIn this lab we will experiment with Amazon DynamoDB, creating a lambda to put item in it.
+
+We could test the resources passing that object to our lambda, in the AWS console.
+
+{
+  "Id": "PRD01",
+  "Description": "UNICORN GENERATOR",
+  "LatestStockUpdate": "2019-10-22T22:15:34Z",
+  "Suppliers": [
+    "S045",
+    "S4456",
+    "ACME126"
+  ]
+}
+
+
