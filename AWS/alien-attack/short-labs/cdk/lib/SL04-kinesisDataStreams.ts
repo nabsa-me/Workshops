@@ -120,7 +120,7 @@ export class kinesisDataStreamsStack extends Stack {
 {
 "PartitionKey" : "$inputPath.User#$inputPath.Client#$inputPath.Order.Symbol#$inputPath.Order.Volume#$inputPath.Order.Price#$inputPath.Timestamp",
 "Data" : "$util.base64Encode("$input.json('$')")",
-"StreamName" : '${kinesisStream.streamName}'
+"StreamName" : "${kinesisStream.streamName}"
 }`
           },
           integrationResponses: [
