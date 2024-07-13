@@ -2,7 +2,8 @@ import { App } from 'aws-cdk-lib'
 import { parameterStoreApiGatewayStack } from '../lib/SL01-parameterStoreApiGatewayStack'
 import { parameterStoreAppSyncStack } from '../lib/SL02-parameterStoreAppSyncStack'
 import { parameterStoreLambdaStack } from '../lib/SL03-parameterStoreLambdaStack'
-import { kinesisDataStreamsStack } from '../lib/SL04-kinesisDataStreams'
+// import { kinesisDataStreamsStack } from '../lib/SL04-kinesisDataStreams'
+import { dynamoDBStack } from '../lib/SL05-dynamoDB'
 
 const app = new App()
 
@@ -18,7 +19,15 @@ new parameterStoreLambdaStack(app, 'WS-AlienAttack-Lab03-Stack', {
   description: 'Stack for the creation of Alien Attack - Parameter Store API with Lambda resources',
   stackName: 'WS-AlienAttack-Lab03-Stack'
 })
-new kinesisDataStreamsStack(app, 'WS-AlienAttack-Lab04-Stack', {
-  description: 'Stack for the creation of Alien Attack - Data with Kinesis Data Streams resources',
-  stackName: 'WS-AlienAttack-Lab04-Stack'
+
+// This stack consumes paid resources, so it is disabled
+
+// new kinesisDataStreamsStack(app, 'WS-AlienAttack-Lab04-Stack', {
+//   description: 'Stack for the creation of Alien Attack - Data with Kinesis Data Streams resources',
+//   stackName: 'WS-AlienAttack-Lab04-Stack'
+// })
+
+new dynamoDBStack(app, 'WS-AlienAttack-Lab05-Stack', {
+  description: 'Stack for the creation of Alien Attack - DynamoDB resources',
+  stackName: 'WS-AlienAttack-Lab05-Stack'
 })
