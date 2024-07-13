@@ -37,6 +37,7 @@ export class kinesisDataStreamsStack extends Stack {
     //#endregion
 
     //#region IAM POLICIES AND ROLES
+    //resources policies
     const dynamoPolicy = new PolicyStatement({
       effect: Effect.ALLOW,
       actions: ['dynamodb:BatchWriteItem'],
@@ -49,26 +50,19 @@ export class kinesisDataStreamsStack extends Stack {
     })
     const generalLogsPolicy = new PolicyStatement({
       effect: Effect.ALLOW,
-      actions: [
-        'logs:CreateLogGroup',
-        'logs:CreateLogStream',
-        'logs:DescribeLogGroups',
-        'logs:DescribeLogStreams',
-        'logs:PutLogEvents',
-        'logs:GetLogEvents',
-        'logs:FilterLogEvents'
-      ]
+      actions: ['logs:CreateLogGroup', 'logs:CreateLogStream', 'logs:PutLogEvents']
     })
 
+    //role for the LAMBDA
     const lambdaRole = new Role(this, `${baseIDresource}-LambdaRole`, {
       assumedBy: new ServicePrincipal('lambda.amazonaws.com'),
       roleName: `${baseIDresource}-LambdaRole`,
       description: 'role for the lambda to manage kinesis data and write on dynamo db'
     })
-    lambdaRole.addToPolicy(generalLogsPolicy)
     lambdaRole.addToPolicy(dynamoPolicy)
     lambdaRole.addToPolicy(kinesisPolicy)
 
+    //role for the API
     const apiRole = new Role(this, `${baseIDresource}-ApiRole`, {
       assumedBy: new ServicePrincipal('apigateway.amazonaws.com'),
       roleName: `${baseIDresource}-ApiRole`,
@@ -88,6 +82,8 @@ export class kinesisDataStreamsStack extends Stack {
       role: lambdaRole,
       environment: { tableName: table.tableName }
     })
+    generalLogsPolicy.addResources(lambda.functionArn)
+    lambda.addToRolePolicy(generalLogsPolicy)
 
     lambda.addEventSource(
       new KinesisEventSource(kinesisStream, {
