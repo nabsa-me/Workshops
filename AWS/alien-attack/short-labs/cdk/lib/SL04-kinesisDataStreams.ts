@@ -1,5 +1,5 @@
 import { App, Stack, StackProps, Tags } from 'aws-cdk-lib'
-import { AwsIntegration, EndpointType, PassthroughBehavior, RestApi } from 'aws-cdk-lib/aws-apigateway'
+import { AwsIntegration, EndpointType, Model, PassthroughBehavior, RestApi } from 'aws-cdk-lib/aws-apigateway'
 import { AttributeType, TableV2 } from 'aws-cdk-lib/aws-dynamodb'
 import { Effect, PolicyStatement, Role, ServicePrincipal } from 'aws-cdk-lib/aws-iam'
 import { Stream, StreamMode } from 'aws-cdk-lib/aws-kinesis'
@@ -22,8 +22,8 @@ export class kinesisDataStreamsStack extends Stack {
 
     //#region DYNAMO DB
     const table = new TableV2(this, `${baseIDresource}-Table`, {
-      partitionKey: { name: 'transactionId', type: AttributeType.STRING },
-      tableName: `${baseIDresource}`
+      partitionKey: { name: 'TransactionId', type: AttributeType.STRING },
+      tableName: `${baseIDresource}-Table`
     })
 
     //#endregion
@@ -49,7 +49,6 @@ export class kinesisDataStreamsStack extends Stack {
     })
     const generalLogsPolicy = new PolicyStatement({
       effect: Effect.ALLOW,
-      // we will add later the LAMBDA and the API resources to that POLICY
       actions: [
         'logs:CreateLogGroup',
         'logs:CreateLogStream',
@@ -66,7 +65,7 @@ export class kinesisDataStreamsStack extends Stack {
       roleName: `${baseIDresource}-LambdaRole`,
       description: 'role for the lambda to manage kinesis data and write on dynamo db'
     })
-    // lambdaRole.addToPolicy(generalLogsPolicy)
+    lambdaRole.addToPolicy(generalLogsPolicy)
     lambdaRole.addToPolicy(dynamoPolicy)
     lambdaRole.addToPolicy(kinesisPolicy)
 
@@ -75,7 +74,6 @@ export class kinesisDataStreamsStack extends Stack {
       roleName: `${baseIDresource}-ApiRole`,
       description: 'role for the rest api to send kinesis events to lambda'
     })
-    // apiRole.addToPolicy(generalLogsPolicy)
     apiRole.addToPolicy(kinesisPolicy)
 
     //#endregion
@@ -91,12 +89,10 @@ export class kinesisDataStreamsStack extends Stack {
       environment: { tableName: table.tableName }
     })
 
-    generalLogsPolicy.addResources(lambda.functionArn)
-
     lambda.addEventSource(
       new KinesisEventSource(kinesisStream, {
         batchSize: 10,
-        startingPosition: StartingPosition.LATEST
+        startingPosition: StartingPosition.TRIM_HORIZON
       })
     )
 
@@ -109,7 +105,7 @@ export class kinesisDataStreamsStack extends Stack {
       endpointConfiguration: { types: [EndpointType.REGIONAL] }
     })
 
-    api.root.addResource('putorder').addMethod(
+    const putOrders = api.root.addResource('putorder').addMethod(
       'POST',
       new AwsIntegration({
         service: 'kinesis',
@@ -124,7 +120,7 @@ export class kinesisDataStreamsStack extends Stack {
 {
 "PartitionKey" : "$inputPath.User#$inputPath.Client#$inputPath.Order.Symbol#$inputPath.Order.Volume#$inputPath.Order.Price#$inputPath.Timestamp",
 "Data" : "$util.base64Encode("$input.json('$')")",
-"StreamName" : ${kinesisStream.streamName}
+"StreamName" : '${kinesisStream.streamName}'
 }`
           },
           integrationResponses: [
@@ -138,7 +134,7 @@ export class kinesisDataStreamsStack extends Stack {
         }
       })
     )
-
+    putOrders.addMethodResponse({ statusCode: '200', responseModels: { 'application/json': Model.EMPTY_MODEL } })
     generalLogsPolicy.addResources(api.arnForExecuteApi('POST', '/putorder'))
 
     //#endregion
