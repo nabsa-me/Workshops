@@ -1,0 +1,11 @@
+{
+  "name": "aws",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "@types/aws-lambda": "^8.10.138",
+    "aws-cdk-lib": "2.138.0",
+    "constructs": "^10.3.0",
+    "esbuild": "^0.20.2"
+  }
+}

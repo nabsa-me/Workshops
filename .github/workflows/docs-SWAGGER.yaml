@@ -1,0 +1,39 @@
+name: AWS-docs_SWAGGER
+
+on:
+  push:
+    paths:
+      - 'AWS/documentation/swagger/**/*.ts'
+      - 'AWS/documentation/swagger/**/*.yaml'
+      - '.github/workflows/alien-attack_short-labs.yaml'
+  workflow_dispatch:
+
+env:
+  AWS_REGION: eu-west-3
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Node setup
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.18.2
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
+          aws-secret-access-key: ${{ secrets.AWS_ACCESS_SECRET }}
+          aws-region: ${{env.AWS_REGION}} 
+      
+      - name: Install packages
+        working-directory: ./
+        run: 'npm ci && cd ./AWS && npm ci'
+
+      - name: Deploy CDK stack
+        working-directory: ./AWS/documentation/swagger/cdk
+        run: 'npx cdk deploy --require-approval never --all'
