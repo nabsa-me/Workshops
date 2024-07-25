@@ -35,6 +35,9 @@ export class OpenapiCdkExampleStack extends cdk.Stack {
 
     // Asocia la función Lambda con la integración GET
     const helloIntegration = new apigateway.LambdaIntegration(helloFunction)
-    api.root.addResource('hello').addMethod('GET', helloIntegration)
+    const helloResource = api.root.getResource('hello')
+    if (helloResource) {
+      helloResource.addMethod('GET', helloIntegration)
+    }
   }
 }
