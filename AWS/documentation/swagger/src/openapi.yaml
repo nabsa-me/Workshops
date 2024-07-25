@@ -21,9 +21,6 @@ paths:
                     type: string
                     example: Hello, world!
 
-components:  # Agregamos el componente, aunque sea vacío
-  schemas: {}
-
 servers:
   - url: https://{apiId}.execute-api.{region}.amazonaws.com/{stage}
     variables:

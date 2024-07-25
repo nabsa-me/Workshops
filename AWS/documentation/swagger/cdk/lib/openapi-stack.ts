@@ -33,24 +33,19 @@ export class OpenapiCdkExampleStack extends cdk.Stack {
       }
     })
 
-    // Asocia la función Lambda con la integración GET
-    const helloIntegration = new apigateway.LambdaIntegration(helloFunction)
+    // Obtén los canales desde la definición OpenAPI
+    const channels = openApiDefinition.channels || {}
 
-    // Debemos esperar a que el API esté listo antes de agregar el recurso
-    api.addGatewayResponse('Default4XX', {
-      type: apigateway.ResponseType.DEFAULT_4XX,
-      responseHeaders: {
-        'Access-Control-Allow-Origin': "'*'",
-        'Access-Control-Allow-Headers': "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'",
-        'Access-Control-Allow-Methods': "'GET,OPTIONS'"
-      },
-      templates: {
-        'application/json': '{"message":$context.error.messageString}'
-      }
-    })
-    const helloResource = api.root.getResource('hello')
-    if (helloResource) {
-      helloResource.addMethod('GET', helloIntegration)
+    // Itera sobre cada canal y crea los recursos correspondientes
+    for (const [path] of Object.entries(channels)) {
+      // Crea un recurso para la ruta definida en el canal
+      const resource = api.root.resourceForPath(path)
+
+      // Obtiene la integración y el método HTTP desde la especificación (en este caso, asumimos 'GET')
+      const integration = new apigateway.LambdaIntegration(helloFunction)
+
+      // Añadir el método GET al recurso
+      resource.addMethod('GET', integration)
     }
   }
 }

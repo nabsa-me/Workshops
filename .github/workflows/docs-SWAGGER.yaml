@@ -5,7 +5,7 @@ on:
     paths:
       - 'AWS/documentation/swagger/**/*.ts'
       - 'AWS/documentation/swagger/**/*.yaml'
-      - '.github/workflows/alien-attack_short-labs.yaml'
+      - '.github/workflows/docs-SWAGGER.yaml'
   workflow_dispatch:
 
 env:
