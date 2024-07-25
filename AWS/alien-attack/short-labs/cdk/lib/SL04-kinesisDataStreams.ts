@@ -93,7 +93,7 @@ export class kinesisDataStreamsStack extends Stack {
     //#region REST API
     const api = new RestApi(this, `${baseIDresource}-API`, {
       restApiName: `${baseIDresource}-API`,
-      description: 'api to fetch stored string parameters',
+      description: 'api to send data to kinesis streams',
       endpointConfiguration: { types: [EndpointType.REGIONAL] }
     })
 

@@ -4,6 +4,7 @@ import { parameterStoreAppSyncStack } from '../lib/SL02-parameterStoreAppSyncSta
 import { parameterStoreLambdaStack } from '../lib/SL03-parameterStoreLambdaStack'
 // import { kinesisDataStreamsStack } from '../lib/SL04-kinesisDataStreams'
 import { dynamoDBStack } from '../lib/SL05-dynamoDB'
+import { microserviceStack } from '../lib/SL06-microservice'
 
 const app = new App()
 
@@ -30,4 +31,9 @@ new parameterStoreLambdaStack(app, 'WS-AlienAttack-Lab03-Stack', {
 new dynamoDBStack(app, 'WS-AlienAttack-Lab05-Stack', {
   description: 'Stack for the creation of Alien Attack - DynamoDB resources',
   stackName: 'WS-AlienAttack-Lab05-Stack'
+})
+
+new microserviceStack(app, 'WS-AlienAttack-Lab06-Stack', {
+  description: 'Stack for the creation of Alien Attack - Microservice resources',
+  stackName: 'WS-AlienAttack-Lab06-Stack'
 })
