@@ -1,0 +1,6 @@
+{
+  "app": "npx ts-node bin/stacks.ts",
+  "context": {
+    "aws-cdk:enableDiffNoFail": "true"
+  }
+}
