@@ -4,6 +4,7 @@ import * as apigateway from 'aws-cdk-lib/aws-apigateway'
 // import { Construct } from 'constructs'
 import * as path from 'path'
 import * as fs from 'fs'
+import * as yaml from 'yaml'
 import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs'
 
 export class OpenapiCdkExampleStack extends cdk.Stack {
@@ -21,7 +22,8 @@ export class OpenapiCdkExampleStack extends cdk.Stack {
     })
 
     // Lee el archivo OpenAPI
-    const openApiDefinition = fs.readFileSync(path.join(__dirname, '../../src/openapi.yaml'))
+    const openApiDefinitionContent = fs.readFileSync(path.join(__dirname, '../../src/openapi.yaml'), 'utf-8')
+    const openApiDefinition = yaml.parse(openApiDefinitionContent) // Parseamos el YAML a un objeto
 
     // Crea el API Gateway REST API usando OpenAPI
     const api = new apigateway.SpecRestApi(this, 'OpenApiExampleApi', {
