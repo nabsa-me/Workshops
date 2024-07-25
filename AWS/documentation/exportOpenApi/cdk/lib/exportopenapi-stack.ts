@@ -33,5 +33,31 @@ export class OpenapiExampleStack extends cdk.Stack {
     new cdk.CfnOutput(this, 'ApiUrl', {
       value: api.urlForPath('/hello')
     })
+
+    new apigateway.CfnDocumentationVersion(this, 'MyCfnDocumentationVersion', {
+      documentationVersion: 'v1',
+      restApiId: api.restApiId,
+
+      // the properties below are optional
+      description: 'docs description'
+    })
+    // // Llamada para exportar OpenAPI
+    // this.exportOpenApi(api)
   }
+
+  // private exportOpenApi(api: apigateway.RestApi) {
+  //   const stack = cdk.Stack.of(this)
+  //   const exportApi = new apigateway.CfnDocumentationVersion(stack, 'ExportApi', {
+  //     restApiId: api.restApiId,
+  //     documentationVersion: '1.0'
+  //   })
+
+  //   exportApi.addOverride('Properties.Mode', 'EXPORT')
+  //   exportApi.addOverride('Properties.ExportType', 'oas30') // OpenAPI 3.0
+  //   exportApi.addOverride('Properties.StageName', 'prod')
+  //   exportApi.addOverride('Properties.OutputFormat', 'JSON')
+  //   exportApi.addOverride('Properties.DestinationPath', './openapi.json')
+
+  //   stack.addDependency(exportApi)
+  // }
 }
