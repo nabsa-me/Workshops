@@ -34,3 +34,4 @@ jobs:
 
       - name: Bootstrap CDK v2
         run: npx cdk bootstrap aws://${{ secrets.AWS_ACCOUNT_ID }}/${{ env.AWS_REGION }} --tags Name="Bootstrap" --tags Project="General"
+        
