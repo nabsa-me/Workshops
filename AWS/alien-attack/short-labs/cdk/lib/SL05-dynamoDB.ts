@@ -34,9 +34,9 @@ export class dynamoDBStack extends Stack {
     })
 
     //role for the LAMBDA
-    const lambdaRole = new Role(this, `${baseIDresource}-LambdaRole`, {
+    const lambdaRole = new Role(this, `${baseIDresource}-Role`, {
       assumedBy: new ServicePrincipal('lambda.amazonaws.com'),
-      roleName: `${baseIDresource}-LambdaRole`,
+      roleName: `${baseIDresource}-Role`,
       description: 'role for the lambda to manage kinesis data and write on dynamo db',
       managedPolicies: [{ managedPolicyArn: 'arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole' }]
     })
