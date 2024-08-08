@@ -1,6 +1,6 @@
 import { App, Stack, StackProps, Tags } from 'aws-cdk-lib'
 import { AttributeType, TableV2 } from 'aws-cdk-lib/aws-dynamodb'
-import { Effect, PolicyStatement, Role, ServicePrincipal } from 'aws-cdk-lib/aws-iam'
+import { Effect, Policy, PolicyStatement, Role, ServicePrincipal } from 'aws-cdk-lib/aws-iam'
 import { Architecture, Runtime } from 'aws-cdk-lib/aws-lambda'
 import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs'
 import path from 'path'
@@ -27,21 +27,25 @@ export class dynamoDBStack extends Stack {
     //#endregion
 
     //#region IAM POLICIES AND ROLES
-    //resources policies
-    const dynamoPolicy = new PolicyStatement({
-      effect: Effect.ALLOW,
-      actions: ['dynamodb:*'],
-      resources: [table.tableArn]
-    })
-
-    //role for the LAMBDA
     const lambdaRole = new Role(this, `${baseIDresource}-Role`, {
       assumedBy: new ServicePrincipal('lambda.amazonaws.com'),
       roleName: `${baseIDresource}-Role`,
       description: 'role for the lambda to manage kinesis data and write on dynamo db'
     })
 
-    lambdaRole.addToPolicy(dynamoPolicy)
+    lambdaRole.attachInlinePolicy(
+      new Policy(this, `${baseIDresource}-Policy`, {
+        policyName: `${baseIDresource}-Policy`,
+        statements: [
+          new PolicyStatement({
+            effect: Effect.ALLOW,
+            actions: ['dynamodb:*'],
+            resources: [table.tableArn]
+          })
+        ]
+      })
+    )
+
     lambdaRole.addManagedPolicy({ managedPolicyArn: logsPolicy })
 
     //#region LAMBDA
