@@ -14,8 +14,11 @@ export class parameterStoreApiGatewayStack extends Stack {
 
     //#endregion
 
+    const baseIDresource = 'WS-AlienAttack-Lab01'
+    const logsPolicy = 'arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole'
+
     //#region STRING PARAMETER
-    const stringParameter = new StringParameter(this, 'WS-AlienAttack-Lab01-StringParameter', {
+    const stringParameter = new StringParameter(this, `${baseIDresource}-StringParameter`, {
       stringValue: '{"url" : "https://www.amazon.com"}',
       description: 'string parameter will be consumed by the api',
       parameterName: '/WS/Alien-Attack/Short-Lab-01/configuration',
@@ -27,30 +30,17 @@ export class parameterStoreApiGatewayStack extends Stack {
     //#endregion
 
     //#region IAM ROLE
-    const ssmRole = new Role(this, 'WS-AlienAttack-Lab01-Role', {
+    const ssmRole = new Role(this, `${baseIDresource}-Role`, {
       assumedBy: new ServicePrincipal('apigateway.amazonaws.com'),
-      roleName: 'WS-AlienAttack-Lab01-Role',
+      roleName: `${baseIDresource}-Role`,
       description: 'role that will be counsumed by the api'
     })
 
-    ssmRole.addToPolicy(
-      new PolicyStatement({
-        effect: Effect.ALLOW,
-        resources: ['*'],
-        actions: [
-          'logs:CreateLogGroup',
-          'logs:CreateLogStream',
-          'logs:DescribeLogGroups',
-          'logs:DescribeLogStreams',
-          'logs:PutLogEvents',
-          'logs:GetLogEvents',
-          'logs:FilterLogEvents'
-        ]
-      })
-    )
+    ssmRole.addManagedPolicy({ managedPolicyArn: logsPolicy })
+
     ssmRole.attachInlinePolicy(
-      new Policy(this, 'WS-AlienAttack-Lab01-Policy', {
-        policyName: 'WS-AlienAttack-Lab01-Policy',
+      new Policy(this, `${baseIDresource}-Policy`, {
+        policyName: `${baseIDresource}-Policy`,
         statements: [
           new PolicyStatement({
             effect: Effect.ALLOW,
@@ -64,8 +54,8 @@ export class parameterStoreApiGatewayStack extends Stack {
     //#endregion
 
     //#region REST API
-    const api = new RestApi(this, 'WS-AlienAttack-Lab01-API', {
-      restApiName: 'WS-AlienAttack-Lab01-API',
+    const api = new RestApi(this, `${baseIDresource}-API`, {
+      restApiName: `${baseIDresource}-API`,
       description: 'api to fetch stored string parameters',
       endpointConfiguration: { types: [EndpointType.REGIONAL] }
     })
