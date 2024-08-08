@@ -16,6 +16,7 @@ export class dynamoDBStack extends Stack {
     //#endregion
 
     const baseIDresource = 'WS-AlienAttack-Lab05'
+    const logsPolicy = 'arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole'
 
     //#region DYNAMO DB
     const table = new TableV2(this, `${baseIDresource}-Table`, {
@@ -37,10 +38,11 @@ export class dynamoDBStack extends Stack {
     const lambdaRole = new Role(this, `${baseIDresource}-Role`, {
       assumedBy: new ServicePrincipal('lambda.amazonaws.com'),
       roleName: `${baseIDresource}-Role`,
-      description: 'role for the lambda to manage kinesis data and write on dynamo db',
-      managedPolicies: [{ managedPolicyArn: 'arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole' }]
+      description: 'role for the lambda to manage kinesis data and write on dynamo db'
     })
+
     lambdaRole.addToPolicy(dynamoPolicy)
+    lambdaRole.addManagedPolicy({ managedPolicyArn: logsPolicy })
 
     //#region LAMBDA
     new NodejsFunction(this, `${baseIDresource}-Lambda`, {

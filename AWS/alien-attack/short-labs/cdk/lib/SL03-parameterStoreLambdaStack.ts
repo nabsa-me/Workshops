@@ -15,6 +15,8 @@ export class parameterStoreLambdaStack extends Stack {
 
     //#endregion
     const baseIDresource = 'WS-AlienAttack-Lab03'
+    const logsPolicy = 'arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole'
+
     //#region STRING PARAMETER
     new StringParameter(this, `${baseIDresource}-StringParameter`, {
       stringValue: '{"url" : "https://www.nabsa.me"}',
@@ -32,21 +34,8 @@ export class parameterStoreLambdaStack extends Stack {
       description: 'role that will be counsumed by the lambda'
     })
 
-    lambdaRole.addToPolicy(
-      new PolicyStatement({
-        effect: Effect.ALLOW,
-        resources: ['*'],
-        actions: [
-          'logs:CreateLogGroup',
-          'logs:CreateLogStream',
-          'logs:DescribeLogGroups',
-          'logs:DescribeLogStreams',
-          'logs:PutLogEvents',
-          'logs:GetLogEvents',
-          'logs:FilterLogEvents'
-        ]
-      })
-    )
+    lambdaRole.addManagedPolicy({ managedPolicyArn: logsPolicy })
+
     lambdaRole.attachInlinePolicy(
       new Policy(this, `${baseIDresource}-Policy`, {
         policyName: `${baseIDresource}-Policy`,
