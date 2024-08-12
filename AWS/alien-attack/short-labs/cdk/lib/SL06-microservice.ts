@@ -10,7 +10,7 @@ import {
   UsagePlan
 } from 'aws-cdk-lib/aws-apigateway'
 import { AttributeType, TableV2 } from 'aws-cdk-lib/aws-dynamodb'
-import { Effect, PolicyStatement, Role, ServicePrincipal } from 'aws-cdk-lib/aws-iam'
+import { Effect, Policy, PolicyStatement, Role, ServicePrincipal } from 'aws-cdk-lib/aws-iam'
 import { Architecture, Runtime } from 'aws-cdk-lib/aws-lambda'
 import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs'
 import path from 'path'
@@ -36,21 +36,28 @@ export class microserviceStack extends Stack {
     //#endregion
 
     //#region IAM POLICIES AND ROLES
-    //resources policies
-    const dynamoPolicy = new PolicyStatement({
-      effect: Effect.ALLOW,
-      actions: ['dynamodb:*'],
-      resources: [table.tableArn]
+    const logsPolicy = 'arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole'
+
+    const lambdaRole = new Role(this, `${baseIDresource}-Role`, {
+      assumedBy: new ServicePrincipal('lambda.amazonaws.com'),
+      roleName: `${baseIDresource}-Role`,
+      description: 'role for the lambda to manage microservices resources'
     })
 
-    //role for the LAMBDA
-    const lambdaRole = new Role(this, `${baseIDresource}-LambdaRole`, {
-      assumedBy: new ServicePrincipal('lambda.amazonaws.com'),
-      roleName: `${baseIDresource}-LambdaRole`,
-      description: 'role for the lambda to write on dynamo db',
-      managedPolicies: [{ managedPolicyArn: 'arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole' }]
-    })
-    lambdaRole.addToPolicy(dynamoPolicy)
+    lambdaRole.attachInlinePolicy(
+      new Policy(this, `${baseIDresource}-Policy`, {
+        policyName: `${baseIDresource}-Policy`,
+        statements: [
+          new PolicyStatement({
+            effect: Effect.ALLOW,
+            actions: ['dynamodb:*'],
+            resources: [table.tableArn]
+          })
+        ]
+      })
+    )
+
+    lambdaRole.addManagedPolicy({ managedPolicyArn: logsPolicy })
 
     //#region LAMBDA
     const lambda = new NodejsFunction(this, `${baseIDresource}-Lambda`, {
@@ -96,7 +103,7 @@ export class microserviceStack extends Stack {
       'GET',
       new LambdaIntegration(lambda, {
         requestParameters: {
-          'method.request.querystring.sessionId': 'true',
+          'method.request.querystring.sessionId': "'true'",
           'integration.request.querystring.sessionId': "'method.request.querystring.sessionId'"
         },
         passthroughBehavior: PassthroughBehavior.WHEN_NO_TEMPLATES,
