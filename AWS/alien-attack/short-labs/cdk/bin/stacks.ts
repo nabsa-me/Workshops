@@ -4,6 +4,7 @@ import { parameterStoreAppSyncStack } from '../lib/SL02-parameterStoreAppSyncSta
 import { parameterStoreLambdaStack } from '../lib/SL03-parameterStoreLambdaStack'
 // import { kinesisDataStreamsStack } from '../lib/SL04-kinesisDataStreams'
 import { dynamoDBStack } from '../lib/SL05-dynamoDB'
+import { ApplicationStack } from '../lib/applications'
 // import { microserviceStack } from '../lib/SL06-microservice'
 
 const app = new App()
@@ -39,3 +40,13 @@ new dynamoDBStack(app, 'WS-AlienAttack-Lab05-Stack', {
 //   description: 'Stack for the creation of Alien Attack - Microservice resources',
 //   stackName: 'WS-AlienAttack-Lab06-Stack'
 // })
+
+new ApplicationStack(app, 'Applications-Stack', {
+  description: 'Stack for the creation of AWS applications',
+  stackName: 'Applications-stack'
+  // configuration: {
+  //   tags: [{ Name: 'gooDo-Application', Project: 'Applications' }],
+  //   description: 'application for gooDo project resources management'
+  // },
+  // projectName: 'gooDo'
+})
