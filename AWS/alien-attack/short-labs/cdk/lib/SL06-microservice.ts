@@ -103,7 +103,7 @@ export class microserviceStack extends Stack {
       'GET',
       new LambdaIntegration(lambda, {
         requestParameters: {
-          'method.request.querystring.sessionId': 'sessionId',
+          'method.request.querystring.sessionId': "'sessionId'",
           'integration.request.querystring.sessionId': 'method.request.querystring.sessionId'
         },
         passthroughBehavior: PassthroughBehavior.WHEN_NO_TEMPLATES,
