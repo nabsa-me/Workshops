@@ -8,7 +8,9 @@ To work with the integration of SSM service with API Gateway, using the provided
 
   We can consume our API writting this in our terminal
 
-  **curl https:<api_url>/prod/getconfig?lab=Short-Lab-01**
+  ```terminal
+  curl https:<api_url>/prod/getconfig?lab=Short-Lab-01
+  ```
 
 ### [Build a Parameter Store API with AppSync](https://catalog.us-east-1.prod.workshops.aws/workshops/3ae476e4-e66d-4e78-b22f-6190c79ddee2/en-US/aws-services/appsync/systems-manager-integration/) *#level_200*
 
@@ -28,6 +30,7 @@ In this lab we are going to build an architecture that is going to allow us to i
 
 We could test the whole system passing that object to our api,
 
+```aws console
 {
     "User" : "theuser@amazon.com",
     "Client" : "13522bac-89fb-4f14-ac37-92642eec2b06",
@@ -38,13 +41,15 @@ We could test the whole system passing that object to our api,
         "Price" : 104.987
     }
 }
+```
 
 ### [Create Your First DynamoDB Table](https://catalog.us-east-1.prod.workshops.aws/workshops/3ae476e4-e66d-4e78-b22f-6190c79ddee2/en-US/aws-services/dynamodb/my-first-table/) *#level_100*
 
-IIn this lab we will experiment with Amazon DynamoDB, creating a lambda to put item in it.
+In this lab we will experiment with Amazon DynamoDB, creating a lambda to put item in it.
 
-We could test the resources passing that object to our lambda, in the AWS console.
+We could test the resources passing that object to our lambda, in the AWS console o by the debugger.
 
+```event
 {
   "Id": "PRD01",
   "Description": "UNICORN GENERATOR",
@@ -55,5 +60,15 @@ We could test the resources passing that object to our lambda, in the AWS consol
     "ACME126"
   ]
 }
+```
 
+### [Build Your First Microservice (NodeJS)](https://catalog.us-east-1.prod.workshops.aws/workshops/3ae476e4-e66d-4e78-b22f-6190c79ddee2/en-US/architecture-samples/full-microservice/) *#level_200*
 
+In this lab we will create a full microservice, by using a database (Amazon DynamoDB), a computing service (AWS Lambda), and an API service to expose the service to users and other microservices.
+Once all the resources are deployed, it is necessary to run the [SL06-dynamoScript.ts file](.\alien-attack\short-labs\src\SL06-dynamoScript.ts) to add the data to the created dynamoDB table.
+
+We could test the resources running the next command on our console to reach our api.
+
+```terminal
+curl --verbose --header "x-api-key: <put your API key here>" https://<API URL>?sessionId=TheTestSession
+```
