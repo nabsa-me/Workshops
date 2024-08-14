@@ -15,6 +15,7 @@ export const handler = async (event: Record<string, any>) => {
       new PutCommand({
         TableName: tableName,
         Item: {
+          SessionId: event.SessionId,
           TopX: event.TopX
         }
       })
