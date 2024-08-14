@@ -38,7 +38,6 @@ const computeStatisticsForSession = async function (sessionId: string) {
   // retrieving the record attached to 'sessionId'
   try {
     let topXSessionData = await readTopxDataFromDatabase(sessionId)
-    console.log('topXSessionData is', topXSessionData)
     if (topXSessionData instanceof Error) {
       return topXSessionData
     } else {
@@ -77,7 +76,6 @@ const computeStatisticsForSession = async function (sessionId: string) {
  * if you move the code out of Lambda
  */
 const formatResponse = function (data: Record<string, any> | null) {
-  console.log('datas is', data)
   let response = {
     isBase64Encoded: false,
     statusCode: null || 0,
@@ -87,15 +85,12 @@ const formatResponse = function (data: Record<string, any> | null) {
     }
   }
   if (data?.TopX) {
-    console.log(data?.TopX)
     console.log('ERROR')
-    console.log(data)
     response.statusCode = data?.statusCode
     response.body = data?.message
     response.headers['Content-Type'] = 'text/plain'
   } else {
     console.log('SUCCESS')
-    console.log(data)
     if (data == null) {
       response.statusCode = 404
       response.headers['Content-Type'] = 'text/plain'
@@ -137,7 +132,6 @@ const validateEvent = function (event: Record<string, any>) {
     sessionId: sessionId,
     isProxyIntegration: isProxyIntegration
   }
-  console.log(result)
   return result
 }
 
@@ -162,6 +156,5 @@ export const handler = async (event: Record<string, any>) => {
     // let's format the response to what is expected by an API Gateway integration
     response = formatResponse(statistics as Record<string, any> | null)
   }
-  console.log(response)
   return response
 }
