@@ -5,6 +5,7 @@ import {
   Cors,
   EndpointType,
   LambdaIntegration,
+  Model,
   PassthroughBehavior,
   RestApi,
   UsagePlan
@@ -170,7 +171,15 @@ $inputRoot.body
           }
         ]
       }),
-      { requestParameters: { 'method.request.querystring.sessionId': true } }
+      {
+        requestParameters: { 'method.request.querystring.sessionId': true },
+        methodResponses: [
+          {
+            statusCode: '200',
+            responseModels: { 'application/json': Model.EMPTY_MODEL }
+          }
+        ]
+      }
     )
 
     //#endregion
