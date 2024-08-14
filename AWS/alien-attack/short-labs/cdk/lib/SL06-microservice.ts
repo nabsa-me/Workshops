@@ -103,9 +103,9 @@ export class microserviceStack extends Stack {
       'GET',
       new LambdaIntegration(lambda, {
         requestParameters: {
-          // 'method.request.querystring.sessionId': 'sessionId',
           'integration.request.querystring.sessionId': 'method.request.querystring.sessionId'
         },
+        proxy: false,
         passthroughBehavior: PassthroughBehavior.WHEN_NO_TEMPLATES,
         requestTemplates: {
           'application/json': `##  See https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-mapping-template-reference.html
