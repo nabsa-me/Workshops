@@ -11,14 +11,14 @@ const event: Record<string, any> = {
   }
 }
 
-const event2: Record<string, any> = { params: { path: {}, querystring: {} } }
+// const event2: Record<string, any> = { params: { path: {}, querystring: {} } }
 
-const event3: Record<string, any> = { params: { path: {}, querystring: { sessionId: 'WRONG' } } }
+// const event3: Record<string, any> = { params: { path: {}, querystring: { sessionId: 'WRONG' } } }
 
-const event4: Record<string, any> = { queryStringParameters: { sessionId: 'TheTestSession' } }
+// const event4: Record<string, any> = { queryStringParameters: { sessionId: 'TheTestSession' } }
 
-const event5: Record<string, any> = { queryStringParameters: { sessionId: 'WRONG' } }
+// const event5: Record<string, any> = { queryStringParameters: { sessionId: 'WRONG' } }
 
-const event6: Record<string, any> = { queryStringParameters: {} }
+// const event6: Record<string, any> = { queryStringParameters: {} }
 
 handler(event)

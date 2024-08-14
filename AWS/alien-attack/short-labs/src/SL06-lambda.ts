@@ -10,7 +10,7 @@ const DynamoDB = DynamoDBDocumentClient.from(DDBClient)
  * This function reads from the database.
  * You can replace this with the code depending on your database
  */
-const readTopxDataFromDatabase = async function (sessionId: any) {
+const readTopxDataFromDatabase = async function (sessionId: string) {
   let result = null
   console.log('PROVIDED SESSION ID FOR DATABASE QUERY IS:', sessionId)
   let params = {
@@ -27,17 +27,18 @@ const readTopxDataFromDatabase = async function (sessionId: any) {
   } catch (exception) {
     result = exception
   }
-  return result
+  return result as Record<string, any>
 }
 
 /**
  * This function does the required computation.
  */
-const computeStatisticsForSession = async function (sessionId: any) {
+const computeStatisticsForSession = async function (sessionId: string) {
   // let's start by reading the session data from the database
   // retrieving the record attached to 'sessionId'
   try {
-    let topXSessionData: any = await readTopxDataFromDatabase(sessionId)
+    let topXSessionData = await readTopxDataFromDatabase(sessionId)
+    console.log('topXSessionData is', topXSessionData)
     if (topXSessionData instanceof Error) {
       return topXSessionData
     } else {
@@ -45,11 +46,11 @@ const computeStatisticsForSession = async function (sessionId: any) {
         // Table is empty. No data found.
         return null
       else {
-        let statistics = [] as any
+        let statistics = [] as Record<string, any>[]
         let position = 1
         // Make the computations
-        topXSessionData.TopX.forEach((item: any) => {
-          let itemStatistics = {} as any
+        topXSessionData.TopX.forEach((item: Record<string, any>) => {
+          let itemStatistics = {} as Record<string, any>
           itemStatistics['Nickname'] = item.Nickname
           itemStatistics['Position'] = position++
           if (item.Shots != 0) {
@@ -75,7 +76,8 @@ const computeStatisticsForSession = async function (sessionId: any) {
  * expected with Lambda Integration. You may need to change it
  * if you move the code out of Lambda
  */
-const formatResponse = function (data: any) {
+const formatResponse = function (data: Record<string, any> | null) {
+  console.log('datas is', data)
   let response = {
     isBase64Encoded: false,
     statusCode: null || 0,
@@ -84,11 +86,12 @@ const formatResponse = function (data: any) {
       'Content-Type': null || ''
     }
   }
-  if (data as any) {
+  if (data?.TopX) {
+    console.log(data?.TopX)
     console.log('ERROR')
     console.log(data)
-    response.statusCode = data.statusCode
-    response.body = data.message
+    response.statusCode = data?.statusCode
+    response.body = data?.message
     response.headers['Content-Type'] = 'text/plain'
   } else {
     console.log('SUCCESS')
@@ -113,7 +116,7 @@ const formatResponse = function (data: any) {
  * This function validates the event, and must
  * be rewritten if you move this out of Lambda
  */
-const validateEvent = function (event: any) {
+const validateEvent = function (event: Record<string, any>) {
   let sessionId = null
   let isProxyIntegration = null
   try {
@@ -141,7 +144,7 @@ const validateEvent = function (event: any) {
 /**
  * This is the entry-point for the Lambda function
  */
-export const handler = async (event: any) => {
+export const handler = async (event: Record<string, any>) => {
   let response = null
   // Let's show the received event
   console.log(event)
@@ -155,9 +158,10 @@ export const handler = async (event: any) => {
     response = formatResponse(null)
   else {
     // call the function that computes the statistics
-    let statistics = await computeStatisticsForSession(sessionId)
+    let statistics = await computeStatisticsForSession(sessionId as string)
     // let's format the response to what is expected by an API Gateway integration
-    response = formatResponse(statistics)
+    response = formatResponse(statistics as Record<string, any> | null)
   }
+  console.log(response)
   return response
 }
