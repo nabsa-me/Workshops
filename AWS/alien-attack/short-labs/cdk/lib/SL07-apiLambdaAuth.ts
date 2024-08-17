@@ -123,7 +123,7 @@ export class apiLambdaAuthorizerStack extends Stack {
     const authorizer = new RequestAuthorizer(this, `${baseIDresource}-Authorizer`, {
       handler: lambda,
       authorizerName: `${baseIDresource}-Authorizer`,
-      identitySources: ['method.request.header.Auth']
+      identitySources: ['method.request.header.Authorization']
     })
 
     //#endregion
