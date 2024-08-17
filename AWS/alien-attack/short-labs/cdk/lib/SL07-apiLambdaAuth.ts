@@ -5,22 +5,16 @@ import {
   ApiKeySourceType,
   Cors,
   EndpointType,
-  IdentitySource,
+  // IdentitySource,
   LambdaIntegration,
   Model,
   PassthroughBehavior,
+  RequestAuthorizer,
   RestApi,
-  TokenAuthorizer,
+  // TokenAuthorizer,
   UsagePlan
 } from 'aws-cdk-lib/aws-apigateway'
-import {
-  AccountRecovery,
-  CfnUserPoolGroup,
-  Mfa,
-  UserPool,
-  UserPoolEmail,
-  VerificationEmailStyle
-} from 'aws-cdk-lib/aws-cognito'
+import { AccountRecovery, Mfa, UserPool, UserPoolEmail, VerificationEmailStyle } from 'aws-cdk-lib/aws-cognito'
 import { Effect, Policy, PolicyStatement, Role, ServicePrincipal } from 'aws-cdk-lib/aws-iam'
 import { Architecture, Runtime } from 'aws-cdk-lib/aws-lambda'
 import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs'
@@ -64,15 +58,6 @@ export class apiLambdaAuthorizerStack extends Stack {
         emailStyle: VerificationEmailStyle.LINK
       },
       keepOriginal: { email: true }
-    })
-
-    new CfnUserPoolGroup(this, `${baseIDresource}-Managers-UserPoolGroup`, {
-      userPoolId: userPool.userPoolId,
-      groupName: `${baseIDresource}-Managers-UserPoolGroup`
-    })
-    new CfnUserPoolGroup(this, `${baseIDresource}-Users-UserPoolGroup`, {
-      userPoolId: userPool.userPoolId,
-      groupName: `${baseIDresource}-Users-UserPoolGroup`
     })
 
     const appClient = userPool.addClient(`${baseIDresource}-ClientID`, {
@@ -130,10 +115,15 @@ export class apiLambdaAuthorizerStack extends Stack {
     //#endregion
 
     //#region AUTHORIZER
-    const authorizer = new TokenAuthorizer(this, `${baseIDresource}-Authorizer`, {
+    // const authorizer = new TokenAuthorizer(this, `${baseIDresource}-Authorizer`, {
+    //   handler: lambda,
+    //   authorizerName: `${baseIDresource}-Authorizer`,
+    //   identitySource: IdentitySource.header('Authentication')
+    // })
+    const authorizer = new RequestAuthorizer(this, `${baseIDresource}-Authorizer`, {
       handler: lambda,
       authorizerName: `${baseIDresource}-Authorizer`,
-      identitySource: IdentitySource.header('Authentication')
+      identitySources: ['method.request.header.Auth']
     })
 
     //#endregion
