@@ -60,6 +60,8 @@ export class microserviceStack extends Stack {
 
     lambdaRole.addManagedPolicy({ managedPolicyArn: logsPolicy })
 
+    //#endregion
+
     //#region LAMBDA
     const lambda = new NodejsFunction(this, `${baseIDresource}-Lambda`, {
       functionName: `${baseIDresource}-Lambda`,
@@ -79,7 +81,8 @@ export class microserviceStack extends Stack {
       description: 'api to reach and consume lambda function',
       endpointConfiguration: { types: [EndpointType.EDGE] },
       defaultCorsPreflightOptions: { allowOrigins: Cors.ALL_ORIGINS, allowMethods: Cors.ALL_METHODS },
-      apiKeySourceType: ApiKeySourceType.AUTHORIZER
+      apiKeySourceType: ApiKeySourceType.AUTHORIZER,
+      cloudWatchRole: false
     })
 
     const apiKey = new ApiKey(this, `${baseIDresource}-APIKey`, {

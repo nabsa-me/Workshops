@@ -57,7 +57,8 @@ export class parameterStoreApiGatewayStack extends Stack {
     const api = new RestApi(this, `${baseIDresource}-API`, {
       restApiName: `${baseIDresource}-API`,
       description: 'api to fetch stored string parameters',
-      endpointConfiguration: { types: [EndpointType.REGIONAL] }
+      endpointConfiguration: { types: [EndpointType.REGIONAL] },
+      cloudWatchRole: false
     })
 
     api.root.addResource('getconfig').addMethod(
