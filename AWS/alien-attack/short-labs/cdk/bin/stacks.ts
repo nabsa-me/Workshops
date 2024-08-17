@@ -5,6 +5,7 @@ import { parameterStoreLambdaStack } from '../lib/SL03-parameterStoreLambdaStack
 // import { kinesisDataStreamsStack } from '../lib/SL04-kinesisDataStreams'
 import { dynamoDBStack } from '../lib/SL05-dynamoDB'
 import { microserviceStack } from '../lib/SL06-microservice'
+import { apiLambdaAuthorizerStack } from '../lib/SL07-apiLambdaAuth'
 
 const app = new App()
 
@@ -32,8 +33,11 @@ new dynamoDBStack(app, 'WS-AlienAttack-Lab05-Stack', {
   description: 'Stack for the creation of Alien Attack - DynamoDB resources',
   stackName: 'WS-AlienAttack-Lab05-Stack'
 })
-
 new microserviceStack(app, 'WS-AlienAttack-Lab06-Stack', {
   description: 'Stack for the creation of Alien Attack - Microservice resources',
   stackName: 'WS-AlienAttack-Lab06-Stack'
+})
+new apiLambdaAuthorizerStack(app, 'WS-AlienAttack-Lab07-Stack', {
+  description: 'Stack for the creation of Alien Attack - Lambda and Api with Authorization',
+  stackName: 'WS-AlienAttack-Lab07-Stack'
 })

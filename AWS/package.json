@@ -8,6 +8,8 @@
     "@aws-sdk/lib-dynamodb": "^3.613.0",
     "@types/aws-lambda": "^8.10.138",
     "aws-cdk-lib": "2.138.0",
+    "aws-jwt-verify": "^4.0.1",
+    "aws-sdk": "^2.1676.0",
     "constructs": "^10.3.0",
     "esbuild": "^0.20.2"
   }
