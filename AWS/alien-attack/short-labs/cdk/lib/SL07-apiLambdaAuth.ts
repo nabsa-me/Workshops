@@ -5,16 +5,15 @@ import {
   ApiKeySourceType,
   Cors,
   EndpointType,
-  // IdentitySource,
   LambdaIntegration,
   Model,
   PassthroughBehavior,
   RequestAuthorizer,
   RestApi,
-  // TokenAuthorizer,
   UsagePlan
 } from 'aws-cdk-lib/aws-apigateway'
 import { AccountRecovery, Mfa, UserPool, UserPoolEmail, VerificationEmailStyle } from 'aws-cdk-lib/aws-cognito'
+import { AttributeType, TableV2 } from 'aws-cdk-lib/aws-dynamodb'
 import { Effect, Policy, PolicyStatement, Role, ServicePrincipal } from 'aws-cdk-lib/aws-iam'
 import { Architecture, Runtime } from 'aws-cdk-lib/aws-lambda'
 import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs'
@@ -67,18 +66,25 @@ export class apiLambdaAuthorizerStack extends Stack {
 
     //#endregion
 
+    //#region DYNAMO DB
+    const table = new TableV2(this, `${baseIDresource}-Table`, {
+      partitionKey: { name: 'SessionId', type: AttributeType.STRING },
+      tableName: `${baseIDresource}-Table`
+    })
+
+    //#endregion
+
     //#region IAM POLICIES AND ROLES
     const logsPolicy = 'arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole'
 
-    const lambdaRole = new Role(this, `${baseIDresource}-Role`, {
+    const lambdaAuthRole = new Role(this, `${baseIDresource}-RoleAuthorizer`, {
       assumedBy: new ServicePrincipal('lambda.amazonaws.com'),
-      roleName: `${baseIDresource}-Role`,
+      roleName: `${baseIDresource}-RoleAuthorizer`,
       description: 'role for the lambda that acts as an authorizer'
     })
-
-    lambdaRole.attachInlinePolicy(
-      new Policy(this, `${baseIDresource}-Policy`, {
-        policyName: `${baseIDresource}-Policy`,
+    lambdaAuthRole.attachInlinePolicy(
+      new Policy(this, `${baseIDresource}-PolicyAuthorizer`, {
+        policyName: `${baseIDresource}-PolicyAuthorizer`,
         statements: [
           new PolicyStatement({
             effect: Effect.ALLOW,
@@ -93,12 +99,43 @@ export class apiLambdaAuthorizerStack extends Stack {
         ]
       })
     )
+    lambdaAuthRole.addManagedPolicy({ managedPolicyArn: logsPolicy })
 
+    const lambdaRole = new Role(this, `${baseIDresource}-Role`, {
+      assumedBy: new ServicePrincipal('lambda.amazonaws.com'),
+      roleName: `${baseIDresource}-Role`,
+      description: 'role for the lambda to manage microservices resources'
+    })
+    lambdaRole.attachInlinePolicy(
+      new Policy(this, `${baseIDresource}-Policy`, {
+        policyName: `${baseIDresource}-Policy`,
+        statements: [
+          new PolicyStatement({
+            effect: Effect.ALLOW,
+            actions: ['dynamodb:*'],
+            resources: [table.tableArn]
+          })
+        ]
+      })
+    )
     lambdaRole.addManagedPolicy({ managedPolicyArn: logsPolicy })
 
     //#endregion
 
     //#region LAMBDA
+    const lambdaAuth = new NodejsFunction(this, `${baseIDresource}-LambdaAuthorizer`, {
+      functionName: `${baseIDresource}-LambdaAuthorizer`,
+      runtime: Runtime.NODEJS_18_X,
+      architecture: Architecture.ARM_64,
+      handler: 'handler',
+      entry: path.join(__dirname, '../../src/SL07-lambdaAuth.ts'),
+      role: lambdaAuthRole,
+      environment: {
+        USERPOOL_ID: userPool.userPoolId,
+        CLIENT_ID: appClient.userPoolClientId
+      }
+    })
+
     const lambda = new NodejsFunction(this, `${baseIDresource}-Lambda`, {
       functionName: `${baseIDresource}-Lambda`,
       runtime: Runtime.NODEJS_18_X,
@@ -106,22 +143,14 @@ export class apiLambdaAuthorizerStack extends Stack {
       handler: 'handler',
       entry: path.join(__dirname, '../../src/SL07-lambda.ts'),
       role: lambdaRole,
-      environment: {
-        USERPOOL_ID: userPool.userPoolId,
-        CLIENT_ID: appClient.userPoolClientId
-      }
+      environment: { TABLENAME: table.tableName }
     })
 
     //#endregion
 
     //#region AUTHORIZER
-    // const authorizer = new TokenAuthorizer(this, `${baseIDresource}-Authorizer`, {
-    //   handler: lambda,
-    //   authorizerName: `${baseIDresource}-Authorizer`,
-    //   identitySource: IdentitySource.header('Authentication')
-    // })
     const authorizer = new RequestAuthorizer(this, `${baseIDresource}-Authorizer`, {
-      handler: lambda,
+      handler: lambdaAuth,
       authorizerName: `${baseIDresource}-Authorizer`,
       identitySources: ['method.request.header.Authorization']
     })
