@@ -14,7 +14,7 @@ import {
 } from 'aws-cdk-lib/aws-apigateway'
 import { AccountRecovery, Mfa, UserPool, UserPoolEmail, VerificationEmailStyle } from 'aws-cdk-lib/aws-cognito'
 import { AttributeType, TableV2 } from 'aws-cdk-lib/aws-dynamodb'
-import { Effect, Policy, PolicyStatement, Role, ServicePrincipal } from 'aws-cdk-lib/aws-iam'
+import { Effect, Group, Policy, PolicyStatement, Role, ServicePrincipal } from 'aws-cdk-lib/aws-iam'
 import { Architecture, Runtime } from 'aws-cdk-lib/aws-lambda'
 import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs'
 import path from 'path'
@@ -63,6 +63,9 @@ export class apiLambdaAuthorizerStack extends Stack {
       userPoolClientName: `${baseIDresource}-ClientID`,
       generateSecret: false
     })
+
+    new Group(this, `${baseIDresource}-CognitoGroup-Managers`, { groupName: `${baseIDresource}-CognitoGroup-Managers` })
+    new Group(this, `${baseIDresource}-CognitoGroup-Managers`, { groupName: `${baseIDresource}-CognitoGroup-Players` })
 
     //#endregion
 
