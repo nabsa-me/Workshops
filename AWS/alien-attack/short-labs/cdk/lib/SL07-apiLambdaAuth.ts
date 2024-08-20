@@ -65,7 +65,7 @@ export class apiLambdaAuthorizerStack extends Stack {
     })
 
     new Group(this, `${baseIDresource}-CognitoGroup-Managers`, { groupName: `${baseIDresource}-CognitoGroup-Managers` })
-    new Group(this, `${baseIDresource}-CognitoGroup-Managers`, { groupName: `${baseIDresource}-CognitoGroup-Players` })
+    new Group(this, `${baseIDresource}-CognitoGroup-Players`, { groupName: `${baseIDresource}-CognitoGroup-Players` })
 
     //#endregion
 
