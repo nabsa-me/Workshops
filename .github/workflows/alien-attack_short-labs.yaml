@@ -36,4 +36,5 @@ jobs:
       - name: Deploy CDK stack
         working-directory: ./AWS/alien-attack/short-labs/cdk
         run: 'npx cdk deploy --require-approval never --all'
-        env: ${{vars.AWS_ACCOUNT_EMAIL}}
+        env: 
+          AWS_ACCOUNT_EMAIL: ${{vars.AWS_ACCOUNT_EMAIL}}
