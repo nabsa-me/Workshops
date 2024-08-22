@@ -25,9 +25,10 @@ import { Effect, Policy, PolicyStatement, Role, ServicePrincipal } from 'aws-cdk
 import { Architecture, Runtime } from 'aws-cdk-lib/aws-lambda'
 import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs'
 import path from 'path'
+import * as dotenv from 'dotenv'
 
 //#endregion
-
+dotenv.config()
 export class apiLambdaAuthorizerStack extends Stack {
   constructor(scope: App, id: string, props: StackProps) {
     super(scope, id, props)
