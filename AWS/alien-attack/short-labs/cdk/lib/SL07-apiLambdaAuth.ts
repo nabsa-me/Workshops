@@ -54,9 +54,9 @@ export class apiLambdaAuthorizerStack extends Stack {
       accountRecovery: AccountRecovery.EMAIL_ONLY,
       selfSignUpEnabled: true,
       email: UserPoolEmail.withSES({
-        fromEmail: 'noreply@myawesomeapp.com',
+        fromEmail: `${process.env.AWS_ACCOUNT_EMAIL}`,
         fromName: `${baseIDresource}-App`,
-        replyTo: process.env.AWS_ACCOUNT_EMAIL,
+        replyTo: `${process.env.AWS_ACCOUNT_EMAIL}`,
         sesRegion: this.region
       }),
       userVerification: {
@@ -167,7 +167,8 @@ export class apiLambdaAuthorizerStack extends Stack {
     const authorizer = new RequestAuthorizer(this, `${baseIDresource}-Authorizer`, {
       handler: lambdaAuth,
       authorizerName: `${baseIDresource}-Authorizer`,
-      identitySources: ['method.request.header.Authorization']
+      identitySources: ['method.request.header.Authorization'],
+      assumeRole: lambdaAuthRole
     })
 
     //#endregion

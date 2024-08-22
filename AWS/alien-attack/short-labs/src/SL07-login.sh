@@ -8,7 +8,7 @@ if [ "$CLIENT_ID" == "" ]; then
 fi
 OLD_TOKEN=$ACCESS_TOKEN
 if  [ "$OLD_TOKEN" == "" ]; then
-    OLD_TOKEN=$(grep Authorization ./cognito-group-authorizer/__tests__/events/request.json | awk -F ":" 'FNR == 1 { print $2}' | sed 's/"//g ; s/,//g ; s/ //g')
+    OLD_TOKEN=$(grep Authorization ./SL07-request.json | awk -F ":" 'FNR == 1 { print $2}' | sed 's/"//g ; s/,//g ; s/ //g')
 fi
 read -p "Enter username: " USER_NAME
 read -p "Enter password: " -s USER_PASSWORD
@@ -26,7 +26,7 @@ if [ "$ACCESS_TOKEN" != "" ]; then
     echo "NEW TOKEN: $ACCESS_TOKEN"
     echo "---"
     echo "UPDATING THE EVENT FILES"
-    find -P ~/environment/cognito-group-authorizer/__tests__/events -name '*.json' -type f -exec bash -c '
+    find -P ./ -name '*.json' -type f -exec bash -c '
         echo " Updating $1"
         sed -i "s|$2|$3|g" "$1"
     ' bash {} $OLD_TOKEN $ACCESS_TOKEN \;
