@@ -40,7 +40,7 @@
                 "endOfLine": "crlf"
             }
         ],
-        "no-case-declarations": 0,
+        // "no-case-declarations": 0,
         "no-unexpected-multiline": "warn",
         "no-debugger": "warn",
         "react/prop-types": 0,
