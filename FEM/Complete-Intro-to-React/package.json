@@ -1,0 +1,9 @@
+{
+  "name": "fem-complete-intro-react",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {},
+  "dependencies": {
+    "serve": "^14.2.4"
+  }
+}
