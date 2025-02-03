@@ -1,0 +1,31 @@
+asyncapi: '2.0.0'
+info:
+  title: Example REST API
+  version: '1.0.0'
+  description: Example of an AsyncAPI definition for a REST API using AWS CDK
+
+channels:
+  /hello:
+    description: Endpoint for hello world messages
+    subscribe:
+      summary: Receive a hello world message
+      message:
+        contentType: application/json
+        payload:
+          type: object
+          properties:
+            message:
+              type: string
+              description: The hello message
+              example: Hello, world!
+servers:
+  production:
+    url: https://{apiId}.execute-api.{region}.amazonaws.com/{stage}
+    protocol: https
+    variables:
+      apiId:
+        default: your-api-id
+      region:
+        default: us-east-1
+      stage:
+        default: prod
