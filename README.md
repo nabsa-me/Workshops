@@ -1,58 +1,73 @@
-# WORKSHOPS REPOSITORY
-Welcome to my repository dedicated to learning, workshop development, and code improvement! 🚀
+# AWS WORKSHOPS
 
-This repository is designed to serve as a collaborative space to learn, share knowledge, and enhance everybody's coding skills. Whether you're a seasoned developer or a beginner eager to explore new concepts, you'll find resources and projects here to support your journey.
+## ALIEN ATTACK SHORT LABS
 
-## AWS WORKSHOPS LIST
-* [AWS Alien Attack Workshop](https://catalog.us-east-1.prod.workshops.aws/workshops/fc36cb5a-de1b-403f-84dd-cc824390c548/en-US)
-  * #level_300
-  * #Serverless #Lambda #Kinesis #API_Gateway #DynamoDB #Cognito #CloudFront #Systems_Manager #AWS #CDK
+### [Build a Parameter Store API with API Gateway](https://catalog.us-east-1.prod.workshops.aws/workshops/3ae476e4-e66d-4e78-b22f-6190c79ddee2/en-US/aws-services/api-gateway/systems-manager-integration/) _#level\_100_
 
-    [Alien Attack Short Labs](https://catalog.us-east-1.prod.workshops.aws/workshops/3ae476e4-e66d-4e78-b22f-6190c79ddee2/en-US)
+To work with the integration of SSM service with API Gateway, using the provided parameters. We'll create a String Parameter with the desired configuration and define IAM roles with the necessary policies to access the SSM resource. We'll integrate our API with SSM by assigning the created role and configuring the requests to access and consume SSM values and properties.
 
+We can consume our API writting this in our terminal
 
-* [ECS Blueprints Workshop](https://catalog.workshops.aws/ecs-solution-blueprints/en-US)
-  * #level_300 
-  * #Fargate #ECS #Containers #AWS #CDK
+```terminal
+curl https:<api_url>/prod/getconfig?lab=Short-Lab-01
+```
 
-* [Cognito JWT Deep Dive](https://catalog.workshops.aws/cognito-jwt-deep-dive/en-US)
-  * #level_300 
-  * #Cognito #IAM #S3 #Verified_Permissions #AWS #CDK
+### [Build a Parameter Store API with AppSync](https://catalog.us-east-1.prod.workshops.aws/workshops/3ae476e4-e66d-4e78-b22f-6190c79ddee2/en-US/aws-services/appsync/systems-manager-integration/) _#level\_200_
 
-* [AWS Game Backend Framework](https://catalog.workshops.aws/awsgamebackendframework/en-US)
-  * #level_200 
-  * #Games #GameBackend #PlayerIdentity #AWS #CDK
+To integrate the SSM service with AppSync using the specified parameters, we will start by creating a String Parameter with the required configuration and defining IAM roles with the appropriate policies to access the SSM resources. Next, we'll connect our GraphQl API to SSM by assigning the created role and setting up the resolvers to fetch and use SSM values and properties.
 
-* [Automating your workload deployments in AWS Local Zones](https://catalog.workshops.aws/localzone-cdk/en-US)
-  * #level_300 
-  * #Local_Zones #AWS #CDK
+We can consume our API in AWS Console, AppSync service
 
-* [Build a Data Mesh on AWS](https://catalog.us-east-1.prod.workshops.aws/workshops/23e6326b-58ee-4ab0-9bc7-3c8d730eb851/en-US)
-  * #level_300 
-  * #Analytics #LakeFormaation #S3 #Athena #Amazon_EventBridge #AWS_StepFunctions #AWS_Glue #AWS #CDK
+### [Integrate Parameter Store with Lambda](https://catalog.us-east-1.prod.workshops.aws/workshops/3ae476e4-e66d-4e78-b22f-6190c79ddee2/en-US/aws-services/lambda/write-to-ssm/) _#level\_100_
 
-* [Building CI/CD pipelines for lambda canary deployments using AWS CDK](https://catalog.us-east-1.prod.workshops.aws/workshops/5195ab7c-5ded-4ee2-a1c5-775300717f42/en-US)
-  * #level_300 
-  * #AWS_Lambda #AWS_CodePipeline #Builder_Experience #AWS #CDK
+To integrate the SSM service with Lambda using the specified parameters, we will begin by creating a String Parameter with the necessary configuration and defining IAM roles with the appropriate policies to access the SSM resources. Next, we'll link our Lambda function to SSM by assigning the created role and retrieve and use SSM values and properties.
 
-* [EKS Blueprints for CDK Workshop](https://catalog.workshops.aws/eks-blueprints-for-cdk/en-US)
-  * #level_400 
-  * #EKS #Containers #Kubernetes #AWS #CDK
+We can test the resources on AWS Console - Lambda
 
-* [Extended CDK Workshop](https://catalog.us-east-1.prod.workshops.aws/workshops/071bbc60-6c1f-47b6-8c66-e84f5dc96b3f/en-US)
-  * #level_400 
-  * #CloudFormation #Automation #EC2 #ParallelProcessing #AWS #CDK
+### [Ingest Data with Kinesis Data Streams](https://catalog.us-east-1.prod.workshops.aws/workshops/3ae476e4-e66d-4e78-b22f-6190c79ddee2/en-US/aws-services/kinesis/ingestion-to-dynamodb) _#level\_300_
 
-* [.NET Development on AWS](https://catalog.us-east-1.prod.workshops.aws/workshops/24a39743-7e40-48ca-ba5e-704f2e3d74ec/en-US) 
-  * #level_200 
-  * #.NET #Serverless #AWS #CDK
+In this lab we are going to build an architecture that is going to allow us to ingest data from API Gateway to DynamoDB through Kinesis Data Streams and a Lambda to manage and redirect the events to DynamoDB.
 
-* [.NET Application Modernization](https://catalog.us-east-1.prod.workshops.aws/workshops/5c59492e-fc61-4a7b-b08a-e0307b70f390/en-US)
-  * #level_300 
-  * #Aurora #SQL #Containers #CI/CD #.NET #ECS #Docker #CodeBuild #AWS #CDK
+We could test the whole system passing that object to our api,
 
-* [Data lake for Astronomy FITS Data](https://catalog.us-east-1.prod.workshops.aws/workshops/697be460-9224-4b82-99e2-5103b900ed4e/en-US)
-  * #level_400 
-  * #Data_Lake #Research #AWS #CDK
+```aws
+{
+    "User" : "theuser@amazon.com",
+    "Client" : "13522bac-89fb-4f14-ac37-92642eec2b06",
+    "Timestamp" : "2021-02-01T18:42:35.903Z",
+    "Order" : {
+        "Symbol" : "USDJPY",
+        "Volume" : 200000,
+        "Price" : 104.987
+    }
+}
+```
 
+### [Create Your First DynamoDB Table](https://catalog.us-east-1.prod.workshops.aws/workshops/3ae476e4-e66d-4e78-b22f-6190c79ddee2/en-US/aws-services/dynamodb/my-first-table/) _#level\_100_
 
+In this lab we will experiment with Amazon DynamoDB, creating a lambda to put item in it.
+
+We could test the resources passing that object to our lambda, in the AWS console o by the debugger.
+
+```event
+{
+  "Id": "PRD01",
+  "Description": "UNICORN GENERATOR",
+  "LatestStockUpdate": "2019-10-22T22:15:34Z",
+  "Suppliers": [
+    "S045",
+    "S4456",
+    "ACME126"
+  ]
+}
+```
+
+### [Build Your First Microservice (NodeJS)](https://catalog.us-east-1.prod.workshops.aws/workshops/3ae476e4-e66d-4e78-b22f-6190c79ddee2/en-US/architecture-samples/full-microservice/) _#level\_200_
+
+In this lab we will create a full microservice, by using a database (Amazon DynamoDB), a computing service (AWS Lambda), and an API service to expose the service to users and other microservices. Once all the resources are deployed, it is necessary to run the [SL06-dynamoScript.ts file](AWS/alien-attack/short-labs/src/SL06-dynamoScript.ts) to add the data to the created dynamoDB table.
+
+We could test the resources running the next command on our console to reach our api.
+
+```terminal
+curl --verbose --header "x-api-key: <put your API key here>" https://<API URL>?sessionId=TheTestSession
+```
