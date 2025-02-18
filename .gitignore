@@ -2,3 +2,5 @@
 .env
 cdk.out
 env.sh
+routeTree.gen.ts
+**/dist/**

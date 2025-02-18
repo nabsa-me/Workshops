@@ -8,13 +8,18 @@
     "build": "vite build",
     "preview": "vite preview",
     "dev": "vite",
-    "api":"cd api/public && npm start"
+    "api": "cd api/public && npm start"
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.59.13",
+    "@tanstack/react-router": "^1.65.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
+    "@tanstack/react-query-devtools": "^5.59.13",
+    "@tanstack/router-devtools": "^1.65.0",
+    "@tanstack/router-plugin": "^1.65.0",
     "@vitejs/plugin-react": "^4.3.1",
     "vite": "^5.4.2"
   }

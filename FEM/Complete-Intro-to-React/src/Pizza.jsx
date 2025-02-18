@@ -1,6 +1,4 @@
-import React from 'react'
-
-export const Pizza = (props) => {
+const Pizza = (props) => {
   return (
     <div className='pizza'>
       <h1>{props.name}</h1>
@@ -9,3 +7,5 @@ export const Pizza = (props) => {
     </div>
   )
 }
+
+export default Pizza
