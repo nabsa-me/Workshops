@@ -1,3 +1,3 @@
 # Table of contents
 
-* [ALIEN ATTACK SHORT LABS](README.md)
+* [AWS WORKSHOPS](README.md)

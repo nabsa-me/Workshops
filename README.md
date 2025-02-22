@@ -1,11 +1,6 @@
----
-icon: aws
-cover: >-
-  https://images.unsplash.com/photo-1557899563-1940fc95709c?crop=entropy&cs=srgb&fm=jpg&ixid=M3wxOTcwMjR8MHwxfHNlYXJjaHw4fHxhbWF6b258ZW58MHx8fHwxNzM5ODAzMjc2fDA&ixlib=rb-4.0.3&q=85
-coverY: 0
----
+# AWS WORKSHOPS
 
-# ALIEN ATTACK SHORT LABS
+## ALIEN ATTACK SHORT LABS
 
 ### [Build a Parameter Store API with API Gateway](https://catalog.us-east-1.prod.workshops.aws/workshops/3ae476e4-e66d-4e78-b22f-6190c79ddee2/en-US/aws-services/api-gateway/systems-manager-integration/) _#level\_100_
 
