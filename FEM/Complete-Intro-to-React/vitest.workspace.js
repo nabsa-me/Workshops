@@ -6,6 +6,7 @@ export default defineWorkspace([
     test: {
       include: ['**/*.node.test.{js,jsx}'],
       name: 'happy-dom',
+      coverage: { provider: 'istanbul', reporter: ['text', 'json', 'html'] },
       environment: 'happy-dom'
     }
   },
