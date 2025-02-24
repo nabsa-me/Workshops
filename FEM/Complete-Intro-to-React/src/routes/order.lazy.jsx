@@ -3,18 +3,13 @@ import { createLazyFileRoute } from '@tanstack/react-router'
 import { CartContext } from '../contexts'
 import Cart from '../Cart'
 import Pizza from '../Pizza'
-
-// feel free to change en-US / USD to your locale
-const intl = new Intl.NumberFormat('en-US', {
-  style: 'currency',
-  currency: 'USD'
-})
+import { priceConverter } from '../useCurrency'
 
 export const Route = createLazyFileRoute('/order')({
   component: Order
 })
 
-function Order() {
+export default function Order() {
   const [pizzaType, setPizzaType] = useState('pepperoni')
   const [pizzaSize, setPizzaSize] = useState('M')
   const [pizzaTypes, setPizzaTypes] = useState([])
@@ -26,12 +21,8 @@ function Order() {
 
     await fetch('/api/order', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        cart
-      })
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ cart })
     })
 
     setCart([])
@@ -41,7 +32,7 @@ function Order() {
   let price, selectedPizza
   if (!loading) {
     selectedPizza = pizzaTypes.find((pizza) => pizzaType === pizza.id)
-    price = intl.format(selectedPizza.sizes ? selectedPizza.sizes[pizzaSize] : '')
+    price = priceConverter(selectedPizza.sizes ? selectedPizza.sizes[pizzaSize] : '')
   }
 
   useEffect(() => {
@@ -120,7 +111,7 @@ function Order() {
           ) : (
             <div className='order-pizza'>
               <Pizza name={selectedPizza.name} description={selectedPizza.description} image={selectedPizza.image} />
-              <p>{price}</p>
+              <p title='price'>{price}</p>
             </div>
           )}
         </form>

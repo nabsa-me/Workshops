@@ -1,51 +1,47 @@
-import { Suspense, useState, use } from 'react'
+import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { createLazyFileRoute } from '@tanstack/react-router'
 import getPastOrders from '../api/getPastOrders'
 import getPastOrder from '../api/getPastOrder'
 import Modal from '../Modal'
 import ErrorBoundary from '../ErrorBoundary'
+import { priceConverter } from '../useCurrency'
 
 export const Route = createLazyFileRoute('/past')({
   component: ErrorBoundaryWrappedPastOrderRoutes
 })
 
-const intl = new Intl.NumberFormat('en-US', {
-  style: 'currency',
-  currency: 'USD'
-})
-
 function ErrorBoundaryWrappedPastOrderRoutes() {
-  const [page, setPage] = useState(1)
-  const loadedPromise = useQuery({
-    queryKey: ['past-orders', page],
-    queryFn: () => getPastOrders(page),
-    staleTime: 30000
-  }).promise
   return (
     <ErrorBoundary>
-      <Suspense
-        fallback={
-          <div className='past-orders'>
-            <h2>Loading Past Orders …</h2>
-          </div>
-        }
-      >
-        <PastOrdersRoute loadedPromise={loadedPromise} page={page} setPage={setPage} />
-      </Suspense>
+      <PastOrdersRoute />
     </ErrorBoundary>
   )
 }
 
-function PastOrdersRoute({ loadedPromise, page, setPage }) {
-  const data = use(loadedPromise)
+function PastOrdersRoute() {
+  const [page, setPage] = useState(1)
   const [focusedOrder, setFocusedOrder] = useState()
+  const { isLoading, data } = useQuery({
+    queryKey: ['past-orders', page],
+    queryFn: () => getPastOrders(page),
+    staleTime: 30000
+  })
+
   const { isLoading: isLoadingPastOrder, data: pastOrderData } = useQuery({
     queryKey: ['past-order', focusedOrder],
     queryFn: () => getPastOrder(focusedOrder),
     enabled: !!focusedOrder,
     staleTime: 24 * 60 * 60 * 1000 // one day in milliseconds,
   })
+
+  if (isLoading) {
+    return (
+      <div className='past-orders'>
+        <h2>LOADING …</h2>
+      </div>
+    )
+  }
 
   return (
     <div className='past-orders'>
@@ -61,7 +57,9 @@ function PastOrdersRoute({ loadedPromise, page, setPage }) {
           {data.map((order) => (
             <tr key={order.order_id}>
               <td>
-                <button onClick={() => setFocusedOrder(order.order_id)}>{order.order_id}</button>
+                <button title='order' onClick={() => setFocusedOrder(order.order_id)}>
+                  {order.order_id}
+                </button>
               </td>
               <td>{order.date}</td>
               <td>{order.time}</td>
@@ -102,8 +100,8 @@ function PastOrdersRoute({ loadedPromise, page, setPage }) {
                     <td>{pizza.name}</td>
                     <td>{pizza.size}</td>
                     <td>{pizza.quantity}</td>
-                    <td>{intl.format(pizza.price)}</td>
-                    <td>{intl.format(pizza.total)}</td>
+                    <td title='price'>{priceConverter(pizza.price)}</td>
+                    <td title='total'>{priceConverter(pizza.total)}</td>
                   </tr>
                 ))}
               </tbody>
