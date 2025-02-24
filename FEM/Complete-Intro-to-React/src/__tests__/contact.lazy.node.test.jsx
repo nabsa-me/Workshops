@@ -9,7 +9,7 @@ const queryClient = new QueryClient({})
 const fetchMocker = createFetchMock(vi)
 fetchMocker.enableMocks()
 
-test('can submit contact form', async () => {
+test.only('can submit contact form', async () => {
   fetchMocker.mockResponse(JSON.stringify({ status: 'ok' }))
   const screen = render(
     <QueryClientProvider client={queryClient}>
