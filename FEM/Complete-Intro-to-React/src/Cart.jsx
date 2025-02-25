@@ -11,15 +11,25 @@ export default function Cart({ cart, checkout }) {
       <h2>Cart</h2>
       <ul>
         {cart.map((item, index) => (
-          <li key={index}>
-            <span className='size'>{item.size}</span> {'–'}
-            <span className='type'>{item.pizza.name}</span> {'–'}
-            <span className='price'>{item.price}</span>
+          <li title='item' key={index}>
+            <span title='item-size' className='size'>
+              {item.size}
+            </span>{' '}
+            {'–'}
+            <span title='item-type' className='type'>
+              {item.pizza.name}
+            </span>{' '}
+            {'–'}
+            <span title='item-price' className='price'>
+              {item.price}
+            </span>
           </li>
         ))}
       </ul>
       <p title='total'>Total: {priceConverter(total)}</p>
-      <button onClick={checkout}>Checkout</button>
+      <button type='button' onClick={checkout}>
+        Checkout
+      </button>
     </div>
   )
 }

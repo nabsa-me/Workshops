@@ -92,7 +92,7 @@ const testCart = [
       }
     },
     size: 'L',
-    price: '$15.25'
+    price: '$12.50'
   }
 ]
 
