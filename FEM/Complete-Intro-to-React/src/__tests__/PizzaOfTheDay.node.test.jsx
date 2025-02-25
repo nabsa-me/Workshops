@@ -6,7 +6,15 @@ import { usePizzaOfTheDay } from '../usePizzaOfTheDay'
 
 afterEach(cleanup)
 
-test.skip('If there is no pizza, show Loading...', () => {})
+test('If there is no pizza, show Loading...', async () => {
+  vi.mock('../usePizzaOfTheDay', () => ({
+    usePizzaOfTheDay: vi.fn()
+  }))
+  usePizzaOfTheDay.mockReturnValue(null)
+  const screen = render(<PizzaOfTheDay />)
+  const loading = await screen.findByTitle('loading')
+  expect(loading.innerText).toBe('Loading...')
+})
 
 describe('Pizza of the day is loaded and...', () => {
   test('Render title', async () => {
@@ -35,6 +43,4 @@ describe('Pizza of the day is loaded and...', () => {
     expect(description.innerText).toBe(testPizzaOfTheDay.description)
     expect(price.innerText).toBe(`From: $${testPizzaOfTheDay.sizes.S}`)
   })
-
-  test.skip('Run checkout button')
 })
