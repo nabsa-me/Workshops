@@ -21,7 +21,7 @@ const queryClient = new QueryClient({
 const fetchMocker = createFetchMock(vi)
 fetchMocker.enableMocks()
 
-test('', async () => {
+test('Click in a order and show modal', async () => {
   const modal = document.createElement('div')
   modal.id = 'modal'
   document.querySelector('body').appendChild(modal)
