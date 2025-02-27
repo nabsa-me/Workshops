@@ -1,0 +1,18 @@
+{
+  "name": "aws",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.613.0",
+    "@aws-sdk/client-ssm": "^3.598.0",
+    "@aws-sdk/lib-dynamodb": "^3.613.0",
+    "@types/aws-lambda": "^8.10.138",
+    "aws-cdk-lib": "2.138.0",
+    "aws-jwt-verify": "^4.0.1",
+    "aws-sdk": "^2.1676.0",
+    "constructs": "^10.3.0",
+    "dotenv": "^16.4.5",
+    "esbuild": "^0.20.2",
+    "yaml": "^2.5.0"
+  }
+}

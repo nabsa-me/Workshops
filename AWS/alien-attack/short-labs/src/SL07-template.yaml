@@ -1,0 +1,34 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: >-
+  cognito-group-authorizer
+Transform:
+- AWS::Serverless-2016-10-31
+Resources:
+  WS-AlienAttack-Lab07-LambdaAuthorizer:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: AWS/alien-attack/short-labs/src/SL07-lambdaAuth.handler
+      Runtime: nodejs16.x
+      Architectures:
+        - x86_64
+      MemorySize: 128
+      Timeout: 100
+      Description: This Lambda function acts as a Cognito Authorizer
+      Environment:
+        Variables:
+          USERPOOL_ID : '#USERPOOL_ID#'
+          CLIENT_ID : '#CLIENT_ID#'
+      Policies:
+        - AWSLambdaBasicExecutionRole
+        - Statement:
+          - Sid: IAMPermissions
+            Effect: Allow
+            Action:
+              - iam:SimulatePrincipalPolicy
+            Resource: '*'
+          - Sid: CognitoPermissions
+            Effect: Allow
+            Action:
+              - cognito-idp:GetGroup
+              - cognito-idp:GetUser
+            Resource: 'arn:aws:cognito-idp:#REGION#:#ACCOUNT_ID#:userpool/#USERPOOL_ID#'
