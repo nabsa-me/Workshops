@@ -10,6 +10,11 @@ const Modal = lazy(() => import('./Modal'))
 
 const Details = () => {
   const { id } = useParams()
+
+  if (!id) {
+    throw new Error('why did you give me an Id??')
+  }
+
   const [showModal, setShowModal] = useState(false)
   const navigate = useNavigate()
   const results = useQuery(['details', id], fetchPet)
@@ -24,7 +29,10 @@ const Details = () => {
     )
   }
 
-  const pet = results.data.pets[0]
+  const pet = results?.data?.pets[0]
+  if (!pet) {
+    throw new Error('no pet lol')
+  }
 
   return (
     <div className='details'>
@@ -57,10 +65,10 @@ const Details = () => {
   )
 }
 
-export default function DetailsErrorBoundary(props) {
+export default function DetailsErrorBoundary() {
   return (
     <ErrorBoundary>
-      <Details {...props} />
+      <Details />
     </ErrorBoundary>
   )
 }
