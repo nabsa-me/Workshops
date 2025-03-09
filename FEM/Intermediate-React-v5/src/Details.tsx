@@ -1,10 +1,10 @@
 import { useNavigate, useParams } from 'react-router-dom'
-import { useQuery } from '@tanstack/react-query'
-import { lazy, useContext, useState } from 'react'
-import AdoptedPetContext from './AdoptedPetContext'
+import { lazy, useState } from 'react'
 import ErrorBoundary from './ErrorBoundary'
-import fetchPet from './fetchPet'
 import Carousel from './Carousel'
+import { useDispatch } from 'react-redux'
+import { adopt } from './AdoptedPetSlice'
+import { useGetPetQuery } from './petAPIService'
 
 const Modal = lazy(() => import('./Modal'))
 
@@ -17,11 +17,10 @@ const Details = () => {
 
   const [showModal, setShowModal] = useState(false)
   const navigate = useNavigate()
-  const results = useQuery(['details', id], fetchPet)
-  // eslint-disable-next-line
-  const [_, setAdoptedPet] = useContext(AdoptedPetContext)
+  const { isLoading, data: pet } = useGetPetQuery(id)
+  const dispatch = useDispatch()
 
-  if (results.isLoading) {
+  if (isLoading) {
     return (
       <div className='loading-pane'>
         <h2 className='loader'>🌀</h2>
@@ -29,7 +28,6 @@ const Details = () => {
     )
   }
 
-  const pet = results?.data?.pets[0]
   if (!pet) {
     throw new Error('no pet lol')
   }
@@ -49,7 +47,7 @@ const Details = () => {
               <div className='buttons'>
                 <button
                   onClick={() => {
-                    setAdoptedPet(pet)
+                    dispatch(adopt(pet))
                     navigate('/')
                   }}
                 >

@@ -1,26 +1,31 @@
-import { useContext, useState, useDeferredValue, useMemo, useTransition } from 'react'
-import { useQuery } from '@tanstack/react-query'
+import { useState, useDeferredValue, useMemo, useTransition } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { useSearchQuery } from './petAPIService'
 import Results from './Results'
-import AdoptedPetContext from './AdoptedPetContext'
 import useBreedList from './useBreedList'
-import fetchSearch from './fetchSearch'
-import { Animal } from './APIResponsesTypes'
+import { Animal, Pet } from './APIResponsesTypes'
+import { all } from './SearchParamsSlice'
+
 const ANIMALS: Animal[] = ['bird', 'cat', 'dog', 'rabbit', 'reptile']
 
+interface States {
+  adoptedPet: { value: Pet }
+  searchParams: {
+    value: { animal: Animal; breed: string; location: string }
+  }
+}
+
 const SearchParams = () => {
-  const [requestParams, setRequestParams] = useState({
-    location: '',
-    animal: '' as Animal,
-    breed: ''
-  })
-  const [adoptedPet] = useContext(AdoptedPetContext)
+  const adoptedPet = useSelector((state: States) => state.adoptedPet?.value)
+  const searchParams = useSelector((state: States) => state.searchParams?.value)
+
   const [animal, setAnimal] = useState('' as Animal)
   const [breeds] = useBreedList(animal)
+  const dispatch = useDispatch()
   const [isPending, startTransition] = useTransition()
 
-  const results = useQuery(['search', requestParams], fetchSearch)
-  const pets = results?.data?.pets ?? []
-  const deferredPets = useDeferredValue(pets)
+  const { data: pets } = useSearchQuery(searchParams)
+  const deferredPets = useDeferredValue((pets as Pet[]) ?? [])
   const renderedPets = useMemo(() => <Results pets={deferredPets} />, [deferredPets])
 
   return (
@@ -36,7 +41,7 @@ const SearchParams = () => {
             location: formData.get('location')?.toString() ?? ''
           }
           startTransition(() => {
-            setRequestParams(obj)
+            dispatch(all(obj))
           })
         }}
       >
@@ -76,11 +81,12 @@ const SearchParams = () => {
           Breed
           <select disabled={!breeds.length} id='breed' name='breed' className='w-60 mb-5 block disabled:opacity-50'>
             <option />
-            {breeds.map((breed) => (
-              <option key={breed} value={breed}>
-                {breed}
-              </option>
-            ))}
+            {Array.isArray(breeds) &&
+              breeds.map((breed) => (
+                <option key={breed} value={breed}>
+                  {breed}
+                </option>
+              ))}
           </select>
         </label>
         {isPending ? (

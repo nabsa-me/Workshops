@@ -1,5 +1,4 @@
-// eslint-disable-next-line import/named
-import { QueryFunction } from '@tanstack/react-query'
+import { QueryFunction } from '@tanstack/query-core/build/lib'
 import { Animal, BreedListAPIResponse } from './APIResponsesTypes'
 
 const fetchBreedList: QueryFunction<BreedListAPIResponse, ['breeds', Animal]> = async ({ queryKey }) => {
