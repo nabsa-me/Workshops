@@ -1,0 +1,37 @@
+// Vitest Snapshot v1
+
+exports[`render correct with no pets 1`] = `
+<DocumentFragment>
+  <div
+    class="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
+  >
+    <h1>
+      No pets found
+    </h1>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`render correct with no pets 2`] = `
+<DocumentFragment>
+  <div
+    class="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
+  >
+    <h1>
+      No pets found
+    </h1>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`render correct with some pets 1`] = `
+<DocumentFragment>
+  <div
+    class="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
+  >
+    <h1>
+      No pets found
+    </h1>
+  </div>
+</DocumentFragment>
+`;
