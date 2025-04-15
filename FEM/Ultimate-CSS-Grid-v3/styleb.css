@@ -1,0 +1,59 @@
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(3, auto);
+  gap: 2rem;
+}
+figure {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  align-items: center;
+}
+figure:nth-child(3) {
+  grid-column: 1;
+  grid-row: 1 / span 3;
+  display: block;
+}
+figure:last-child {
+  grid-column: 1 / span 2;
+}
+
+/* extremely basic formatting */
+body {
+  font-family: "Libre Franklin", sans-serif;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+img {
+  max-width: 100%;
+}
+figure {
+  margin: 0;
+  padding: 0;
+}
+@media (max-width: 750px) {
+  .grid-container {
+    grid-template-columns: 1fr;
+  }
+  figure:nth-child(3) {
+    grid-column: auto;
+    grid-row: auto;
+    display: grid;
+  }
+  figure:last-child {
+    grid-column: auto;
+  }
+}
+@media (max-width: 500px) {
+  .grid-container {
+    display: block;
+  }
+  figure,
+  figure:nth-child(3) {
+    display: block;
+  }
+  figcaption {
+    margin-bottom: 2rem;
+  }
+}
