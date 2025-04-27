@@ -1,23 +1,41 @@
-img {
-  max-width: 100%;
-}
-.pluto {
+.container {
   display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: auto;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 2rem;
 }
-img:first-child, img:last-child {
-  grid-column: 1/2;
-  grid-row: 1/2;
+.container > * {
+  padding: 1rem;
+  margin: 1rem;
 }
-img:last-child {
-    animation: pluto-fade 3s infinite alternate;
+
+/* extremely basic formatting */
+html {
+  box-sizing: border-box;
 }
-@keyframes pluto-fade { 
-  from { 
-    opacity: 0; 
-  } 
-  to {
-    opacity: 1;
-  }
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+body {
+  font-family: "Libre Franklin", sans-serif;
+  font-size: 1.5rem;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
+}
+.one,
+.four {
+  border: 2px solid #26547c;
+  background-color: #26547c33;
+}
+.two,
+.five {
+  border: 2px solid #ef476f;
+  background-color: #ef476f33;
+}
+.three,
+.six {
+  border: 2px solid #ffd166;
+  background-color: #ffd16633;
 }
