@@ -1,11 +1,11 @@
 .container {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 2rem;
 }
 .container > * {
   padding: 1rem;
-  margin: 1rem;
+  margin: 0;
 }
 
 /* extremely basic formatting */
@@ -13,8 +13,8 @@ html {
   box-sizing: border-box;
 }
 *,
-*:before,
-*:after {
+*::before,
+*::after {
   box-sizing: inherit;
 }
 body {
