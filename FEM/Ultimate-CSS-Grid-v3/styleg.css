@@ -1,0 +1,26 @@
+
+
+
+
+/* default styling, no changes needed here, even with responsive design */
+
+/* set the layout to border box model */
+html {
+  box-sizing: border-box;
+}
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+/* set font family and background gradient */
+body {
+  font-family: "Libre Franklin", sans-serif;
+  line-height: 1.5;
+}
+img {
+  max-width: 100%;
+}
+
+
+
