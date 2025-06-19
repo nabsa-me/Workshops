@@ -1,0 +1,166 @@
+/* this controls the individual card layouts only, not their location on the page */
+.card {
+  container-name: card;
+  container-type: inline-size;
+}
+@container card (min-width: 100px) {
+  article {
+    padding: 3rem 1rem;
+    display: grid;
+    gap: 1rem;
+  }
+  article > * {
+    margin: 0;
+  }
+  .text {
+    display: none;
+  }
+}
+@container card (min-width: 250px) {
+  article {
+    grid-template-columns: 2fr 1fr;
+  }
+  article img {
+    grid-column: 2/3;
+    grid-row: 1/2;
+  }
+  .link {
+    grid-column: 1/3;
+  }
+}
+@container card (min-width: 500px) {
+  .text {
+    display: block;
+    grid-column: 1/2;
+  }
+  article img {
+    grid-row: 1/4;
+  }
+}
+@container card (min-width: 550px) {
+  article {
+    grid-template-columns: 1fr;
+  }
+  article img,
+  article h2,
+  article .text,
+  article .link {
+    grid-column: auto;
+    grid-row: auto;
+  }
+}
+
+/* featured card has different behavior */
+.featured {
+  container-name: featured;
+  container-type: inline-size;
+}
+@container featured (min-width: 200px) {
+  article {
+    padding: 3rem 1rem;
+    display: grid;
+    gap: 1rem;
+  }
+  article > * {
+    margin: 0;
+  }
+}
+
+/* this controls where the cards appear on the page */
+
+@media (min-width: 200px) {
+  .card .text {
+    display: block;
+  }
+  .card {
+    border-top: 1px solid #ccc;
+  }
+}
+@media (min-width: 500px) {
+  .photo-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .featured {
+    grid-column: 1/3;
+  }
+  .card:nth-child(2),
+  .card:nth-child(4) {
+    border-right: 1px solid #ccc;
+  }
+}
+@media (min-width: 750px) {
+    .photo-cards {
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(3, auto);
+    border-top: 1px solid #ccc;
+  }
+    .featured {
+    grid-column: 1/4;
+    grid-row: 1/3;
+    border-right: 1px solid #ccc;
+  }
+  .card:nth-child(4), .card:nth-child(5) {
+    grid-column: span 2;
+  }
+  .card:nth-child(2) .text, .card:nth-child(3) .text {
+    display: none;
+  }
+}
+@media (min-width: 1015px) {
+  .featured {
+    grid-column: 1/3;
+    grid-row: 1/3;
+  }
+  .card:nth-child(2),
+  .card:nth-child(3),
+  .card:nth-child(4),
+  .card:nth-child(5) {
+    grid-column: auto;
+    grid-row: auto;
+  }
+  .card .text {
+    display: none;
+  }
+  .photo-cards {
+    border-bottom: 1px solid #ccc;
+  }
+}
+
+/* extremely basic formatting */
+html {
+  box-sizing: border-box;
+}
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+body {
+  font-family: "Libre Franklin", sans-serif;
+  font-size: 1rem;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
+}
+img {
+  max-width: 100%;
+  border-radius: 5px;
+}
+.button {
+  background-color: #2d697c;
+  padding: 0.5rem;
+  border-radius: 5px;
+  color: white;
+  text-decoration: none;
+  font-size: 0.8rem;
+}
+.button:hover {
+  background-color: #327c94;
+}
+a {
+  color: #2d697c;
+}
+a:hover {
+  text-decoration: none;
+}

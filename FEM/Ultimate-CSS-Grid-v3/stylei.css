@@ -1,0 +1,92 @@
+.color-test {
+  --dark-theme: false;
+  container-type: style;
+}
+@container style(--dark-theme: true) {
+  .color-container { 
+    background-color: black;
+    color: white;
+  }
+}
+/* media queries removed to make the example simpler */
+.color-container {
+  padding: 1rem;
+}
+.card-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+.card {
+  --feature: false;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto;
+  gap: 1rem;
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+.card > * {
+  margin: 0;
+}
+.card p {
+  grid-column: 1/3;
+  font-size: 0.7rem;
+}
+.card h2 {
+  font-size: 1.2rem;
+}
+.card:first-child {
+  --feature: true;
+    grid-column: 1/4;
+    grid-row: 1/3;
+}
+
+@container style(--feature: true) {
+  .card img {
+    grid-column: 1/3;
+    grid-row: 2/3;
+  }
+  .card p {
+    font-size: 1rem;
+  }
+}
+
+/* extremely basic formatting */
+html {
+  box-sizing: border-box;
+}
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+body {
+  font-family: "Libre Franklin", sans-serif;
+  font-size: 1rem;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
+}
+img {
+  max-width: 100%;
+  border-radius: 5px;
+}
+.button {
+  background-color: #2d697c;
+  padding: 0.5rem;
+  border-radius: 5px;
+  color: white;
+  text-decoration: none;
+  font-size: 0.8rem;
+}
+.button:hover {
+  background-color: #327c94;
+}
+h1 {
+  max-width: 1200px;
+  margin: 3rem auto 2rem auto;
+}
