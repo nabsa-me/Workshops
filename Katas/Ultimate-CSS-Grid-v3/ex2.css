@@ -1,0 +1,86 @@
+  html {
+    box-sizing: border-box;
+  }
+  *,
+  *:before,
+  *:after {
+    box-sizing: inherit;
+    margin:0;
+    padding:0;
+    transition:cubic-bezier(0.175, 0.885, 0.32, 1.275)
+  }
+  body {
+    font-family: "Libre Franklin", sans-serif;
+    font-size: 1rem;
+  }
+  
+  .container{
+    display: grid;
+    height: 100vh;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+
+  }
+
+  /* EXERCISE 1 */
+  .ex1 {
+    display: flex;
+    border: 3px solid lime;
+    container-type: inline-size;
+    container-name: ex1;
+  }
+
+  @container ex1 (max-width: 200px) {
+    .ex1 > * {
+      background-image: linear-gradient(to right in oklch, red, blue);
+      width: 100%;
+      &:last-child{
+        background-image: linear-gradient(to right in srgb, red, blue);
+      }
+
+    }
+  }
+
+  /* EXERCISE 2 */
+  .variant1 {
+    --variant: 1;
+  }
+  .variant2 {
+    --variant: 3;
+  }
+  .ex2 {
+    display: flex;
+    flex-direction: column;
+  }
+
+  @container style(--variant: 1) {
+    .ex2 > * {
+      background-color: red;
+    }
+  }
+  @container style(--variant: 2) {
+    .ex2 > * {
+      background-color: blue;
+    }
+  }
+  @container style(--variant: 3) {
+    div > * {
+      height: 100%;
+      background-color: color-mix(in oklch, purple, black 30%);
+      &:nth-child(2){
+        background-color: purple;
+      }
+      &:last-child{
+        background-color: color-mix(in oklch, purple, white 30%);
+      }
+    }
+  }
+
+  /* EXERCISE 3 */
+  .ex3:has(p){
+    background-color: blue;
+  }
+
+  /* EXERCISE 4 */
+  
+ 
