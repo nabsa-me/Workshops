@@ -13,12 +13,11 @@
     font-family: "Libre Franklin", sans-serif;
     font-size: 1rem;
   }
-  
   .container{
     display: grid;
     height: 100vh;
-    grid-template-rows: 1fr 1fr 1fr 1fr;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: repeat(4, 1fr);
 
   }
 
@@ -29,7 +28,6 @@
     container-type: inline-size;
     container-name: ex1;
   }
-
   @container ex1 (max-width: 200px) {
     .ex1 > * {
       background-image: linear-gradient(to right in oklch, red, blue);
@@ -52,7 +50,6 @@
     display: flex;
     flex-direction: column;
   }
-
   @container style(--variant: 1) {
     .ex2 > * {
       background-color: red;
@@ -82,5 +79,113 @@
   }
 
   /* EXERCISE 4 */
-  
- 
+  .ex4{
+    margin:1rem;
+    .first {
+      background-color: sandybrown;
+    }
+    > .second {
+      background-color: lightblue;
+    }
+    > * .second {
+      background-color: blue;
+    }
+    .nest > * {
+      color: white;
+    }
+  }
+
+  /* EXERCISE 5 */
+  .container-ex5 {
+    container-type: inline-size;
+    container-name: ex5;
+  }
+  .ex5 {
+    background-color: yellow;
+    display: grid;
+    grid-template-areas: 
+      "a c"
+      "b b"
+      "b b";
+    gap: 1em;
+    height: 100%;
+  }
+  .child5 {
+    grid-area: b;
+    border: solid 2px black;
+    border-radius: 5px;
+    margin: 5px;
+  }
+  @container ex5 (max-width: 200px) {
+    .ex5 {
+      grid-template-areas: 
+      "a c"
+      "b b";
+      background-color: green;
+      gap: 5px;
+    }
+    .child5 {
+      grid-area: c;
+    }
+  }
+
+  /* EXERCISE 6 */
+  .ex6{ 
+    display: flex;
+    justify-content: center;
+    grid-column: 2 / 4;
+    div {
+      border-radius: 5px;
+      padding: 1rem;
+    }
+  }
+  .element {
+    anchor-name: --anchor;
+    background-color: goldenrod;
+    color: white;
+    align-self: center;
+  }
+    [class*="tooltip"] {
+    background-color: tomato;
+    position: absolute;
+  }
+  .tooltip-1 {
+    bottom: anchor(--anchor top);
+    left: anchor(--anchor center);
+    translate: -50px -10px;
+    &::after {
+      content: "";
+      border-top: 10px solid red;
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      top: 100%;
+      left: 50%;
+      position: absolute;
+  }}
+  .tooltip-2 {
+    left: anchor(--anchor right);
+    top: anchor(--anchor center);
+    translate: 10px -50%;
+    &::after {
+      content: "";
+      border-top: 10px solid transparent;
+      border-bottom: 10px solid transparent;
+      border-right: 10px solid red;
+      top: 50%;
+      left: 0;
+      position: absolute;
+      transform: translate(-100%, -50%);
+  }}
+
+  /* EXERCISE 7 */  
+  .grid-ex7{
+    display: grid;
+    grid-template-rows: repeat(3, 1fr);
+  }
+  .ex7 { 
+    display: grid;
+    grid-template-columns: repeat(3, 3fr);
+      @supports (grid-template-rows: subgrid) {
+        grid-template-rows: subgrid;
+      }
+    }
