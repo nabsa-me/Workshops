@@ -1,4 +1,5 @@
 # AWS WORKSHOPS AND LABS MONOREPO
+Targeted exercises to practice scoped service development while improving CDK stack implementation and foundational AWS service skills.
 
 ## ALIEN ATTACK SHORT LABS
 
