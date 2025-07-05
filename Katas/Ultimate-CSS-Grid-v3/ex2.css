@@ -15,8 +15,7 @@
   }
   .container{
     display: grid;
-    height: 100vh;
-    grid-template-rows: repeat(2, 1fr);
+    grid-auto-rows: 250px;
     grid-template-columns: repeat(4, 1fr);
 
   }
@@ -189,3 +188,185 @@
         grid-template-rows: subgrid;
       }
     }
+
+/* EXERCISE 8 */  
+  :root {
+    --body-bg: hsl(223, 88%, 10%);
+    --card-bg: hsl(223, 89%, 59%);
+    --br: 1rem;
+    --border-width: 1px;
+  }
+
+  .ex8{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--body-bg);
+    z-index: -100;
+    grid-area: 3/1/4/5;
+
+  }
+  .card {
+    font-size: 1rem;
+    font-weight: 700;
+    color: hsl(0 0% 90%);
+    width: 50%;
+    border-radius: var(--br);
+    position: relative;
+    padding: 1.5rem;
+  }
+
+  /* creating border by taking advantage
+    of the .card being the containing block */
+  .card-content::after {
+    content: "";
+    position: absolute;
+    inset: calc(var(--border-width) * -1);
+    z-index: -1;
+    background: linear-gradient(
+        to top left,
+        var(--card-bg),
+        transparent,
+        hsl(0 0% 90%)
+      )
+      border-box;
+    border-radius: calc(var(--br) + var(--border-width));
+    border: var(--border-width) solid transparent;
+    mask: linear-gradient(black, black) subtract,
+      linear-gradient(black, black) padding-box;
+  }
+
+  .card-content > * {
+    mix-blend-mode: overlay;
+  }
+
+  .card::before,
+  .card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+  }
+
+  .card::before {
+    z-index: -2;
+    background: hsl(0 0% 50% / 0.2);
+    backdrop-filter: blur(16px);
+    box-shadow: 0 0 1rem hsl(from var(--body-bg) h s l / 0.3);
+  }
+
+  .card::after {
+    z-index: -3;
+    background: var(--card-bg);
+    translate: -10% 20%;
+  }
+
+
+  /* EXERCISE 9 */ 
+.ex9{
+  grid-area: 4/1/6/5;
+  background-color: black;
+  color: white;
+  color-scheme: dark;
+}
+
+@property --glow-deg {
+  syntax: "<angle>";
+  inherits: true;
+  initial-value: -90deg;
+}
+
+/* the colors don't need to be registed */
+@property --clr-1 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: red;
+}
+
+@property --clr-2 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: yellow;
+}
+
+@property --clr-3 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: green;
+}
+
+@property --clr-4 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: blue;
+}
+
+@property --clr-5 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: purple;
+}
+
+.glowing-border {
+  --gradient-glow: var(--clr-1), var(--clr-2), var(--clr-3), var(--clr-4),
+    var(--clr-5), var(--clr-1);
+
+  margin-block: 3rem;
+  padding: 8rem 3rem;
+  max-width: 60ch;
+
+  border: var(--border-width, 3px) solid transparent;
+  border-left: 0;
+  border-radius: 0 100vw 100vw 0;
+  background: linear-gradient(var(--surface, canvas) 0 0) padding-box,
+    conic-gradient(from var(--glow-deg), var(--gradient-glow)) border-box;
+
+  position: relative;
+  isolation: isolate;
+
+  animation: glow 10s infinite linear;
+}
+
+@keyframes glow {
+  100% {
+    --glow-deg: 270deg;
+  }
+}
+
+.glowing-border::before,
+.glowing-border::after {
+  content: "";
+  position: absolute;
+  border-radius: inherit;
+}
+
+.glowing-border::before {
+  z-index: -1;
+  background: var(--surface, canvas);
+  inset: 0.5rem;
+  scale: 1.2 1;
+  transform-origin: right;
+  filter: blur(var(--glow-size, 1rem));
+}
+
+.glowing-border::after {
+  z-index: -2;
+  inset: -1.5rem;
+  background: conic-gradient(from var(--glow-deg), var(--gradient-glow));
+  filter: blur(var(--glow-size, 1rem));
+  opacity: var(--glow-intensity, 0.125);
+}
+
+.glowing-border.right {
+  margin-inline-start: auto;
+  border-radius: 100vw 0 0 100vw;
+  border: var(--border-width, 3px) solid transparent;
+  border-right: 0;
+
+  &::before {
+    transform-origin: left;
+  }
+}
+
+
+

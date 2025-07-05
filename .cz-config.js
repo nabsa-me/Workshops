@@ -9,8 +9,10 @@ module.exports = {
     { value: '✅ test', name: '✅ test: Adding or modifiying tests' },
     { value: '⚡ perf', name: '⚡ perf: Performance improvements' },
     { value: '🛡️ security', name: '🛡️ security: Improve security facts as login, tokens, cifer, etc.' },
+    { value: '🎥 lesson', name: '🎥 lesson: Add resources from some course video lesson' },
+    { value: '♠️ kata', name: '♠️ kata: Add a kata exercise to the monorepo'},
   ],
-  scopes: ['katas', 'fem', 'tutorial', 'tests','ci'],
+  scopes: ['fem', 'css','ci'],
   allowCustomScopes: true,
   subjectLimit: 100
 };
