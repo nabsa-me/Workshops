@@ -28,6 +28,10 @@ export const colors = {
   gr6: '#2c2400'
 }
 
+export const softTransition = '0.5s ease-in'
+export const quickTransition = '0.1s ease-in'
+export const metalTransition = '0.75s ease-in'
+
 export const metalGradient = `linear-gradient(
   135deg,
   ${colors.white} 0%,

@@ -7,7 +7,6 @@ export const GlobalStyles = () => (
         box-sizing: border-box;
         margin: 0;
         padding: 0;
-        z-index: 0;
       }
       *,
       *:before,
@@ -20,6 +19,15 @@ export const GlobalStyles = () => (
       #root {
         margin: 0;
         padding: 0;
+      }
+
+      .MuiTouchRipple-root {
+        display: none;
+      }
+      .MuiButtonBase-root:hover,
+      .MuiButtonBase-root.Mui-focusVisible {
+        background-color: transparent !important;
+        box-shadow: none;
       }
 
       @keyframes metal-animation-back {

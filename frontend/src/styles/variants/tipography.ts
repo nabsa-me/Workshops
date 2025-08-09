@@ -1,4 +1,11 @@
-import { logoGradient, metalGradient, plainGradient, titleFilter, titleShadow } from '../styles-constants'
+import {
+  logoGradient,
+  metalGradient,
+  metalTransition,
+  plainGradient,
+  titleFilter,
+  titleShadow
+} from '../styles-constants'
 
 const titleCommonProps = {
   fontFamily: "'Cinzel Decorative', serif",
@@ -11,18 +18,23 @@ const logoCommonProps = {
   background: logoGradient,
   textShadow: titleShadow,
   filter: titleFilter,
-  animation: 'metal-animation 0.75s ease-in',
-  ...titleCommonProps,
-  '&:hover': {
-    animation: 'metal-animation-back 0.75s ease-in'
-  }
+  animation: `metal-animation ${metalTransition}`,
+  ...titleCommonProps
 }
 
 export const typographyVariants = {
   fontFamily: "'Cinzel Decorative', 'Roboto', sans-serif",
   logo: {
-    fontSize: '8rem',
-    padding: '0rem 2rem',
+    fontSize: '1.5rem',
+    padding: '0 2rem 0 0',
+    '&:hover': {
+      cursor: 'pointer',
+      animation: `metal-animation-back ${metalTransition}`
+    },
+    '&:active': {
+      filter: 'saturate(100%) contrast(150%)',
+      animation: `metal-animation ${metalTransition}`
+    },
     ...logoCommonProps
   },
   hero: {
@@ -31,6 +43,9 @@ export const typographyVariants = {
       fontSize: '3.1rem'
     },
     padding: '0rem 0.5rem',
+    '&:hover': {
+      animation: `metal-animation-back ${metalTransition}`
+    },
     ...logoCommonProps
   },
   h1: {

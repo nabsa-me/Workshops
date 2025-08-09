@@ -16,14 +16,31 @@ declare module '@mui/material/Button' {
     CTA: true
   }
 }
+declare module '@mui/material/AppBar' {
+  interface AppBarPropsVariantOverrides {
+    glass: true
+  }
+}
+
+declare module '@mui/material/styles' {
+  interface BreakpointOverrides {
+    xxs: true
+    xs: true
+    sm: true
+    md: true
+    mdd: true
+    lg: true
+    xl: true
+  }
+}
 //#endregion
 
 const palette = {
   mode: 'dark' as const,
   primary: { main: colors.gold1 },
-  secondary: { main: colors.gold1 },
-  text: { primary: colors.grey1, secondary: colors.gold1 },
-  background: { default: 'transparent', paper: colors.black }
+  secondary: { main: colors.grey1 },
+  text: { primary: colors.grey1, secondary: colors.grey1 },
+  background: { default: 'transparent' }
 }
 
 export const theme = createTheme(
@@ -38,6 +55,7 @@ export const theme = createTheme(
           xs: 375,
           sm: 425,
           md: 600,
+          mdd: 768,
           lg: 1024,
           xl: 1440
         }
