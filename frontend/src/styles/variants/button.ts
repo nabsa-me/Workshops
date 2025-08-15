@@ -1,5 +1,5 @@
 import { CSSObject } from '@emotion/react'
-import { colors } from '../styles-constants'
+import { colors, metalTransition } from '../styles-constants'
 
 export const CTAButtonProps: CSSObject = {
   color: colors.grey1,
@@ -11,6 +11,7 @@ export const CTAButtonProps: CSSObject = {
   height: '2.8rem',
   width: '8.5rem',
   zIndex: 1,
+  transition: metalTransition,
   '&::after': {
     content: '""',
     position: 'absolute',
@@ -23,8 +24,8 @@ export const CTAButtonProps: CSSObject = {
     ${colors.gold3} 10%,
     ${colors.gr2} 40%,
     ${colors.gold4} 100%)`,
-    opacity: 0.5,
-    animation: 'shine 1s  ease-in'
+    opacity: 0.35,
+    animation: `shine-back ${metalTransition}`
   },
   '&::before': {
     content: '""',
@@ -33,7 +34,6 @@ export const CTAButtonProps: CSSObject = {
     height: '100%',
     borderRadius: '0.5rem',
     backgroundColor: colors.black,
-    opacity: 1.3,
     zIndex: -1
   },
   '&:hover': {
@@ -41,16 +41,16 @@ export const CTAButtonProps: CSSObject = {
     borderColor: colors.grey2,
     color: colors.white,
     '&::after': {
-      opacity: 0.3,
-      animation: 'shine-back 1s ease-in'
+      opacity: 0.5,
+      animation: `shine ${metalTransition}`
     }
   },
   '&:active': {
     boxShadow: `0 0 35px ${colors.gr3}, 0 0 18px ${colors.grey2}`,
     borderColor: colors.grey1,
     '&::after': {
-      opacity: 0.35,
-      animation: 'shine 1s ease-in'
+      opacity: 0.4,
+      animation: 'shine-back'
     }
   }
 }
