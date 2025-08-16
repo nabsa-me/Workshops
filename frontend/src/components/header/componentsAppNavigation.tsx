@@ -33,7 +33,7 @@ export const MenuTypography = styled((props: TypographyProps) => <Typography {..
 export function AppNavigationBar({
   children,
   height = '64px !important',
-  position = 'sticky',
+  position = 'fixed',
   top = 0,
   opacity = 1,
   zIndex = 10,

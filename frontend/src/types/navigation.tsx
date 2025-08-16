@@ -12,8 +12,8 @@ export type AppNavigationProps = {
 export interface NavigationBarProps {
   children: React.ReactNode
   height?: string
-  position?: 'absolute' | 'sticky'
-  justifyContent?: 'flex-end' | 'space-between' | 'flex-start'
+  position?: 'sticky' | 'fixed'
+  justifyContent?: 'flex-end' | 'space-between'
   top?: string | number
   opacity?: number
   zIndex?: number

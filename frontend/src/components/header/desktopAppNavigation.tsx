@@ -39,7 +39,6 @@ function DesktopSecondaryNavBar() {
 
   return (
     <AppNavigationBar
-      position='absolute'
       elevation={2}
       zIndex={5}
       height='50px !important'

@@ -106,7 +106,7 @@ export function MobileAppNavigation({ siteMap }: AppNavigationProps) {
   return (
     <NavContext.Provider value={{ siteMap, setActiveModalItems, activeModalItems }}>
       <MobileNavModal modaIsOpen={modaIsOpen} handleCloseModal={handleCloseModal} />
-      <AppNavigationBar>
+      <AppNavigationBar position='sticky'>
         <Typography variant='logo'>DrAkiA</Typography>
         <MenuDropDownIconButton
           onClick={() => handleCloseModal()}
