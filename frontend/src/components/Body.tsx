@@ -9,7 +9,7 @@ export const Body = () => {
         gap: '1rem',
         minWidth: '320px',
         maxWidth: '800px',
-        padding: { xxs: '5rem 2rem', md: '8rem 5rem' }
+        padding: { xxs: '5rem 2rem', md: '10rem 5rem 6rem 5rem' }
       }}
     >
       <Typography variant='hero'>Borderlands Quest:</Typography>
