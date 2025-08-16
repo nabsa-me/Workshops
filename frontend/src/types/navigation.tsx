@@ -1,30 +1,22 @@
-import { Dispatch, SetStateAction } from 'react'
+import { CSSProperties } from '@mui/material'
 
 export type SiteMap = {
   label: string
   items: string[]
 }
 
-export type NavModalProps = {
-  menuIsOpen: boolean
-  setMenuIsOpen: Dispatch<SetStateAction<boolean>>
-  isSmallScreen: boolean
-  setActiveItem: Dispatch<SetStateAction<string>>
+export type AppNavigationProps = {
+  siteMap: SiteMap[]
 }
 
-export type PrimaryNavBarProps = {
-  menuIsOpen: boolean
-  setMenuIsOpen: Dispatch<SetStateAction<boolean>>
-  isSmallScreen: boolean
-  setActiveItem: Dispatch<SetStateAction<string>>
-}
-
-export type SecondaryNavBarProps = {
-  activeItem: string
-}
-
-export type NavBarItemsProps = {
-  item: string
-  isSmallScreen: boolean
-  setActiveItem: Dispatch<SetStateAction<string>>
+export interface NavigationBarProps {
+  children: React.ReactNode
+  height?: string
+  position?: 'absolute' | 'sticky'
+  justifyContent?: 'flex-end' | 'space-between' | 'flex-start'
+  top?: string | number
+  opacity?: number
+  zIndex?: number
+  background?: CSSProperties['background'] | string
+  elevation?: number
 }

@@ -29,7 +29,7 @@ export const colors = {
 }
 
 export const softTransition = '0.5s ease-in'
-export const quickTransition = '0.1s ease-in'
+export const quickTransition = '0.25s ease-in'
 export const metalTransition = '0.75s ease-in'
 
 export const metalGradient = `linear-gradient(

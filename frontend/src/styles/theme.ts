@@ -1,7 +1,7 @@
 import { createTheme } from '@mui/material/styles'
 import { deepmerge } from '@mui/utils'
 import { colors } from './styles-constants'
-import { typographyVariants } from './variants/tipography'
+import { typographyVariants } from './variants/typography'
 import { CTAButtonProps } from './variants/button'
 
 //#region EXTENDED INTERFACES
