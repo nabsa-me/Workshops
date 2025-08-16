@@ -1,6 +1,6 @@
 import { AppBar, IconButton, IconButtonProps, styled, Toolbar, Typography, TypographyProps } from '@mui/material'
-import { colors, quickTransition, softTransition } from '../styles/styles-constants'
-import { NavigationBarProps } from '../types/navigation'
+import { colors, quickTransition, softTransition } from '../../styles/styles-constants'
+import { NavigationBarProps } from '../../types/navigation'
 
 export const MenuDropDownIconButton = styled((props: IconButtonProps) => <IconButton {...props} />)(() => ({
   color: colors.grey2,

@@ -1,8 +1,8 @@
 import { Box, Fade, List, ListItem, Typography } from '@mui/material'
-import { colors } from '../styles/styles-constants'
+import { colors } from '../../styles/styles-constants'
 import { useContext, useState } from 'react'
-import { AppNavigationProps, SiteMap } from '../types/navigation'
-import { NavContext } from '../context'
+import { AppNavigationProps, SiteMap } from '../../types/navigation'
+import { NavContext } from '../../context'
 import { AppNavigationBar, MenuTypography } from './componentsAppNavigation'
 
 function DesktopSubMenuItems({ item }: { item: string }) {

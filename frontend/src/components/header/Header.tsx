@@ -1,8 +1,8 @@
 import { useContext } from 'react'
-import { DesktopAppNavigation } from './components/desktopAppNavigation'
-import { Context } from './context'
-import { SiteMap } from './types/navigation'
-import { MobileAppNavigation } from './components/mobileAppNavigation'
+import { SiteMap } from '../../types/navigation'
+import { DesktopAppNavigation } from './desktopAppNavigation'
+import { Context } from '../../context'
+import { MobileAppNavigation } from './mobileAppNavigation'
 
 const siteMap: SiteMap[] = [
   { label: 'Tools', items: ['Loots', 'Character', 'Encounter', 'Homebrew', 'Glossary'] },

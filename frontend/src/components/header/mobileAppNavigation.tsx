@@ -1,10 +1,10 @@
 import { Collapse, Fade, List, ListItem, Modal, Paper, Typography } from '@mui/material'
 import { Close, Menu, PlayCircleOutline } from '@mui/icons-material'
 import { useContext, useState } from 'react'
-import { AppNavigationProps, SiteMap } from '../types/navigation'
-import { NavContext } from '../context'
+import { AppNavigationProps, SiteMap } from '../../types/navigation'
+import { NavContext } from '../../context'
 import { MenuDropDownIconButton, AppNavigationBar, MenuTypography } from './componentsAppNavigation'
-import { quickTransition } from '../styles/styles-constants'
+import { quickTransition } from '../../styles/styles-constants'
 
 const MobileMenuItems = ({ item }: { item: string }) => {
   const { siteMap, activeModalItems, setActiveModalItems } = useContext(NavContext)
