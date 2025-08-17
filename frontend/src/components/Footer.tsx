@@ -2,7 +2,8 @@ import { Box, Typography } from '@mui/material'
 import { colors } from '../styles/styles-constants'
 
 const year = new Date().getFullYear()
-export const Footer = () => {
+
+export function Footer() {
   return (
     <Box
       sx={{

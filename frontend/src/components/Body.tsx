@@ -1,6 +1,6 @@
 import { Box, Button, Typography } from '@mui/material'
 
-export const Body = () => {
+export function Body() {
   return (
     <Box
       sx={{

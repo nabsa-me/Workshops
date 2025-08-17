@@ -23,17 +23,15 @@ const MobileMenuItems = ({ item }: { item: string }) => {
         <MenuDropDownIconButton onClick={() => handleDropDownMenu()}>
           <MenuTypography sx={{ scale: '1.7' }}>
             {item}
-            {
-              <PlayCircleOutline
-                sx={{
-                  marginLeft: '0.25rem',
-                  marginBottom: '0.1rem',
-                  scale: '0.6',
-                  transform: activeModalItems?.includes(item) ? 'rotate(90deg)' : 'rotate(0deg)',
-                  transition: quickTransition
-                }}
-              />
-            }
+            <PlayCircleOutline
+              sx={{
+                marginLeft: '0.25rem',
+                marginBottom: '0.1rem',
+                scale: '0.6',
+                transform: activeModalItems?.includes(item) ? 'rotate(90deg)' : 'rotate(0deg)',
+                transition: quickTransition
+              }}
+            />
           </MenuTypography>
         </MenuDropDownIconButton>
       </ListItem>

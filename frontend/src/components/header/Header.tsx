@@ -14,5 +14,5 @@ const siteMap: SiteMap[] = [
 export function Header() {
   const { isSmallScreen } = useContext(Context)
 
-  return <>{!isSmallScreen ? <DesktopAppNavigation siteMap={siteMap} /> : <MobileAppNavigation siteMap={siteMap} />}</>
+  return <>{isSmallScreen ? <MobileAppNavigation siteMap={siteMap} /> : <DesktopAppNavigation siteMap={siteMap} />}</>
 }
