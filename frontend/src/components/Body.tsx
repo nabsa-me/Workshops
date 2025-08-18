@@ -1,4 +1,6 @@
-import { Box, Button, Typography } from '@mui/material'
+import { Box } from '@mui/material'
+import { CTAButton } from './common/buttons'
+import { GradientTitle, HeroSubtitle, HeroTitle, TextBody } from './common/typography'
 
 export function Body() {
   return (
@@ -12,19 +14,15 @@ export function Body() {
         padding: { xxs: '5rem 2rem', md: '10rem 5rem 6rem 5rem' }
       }}
     >
-      <Typography variant='hero'>Borderlands Quest:</Typography>
-      <Typography variant='h1' sx={{ mb: '2rem' }}>
-        Goblin Trouble
-      </Typography>
-      <Typography variant='h2'>A short adventure for four to six level 1 characters</Typography>
-      <Typography variant='body1'>
+      <HeroTitle>Borderlands Quest:</HeroTitle>
+      <HeroSubtitle sx={{ mb: '2rem' }}>Goblin Trouble</HeroSubtitle>
+      <GradientTitle>A short adventure for four to six level 1 characters</GradientTitle>
+      <TextBody>
         Borderlands Quest: Goblin Trouble is a Dungeons & Dragons adventure that introduces four to six new players to
         the game and teaches you, the Dungeon Master, how to run it for them. This short adventure is meant to last
         approximately 1-2 hours of play.
-      </Typography>
-      <Button variant='CTA' sx={{ alignSelf: 'center', mt: '3rem' }}>
-        Play Now!
-      </Button>
+      </TextBody>
+      <CTAButton sx={{ alignSelf: 'center', mt: '3rem' }}>Play Now!</CTAButton>
     </Box>
   )
 }
