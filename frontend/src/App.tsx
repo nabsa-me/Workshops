@@ -44,14 +44,14 @@ const AppContent = () => {
           linear-gradient(to right, ${theme.palette.base[100]} 30%,  transparent 170%), 
           url(/005-00-005.goblins.webp)`,
             lg: `
-          linear-gradient(to right, ${theme.palette.base[0]} -50%, ${theme.palette.base[100]} 40%,  transparent 100%), 
-          linear-gradient(to right, ${theme.palette.base[100]} 30%,  transparent 180%), 
+          linear-gradient(to right, ${theme.palette.base[0]} -50%, ${theme.palette.base[100]} 30%,  transparent 100%), 
+          linear-gradient(to right, ${theme.palette.base[100]} 30%,  transparent 130%), 
           url(/005-00-005.goblins.webp)`,
             xl: `
           linear-gradient(to right, ${theme.palette.base[0]} -50%, ${theme.palette.base[100]} 30%,  transparent 100%), 
-          linear-gradient(to right, ${theme.palette.base[100]} 20%,  transparent 150%), 
+          linear-gradient(to right, ${theme.palette.base[100]} 20%,  transparent 130%), 
           url(/005-00-005.goblins.webp)`,
-            backgroundSize: 'cover'
+            backgroundSize: 'cover !important'
           }
         }}
       >
