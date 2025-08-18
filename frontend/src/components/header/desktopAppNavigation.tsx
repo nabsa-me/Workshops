@@ -44,7 +44,7 @@ function DesktopSecondaryNavBar() {
       height='50px !important'
       top={visibleSubItems ? '64px' : '0'}
       opacity={visibleSubItems ? 1 : 0}
-      background={`linear-gradient(to right, ${theme.palette.base[100]} 25%,  transparent 150%)`}
+      background={`linear-gradient(to right, ${theme.palette.base[100]} -15%,  transparent 150%)`}
       justifyContent='flex-end'
     >
       <List

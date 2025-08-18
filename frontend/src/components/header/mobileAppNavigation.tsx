@@ -77,7 +77,7 @@ function MobileNavModal({ modaIsOpen, handleCloseModal }: { modaIsOpen: boolean;
             flex: 1,
             overflowY: 'visible',
             backdropFilter: 'blur(25px) brightness(0.75)',
-            maskImage: 'linear-gradient(to top, rgb(0,0,0,1) calc(100% - 125px), rgb(0,0,0,0.6) 100%)',
+            maskImage: 'linear-gradient(to top, rgb(0,0,0,1) calc(100% - 90px), rgb(0,0,0,0.6) 100%)',
             background: `${theme.palette.base[100]}50`
           }}
         >

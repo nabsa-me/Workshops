@@ -34,8 +34,25 @@ const AppContent = () => {
           justifyContent: 'space-between',
           minHeight: '100vh',
           zIndex: -100,
-          background: `linear-gradient(to right, ${theme.palette.base[0]} -50%, ${theme.palette.base[200]} 50%, transparent 125%), url(/005-00-005.goblins.webp)`,
-          backgroundSize: 'cover'
+          background: {
+            xxs: `
+          linear-gradient(to right, ${theme.palette.base[0]} -50%, ${theme.palette.base[200]} 50%,  transparent 100%), 
+          linear-gradient(to right, ${theme.palette.base[200]} 40%,  transparent 150%), 
+          url(/005-00-005.goblins.webp)`,
+            md: `
+          linear-gradient(to right, ${theme.palette.base[0]} -50%, ${theme.palette.base[200]} 50%,  transparent 100%), 
+          linear-gradient(to right, ${theme.palette.base[200]} 30%,  transparent 170%), 
+          url(/005-00-005.goblins.webp)`,
+            lg: `
+          linear-gradient(to right, ${theme.palette.base[0]} -50%, ${theme.palette.base[200]} 40%,  transparent 100%), 
+          linear-gradient(to right, ${theme.palette.base[200]} 30%,  transparent 180%), 
+          url(/005-00-005.goblins.webp)`,
+            xl: `
+          linear-gradient(to right, ${theme.palette.base[0]} -50%, ${theme.palette.base[200]} 30%,  transparent 100%), 
+          linear-gradient(to right, ${theme.palette.base[200]} 20%,  transparent 150%), 
+          url(/005-00-005.goblins.webp)`,
+            backgroundSize: 'cover'
+          }
         }}
       >
         <Header />
