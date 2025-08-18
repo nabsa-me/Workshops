@@ -1,9 +1,9 @@
-import { Box, Fade, List, ListItem, Typography } from '@mui/material'
-import { colors } from '../../styles/styles-constants'
+import { Box, Fade, List, ListItem, useTheme } from '@mui/material'
 import { useContext, useState } from 'react'
 import { AppNavigationProps, SiteMap } from '../../types/navigation'
 import { NavContext } from '../../context'
 import { AppNavigationBar, MenuTypography } from './componentsAppNavigation'
+import { Logo } from '../common/typography'
 
 function DesktopSubMenuItems({ item }: { item: string }) {
   const { visibleSubItems } = useContext(NavContext)
@@ -36,15 +36,15 @@ function DesktopMenuItems({ item }: { item: string }) {
 
 function DesktopSecondaryNavBar() {
   const { siteMap, activeMenuItem, visibleSubItems } = useContext(NavContext)
+  const theme = useTheme()
 
   return (
     <AppNavigationBar
-      elevation={2}
       zIndex={5}
       height='50px !important'
       top={visibleSubItems ? '64px' : '0'}
       opacity={visibleSubItems ? 1 : 0}
-      background={`linear-gradient(to right, ${colors.black3}50 0%, ${colors.grey4}30 80%)`}
+      background={`linear-gradient(to right, ${theme.palette.base[100]} 25%,  transparent 150%)`}
       justifyContent='flex-end'
     >
       <List
@@ -66,9 +66,10 @@ function DesktopSecondaryNavBar() {
 
 function DesktopPrimaryNavBar() {
   const { siteMap } = useContext(NavContext)
+
   return (
     <AppNavigationBar>
-      <Typography variant='logo'>DrAkiA</Typography>
+      <Logo>DrAkiA</Logo>
       <List sx={{ display: 'flex' }}>
         {siteMap?.map(({ label }: SiteMap) => (
           <DesktopMenuItems item={label} key={label} />

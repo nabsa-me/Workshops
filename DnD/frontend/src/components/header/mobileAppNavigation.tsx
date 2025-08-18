@@ -1,10 +1,11 @@
-import { Collapse, Fade, List, ListItem, Modal, Paper, Typography } from '@mui/material'
+import { Collapse, Fade, List, ListItem, Modal, Paper, useTheme } from '@mui/material'
 import { Close, Menu, PlayCircleOutline } from '@mui/icons-material'
 import { useContext, useState } from 'react'
 import { AppNavigationProps, SiteMap } from '../../types/navigation'
 import { NavContext } from '../../context'
 import { MenuDropDownIconButton, AppNavigationBar, MenuTypography } from './componentsAppNavigation'
 import { quickTransition } from '../../styles/styles-constants'
+import { Logo } from '../common/typography'
 
 const MobileMenuItems = ({ item }: { item: string }) => {
   const { siteMap, activeModalItems, setActiveModalItems } = useContext(NavContext)
@@ -53,6 +54,7 @@ const MobileMenuItems = ({ item }: { item: string }) => {
 
 function MobileNavModal({ modaIsOpen, handleCloseModal }: { modaIsOpen: boolean; handleCloseModal: () => void }) {
   const { siteMap } = useContext(NavContext)
+  const theme = useTheme()
 
   return (
     <Modal
@@ -76,7 +78,7 @@ function MobileNavModal({ modaIsOpen, handleCloseModal }: { modaIsOpen: boolean;
             overflowY: 'visible',
             backdropFilter: 'blur(25px) brightness(0.75)',
             maskImage: 'linear-gradient(to top, rgb(0,0,0,1) calc(100% - 125px), rgb(0,0,0,0.6) 100%)',
-            background: 'transparent'
+            background: `${theme.palette.base[100]}50`
           }}
         >
           <List sx={{ width: '100%', marginTop: '30%', marginBottom: '20%' }}>
@@ -105,7 +107,7 @@ export function MobileAppNavigation({ siteMap }: AppNavigationProps) {
     <NavContext.Provider value={{ siteMap, setActiveModalItems, activeModalItems }}>
       <MobileNavModal modaIsOpen={modaIsOpen} handleCloseModal={handleCloseModal} />
       <AppNavigationBar position='sticky'>
-        <Typography variant='logo'>DrAkiA</Typography>
+        <Logo>DrAkiA</Logo>
         <MenuDropDownIconButton
           onClick={() => handleCloseModal()}
           sx={{

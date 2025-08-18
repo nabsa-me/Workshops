@@ -31,29 +31,3 @@ export const colors = {
 export const softTransition = '0.5s ease-in'
 export const quickTransition = '0.25s ease-in'
 export const metalTransition = '0.75s ease-in'
-
-export const metalGradient = `linear-gradient(
-  135deg,
-  ${colors.white} 0%,
-  ${colors.grey1} 10%,
-  ${colors.white} 40%,
-  ${colors.grey3} 100%)`
-
-export const plainGradient = `linear-gradient(
-    135deg,
-    ${colors.grey1} 0%,
-    ${colors.grey2} 50%,
-    ${colors.gr0} 100%)`
-
-export const logoGradient = `linear-gradient(
-    135deg,
-    ${colors.gr0} 0%,
-    ${colors.white} 20%,
-    ${colors.grey2} 30%,
-    ${colors.white} 45%,
-    ${colors.gr0} 65%,
-    ${colors.grey1} 85%,
-    ${colors.grey3} 100%)`
-
-export const titleShadow = '0px 0px 2px rgba(231, 187, 42, 0.1), 3px 2px 3px rgba(0, 0, 0, 0.6)'
-export const titleFilter = `contrast(150%) saturate(205%) drop-shadow(3px 3px ${colors.black})`

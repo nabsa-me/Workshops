@@ -1,9 +1,10 @@
-import { AppBar, IconButton, IconButtonProps, styled, Toolbar, Typography, TypographyProps } from '@mui/material'
-import { colors, quickTransition, softTransition } from '../../styles/styles-constants'
+import { AppBar, IconButton, IconButtonProps, styled, Toolbar, TypographyProps, useTheme } from '@mui/material'
+import { quickTransition, softTransition } from '../../styles/styles-constants'
 import { NavigationBarProps } from '../../types/navigation'
+import { GradientTitle } from '../common/typography'
 
-export const MenuDropDownIconButton = styled((props: IconButtonProps) => <IconButton {...props} />)(() => ({
-  color: colors.grey2,
+export const MenuDropDownIconButton = styled((props: IconButtonProps) => <IconButton {...props} />)(({ theme }) => ({
+  color: theme.palette.negative[200],
   transition: softTransition,
   '&:hover': {
     filter: 'drop-shadow(0px 0px 2px rgba(255, 255, 255, 0.6))'
@@ -11,11 +12,11 @@ export const MenuDropDownIconButton = styled((props: IconButtonProps) => <IconBu
   '&:active': {
     transition: quickTransition,
     filter: 'drop-shadow(0px 0px 10px rgb(0, 0, 0, 0.4))',
-    color: colors.grey3
+    color: theme.palette.negative[300]
   }
 }))
 
-export const MenuTypography = styled((props: TypographyProps) => <Typography {...props} variant='h2' />)(() => ({
+export const MenuTypography = styled((props: TypographyProps) => <GradientTitle {...props} />)(() => ({
   fontSize: '0.95rem !important',
   transition: softTransition,
   display: 'flex',
@@ -37,23 +38,27 @@ export function AppNavigationBar({
   top = 0,
   opacity = 1,
   zIndex = 10,
-  elevation = 5,
   justifyContent = 'space-between',
-  background = `linear-gradient(to right, ${colors.black1} 5%, ${colors.black2} 20%, transparent 125%)`
+  background
 }: NavigationBarProps) {
+  const theme = useTheme()
+  const themedBackground =
+    background ||
+    `linear-gradient(to right, ${theme.palette.base[0]} -50%, ${theme.palette.base[100]} 50%, transparent 175%)`
+
   return (
     <AppBar
       position={position}
-      elevation={elevation}
       sx={{
-        backdropFilter: 'blur(10px)',
-        background,
-        borderBottom: `1px solid${colors.black4}`,
+        backdropFilter: 'blur(15px)',
+        background: themedBackground,
+        borderBottom: `1px solid ${theme.palette.base[300]}80`,
         zIndex,
         height,
         top,
         opacity,
-        transition: quickTransition
+        transition: quickTransition,
+        boxShadow: `0px -3px 15px 5px ${theme.palette.base[100]}`
       }}
     >
       <Toolbar
