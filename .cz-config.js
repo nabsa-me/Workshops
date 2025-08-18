@@ -12,7 +12,7 @@ module.exports = {
     { value: '🎥 lesson', name: '🎥 lesson: Add resources from some course video lesson' },
     { value: '♠️ kata', name: '♠️ kata: Add a kata exercise to the monorepo'},
   ],
-  scopes: ['fem', 'css','ci'],
+  scopes: ['app', 'ui', 'theme','component','hooks','routing','state','api','db','auth','aws','docker','ci','unit-testing','e2e','homepage'],
   allowCustomScopes: true,
   subjectLimit: 100
 };
