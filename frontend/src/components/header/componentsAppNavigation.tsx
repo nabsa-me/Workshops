@@ -52,13 +52,13 @@ export function AppNavigationBar({
       sx={{
         backdropFilter: 'blur(15px)',
         background: themedBackground,
-        borderBottom: `1px solid ${theme.palette.base[300]}`,
+        borderBottom: `1px solid ${theme.palette.base[300]}80`,
         zIndex,
         height,
         top,
         opacity,
         transition: quickTransition,
-        boxShadow: `0px -3px 15px 5px ${theme.palette.base[100]}, 0px -2px 25px -15px ${theme.palette.negative[300]}`
+        boxShadow: `0px -3px 15px 5px ${theme.palette.base[100]}, 0px -2px 25px -15px ${theme.palette.negative[400]}`
       }}
     >
       <Toolbar

@@ -13,7 +13,7 @@ export function Footer() {
         backdropFilter: 'blur(15px)',
         borderTop: `1px solid ${theme.palette.base[300]}`,
         height: '85px',
-        boxShadow: `0px -3px 15px -5px ${theme.palette.base[300]}`,
+        boxShadow: `0px -3px 15px -5px ${theme.palette.base[200]}`,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
