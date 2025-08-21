@@ -53,8 +53,7 @@ export const Logo = styled(HeroTitle)(() => ({
   fontSize: '1.5rem !important',
   padding: '0 2rem 0 0',
   '&:hover': {
-    cursor: 'pointer',
-    animation: `metal-animation-back ${metalTransition}`
+    cursor: 'pointer'
   },
   '&:active': {
     filter: 'saturate(100%) contrast(150%)',
