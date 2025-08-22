@@ -6,6 +6,9 @@ import { Box, CssBaseline, Theme, ThemeProvider, useMediaQuery, useTheme } from 
 import { GlobalStyles } from './styles/GlobalStyles'
 import { Context } from './context'
 import { useState } from 'react'
+import { Route, Routes } from 'react-router'
+import { LayoutWithMenu } from './components/layout/LayoutWithMenu'
+import { Monsters } from './components/Monsters'
 
 const image = '/005-00-005.goblins.webp'
 
@@ -23,7 +26,12 @@ const App = () => {
       <Context.Provider value={{ isSmallScreen }}>
         <BackgroundImage>
           <Header />
-          <Body />
+          <Routes>
+            <Route path='/' element={<Body />} />
+            <Route element={<LayoutWithMenu />}>
+              <Route path='/monsters' element={<Monsters />} />
+            </Route>
+          </Routes>
           <Footer />
         </BackgroundImage>
       </Context.Provider>
