@@ -1,4 +1,3 @@
-import { createRoot } from 'react-dom/client'
 import { Header } from './components/header/Header'
 import { Body } from './components/Body'
 import { Footer } from './components/Footer'
@@ -59,6 +58,4 @@ const BackgroundImage = ({ children }: { children: React.ReactNode }) => {
   )
 }
 
-const container = document.getElementById('root')!
-const root = createRoot(container)
-root.render(<App />)
+export default App
