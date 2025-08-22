@@ -1,8 +1,11 @@
 import { Box } from '@mui/material'
 import { CTAButton } from './common/buttons'
 import { GradientTitle, HeroSubtitle, HeroTitle, TextBody } from './common/typography'
+import { useNavigate } from 'react-router'
 
 export function Body() {
+  const navigate = useNavigate()
+
   return (
     <Box
       sx={{
@@ -11,7 +14,7 @@ export function Body() {
         gap: '1rem',
         minWidth: '320px',
         maxWidth: '800px',
-        padding: { xxs: '5rem 2rem', md: '10rem 5rem 6rem 5rem' }
+        padding: { xxs: '5rem 2rem', md: '8rem 5rem 6rem 5rem' }
       }}
     >
       <HeroTitle>Borderlands Quest:</HeroTitle>
@@ -22,7 +25,9 @@ export function Body() {
         the game and teaches you, the Dungeon Master, how to run it for them. This short adventure is meant to last
         approximately 1-2 hours of play.
       </TextBody>
-      <CTAButton sx={{ alignSelf: 'center', mt: '3rem' }}>Play Now!</CTAButton>
+      <CTAButton onClick={() => navigate('/monsters')} sx={{ alignSelf: 'center', mt: '3rem' }}>
+        Play Now!
+      </CTAButton>
     </Box>
   )
 }
