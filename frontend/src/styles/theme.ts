@@ -41,8 +41,6 @@ declare module '@mui/material/styles' {
 }
 declare module '@mui/material/Typography' {
   interface TypographyPropsVariantOverrides {
-    logo_dark: true
-    logo_light: true
     hero: true
   }
 }

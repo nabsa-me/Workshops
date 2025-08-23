@@ -1,5 +1,7 @@
 import { Button, ButtonProps, styled, Theme } from '@mui/material'
 import { metalTransition, colors } from '../../styles/styles-constants'
+import { useNavigate } from 'react-router'
+import { Logo } from './typography'
 
 export const CTAButton = styled((props: ButtonProps) => <Button {...props} />)(({ theme }: { theme: Theme }) => ({
   color: colors.grey1,
@@ -55,3 +57,9 @@ export const CTAButton = styled((props: ButtonProps) => <Button {...props} />)((
     }
   }
 }))
+
+export const LogoToHome = () => {
+  const navigate = useNavigate()
+
+  return <Logo onClick={() => navigate('/')}>DrAkiA</Logo>
+}

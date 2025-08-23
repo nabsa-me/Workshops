@@ -1,17 +1,23 @@
 import { Box, Fade, List, ListItem, useTheme } from '@mui/material'
 import { useContext, useState } from 'react'
 import { AppNavigationProps, SiteMap } from '../../types/navigation'
-import { NavContext } from '../../context'
+import { Context, NavContext } from '../../context'
 import { AppNavigationBar, MenuTypography } from './componentsAppNavigation'
-import { Logo } from '../common/typography'
+import { useNavigate } from 'react-router'
+import { LogoToHome } from '../common/buttons'
 
 function DesktopSubMenuItems({ item }: { item: string }) {
   const { visibleSubItems } = useContext(NavContext)
+  const navigate = useNavigate()
+
+  const route = `/${item.toLowerCase()}`
 
   return (
     <Fade in={!!item} timeout={250}>
       <ListItem key={item} sx={{ paddingRight: '0', justifyContent: 'center' }}>
-        <MenuTypography sx={{ scale: '0.85', opacity: visibleSubItems ? 1 : 0 }}>{item}</MenuTypography>
+        <MenuTypography sx={{ scale: '0.85', opacity: visibleSubItems ? 1 : 0 }} onClick={() => navigate(route)}>
+          {item}
+        </MenuTypography>
       </ListItem>
     </Fade>
   )
@@ -36,13 +42,15 @@ function DesktopMenuItems({ item }: { item: string }) {
 
 function DesktopSecondaryNavBar() {
   const { siteMap, activeMenuItem, visibleSubItems } = useContext(NavContext)
+  const { styles } = useContext(Context)
+
   const theme = useTheme()
 
   return (
     <AppNavigationBar
       zIndex={5}
       height='50px !important'
-      top={visibleSubItems ? '64px' : '0'}
+      top={visibleSubItems ? `${styles.navBarHeight}` : '0'}
       opacity={visibleSubItems ? 1 : 0}
       background={`linear-gradient(to right, ${theme.palette.base[100]} -15%,  transparent 150%)`}
       justifyContent='flex-end'
@@ -69,7 +77,7 @@ function DesktopPrimaryNavBar() {
 
   return (
     <AppNavigationBar>
-      <Logo>DrAkiA</Logo>
+      <LogoToHome />
       <List sx={{ display: 'flex' }}>
         {siteMap?.map(({ label }: SiteMap) => (
           <DesktopMenuItems item={label} key={label} />

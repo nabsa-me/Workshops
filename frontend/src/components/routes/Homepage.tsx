@@ -1,9 +1,9 @@
 import { Box } from '@mui/material'
-import { CTAButton } from './common/buttons'
-import { GradientTitle, HeroSubtitle, HeroTitle, TextBody } from './common/typography'
+import { CTAButton } from '../common/buttons'
+import { GradientTitle, HeroSubtitle, HeroTitle, TextBody } from '../common/typography'
 import { useNavigate } from 'react-router'
 
-export function Body() {
+export function Homepage() {
   const navigate = useNavigate()
 
   return (

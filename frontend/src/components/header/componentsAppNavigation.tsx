@@ -2,6 +2,8 @@ import { AppBar, IconButton, IconButtonProps, styled, Toolbar, TypographyProps, 
 import { quickTransition, softTransition } from '../../styles/styles-constants'
 import { NavigationBarProps } from '../../types/navigation'
 import { GradientTitle } from '../common/typography'
+import { useContext } from 'react'
+import { Context } from '../../context'
 
 export const MenuDropDownIconButton = styled((props: IconButtonProps) => <IconButton {...props} />)(({ theme }) => ({
   color: theme.palette.negative[200],
@@ -33,7 +35,7 @@ export const MenuTypography = styled((props: TypographyProps) => <GradientTitle 
 
 export function AppNavigationBar({
   children,
-  height = '64px !important',
+  height,
   position = 'fixed',
   top = 0,
   opacity = 1,
@@ -42,9 +44,12 @@ export function AppNavigationBar({
   background
 }: NavigationBarProps) {
   const theme = useTheme()
+  const { styles } = useContext(Context)
+
   const themedBackground =
     background ||
     `linear-gradient(to right, ${theme.palette.base[0]} -50%, ${theme.palette.base[100]} 50%, transparent 150%)`
+  const themedHeight = height || styles.navBarHeight
 
   return (
     <AppBar
@@ -54,7 +59,7 @@ export function AppNavigationBar({
         background: themedBackground,
         borderBottom: `1px solid ${theme.palette.base[300]}80`,
         zIndex,
-        height,
+        height: `${themedHeight} !important`,
         top,
         opacity,
         transition: quickTransition,
@@ -67,7 +72,7 @@ export function AppNavigationBar({
           alignItems: 'center',
           justifyContent,
           width: '100%',
-          minHeight: height
+          minHeight: themedHeight
         }}
       >
         {children}

@@ -1,5 +1,6 @@
 import { Box, useTheme } from '@mui/material'
-import { GradientTitle, Logo } from './common/typography'
+import { GradientTitle } from './common/typography'
+import { LogoToHome } from './common/buttons'
 
 const year = new Date().getFullYear()
 
@@ -20,7 +21,9 @@ export function Footer() {
         justifyContent: 'center'
       }}
     >
-      <Logo sx={{ fontSize: '0.95rem !important', paddingRight: '0', paddingBottom: '0.1rem' }}>Drakia</Logo>
+      <Box sx={{ scale: '0.65', paddingLeft: '1.5rem', marginBottom: '-0.25rem', marginTop: '-0.25rem' }}>
+        <LogoToHome />
+      </Box>
       <GradientTitle
         sx={{ fontSize: '0.8rem !important', marginTop: '0.1rem', fontFamily: "'Montaga' !important", opacity: '0.8' }}
       >

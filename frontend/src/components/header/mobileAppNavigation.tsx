@@ -2,10 +2,10 @@ import { Collapse, Fade, List, ListItem, Modal, Paper, useTheme } from '@mui/mat
 import { Close, Menu, PlayCircleOutline } from '@mui/icons-material'
 import { useContext, useState } from 'react'
 import { AppNavigationProps, SiteMap } from '../../types/navigation'
-import { NavContext } from '../../context'
+import { Context, NavContext } from '../../context'
 import { MenuDropDownIconButton, AppNavigationBar, MenuTypography } from './componentsAppNavigation'
 import { quickTransition } from '../../styles/styles-constants'
-import { Logo } from '../common/typography'
+import { LogoToHome } from '../common/buttons'
 
 const MobileMenuItems = ({ item }: { item: string }) => {
   const { siteMap, activeModalItems, setActiveModalItems } = useContext(NavContext)
@@ -54,6 +54,8 @@ const MobileMenuItems = ({ item }: { item: string }) => {
 
 function MobileNavModal({ modaIsOpen, handleCloseModal }: { modaIsOpen: boolean; handleCloseModal: () => void }) {
   const { siteMap } = useContext(NavContext)
+  const { styles } = useContext(Context)
+
   const theme = useTheme()
 
   return (
@@ -62,10 +64,10 @@ function MobileNavModal({ modaIsOpen, handleCloseModal }: { modaIsOpen: boolean;
       onClose={() => handleCloseModal()}
       sx={{
         overflowY: 'scroll',
-        top: '64px',
+        top: `${styles.navBarHeight}`,
         display: 'flex',
         flexDirection: 'column',
-        minHeight: 'calc(100vh - 64px)'
+        minHeight: `calc(100vh - ${styles.navBarHeight})`
       }}
       hideBackdrop
       closeAfterTransition
@@ -107,7 +109,7 @@ export function MobileAppNavigation({ siteMap }: AppNavigationProps) {
     <NavContext.Provider value={{ siteMap, setActiveModalItems, activeModalItems }}>
       <MobileNavModal modaIsOpen={modaIsOpen} handleCloseModal={handleCloseModal} />
       <AppNavigationBar position='sticky'>
-        <Logo>DrAkiA</Logo>
+        <LogoToHome />
         <MenuDropDownIconButton
           onClick={() => handleCloseModal()}
           sx={{

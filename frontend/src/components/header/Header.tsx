@@ -1,9 +1,8 @@
 import { useContext } from 'react'
 import { SiteMap } from '../../types/navigation'
-import { DesktopAppNavigation } from './desktopAppNavigation'
+import { DesktopAppNavigation } from './DesktopAppNavigation'
 import { Context } from '../../context'
-import { MobileAppNavigation } from './mobileAppNavigation'
-import { Box } from '@mui/material'
+import { MobileAppNavigation } from './MobileAppNavigation'
 
 const siteMap: SiteMap[] = [
   { label: 'Tools', items: ['Loots', 'Character', 'Encounter', 'Homebrew', 'Glossary'] },
@@ -15,9 +14,5 @@ const siteMap: SiteMap[] = [
 export function Header() {
   const { isSmallScreen } = useContext(Context)
 
-  return (
-    <Box sx={{ minHeight: '64px' }}>
-      {isSmallScreen ? <MobileAppNavigation siteMap={siteMap} /> : <DesktopAppNavigation siteMap={siteMap} />}
-    </Box>
-  )
+  return isSmallScreen ? <MobileAppNavigation siteMap={siteMap} /> : <DesktopAppNavigation siteMap={siteMap} />
 }

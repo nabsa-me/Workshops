@@ -5,9 +5,20 @@ import { SiteMap } from './types/navigation'
 
 interface ContextProps {
   isSmallScreen: boolean
+  styles: {
+    navBarHeight: string
+    footerHeight: string
+    sideMenuWidth: string
+    topMenuWidth: string
+  }
 }
 
-export const Context = createContext<ContextProps>({ isSmallScreen: false })
+export const initialContext = {
+  isSmallScreen: false,
+  styles: { navBarHeight: '64px', footerHeight: '80px', sideMenuWidth: '300px', topMenuWidth: '150px' }
+}
+
+export const Context = createContext<ContextProps>(initialContext)
 
 // NAVIGATION CONTEXT
 
