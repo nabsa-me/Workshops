@@ -2,7 +2,7 @@ import { CSSProperties } from '@mui/material'
 
 export type SiteMap = {
   label: string
-  items: string[]
+  items: { label: string; route: string }[]
 }
 
 export type AppNavigationProps = {

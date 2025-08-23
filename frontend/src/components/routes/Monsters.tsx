@@ -5,6 +5,7 @@ import { HeroSubtitle } from '../common/typography'
 
 import { useNavigate } from 'react-router'
 import { Context } from '../../context'
+import { HOMEPAGE } from '../../constants'
 
 export function Monsters() {
   const navigate = useNavigate()
@@ -29,7 +30,7 @@ export function Monsters() {
         }}
       />
 
-      <CTAButton onClick={() => navigate('/')} sx={{ alignSelf: 'center', mt: '3rem' }}>
+      <CTAButton onClick={() => navigate(HOMEPAGE)} sx={{ alignSelf: 'center', mt: '3rem' }}>
         Play Now!
       </CTAButton>
     </Box>

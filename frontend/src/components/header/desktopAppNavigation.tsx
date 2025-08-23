@@ -6,17 +6,19 @@ import { AppNavigationBar, MenuTypography } from './componentsAppNavigation'
 import { useNavigate } from 'react-router'
 import { LogoToHome } from '../common/buttons'
 
-function DesktopSubMenuItems({ item }: { item: string }) {
+function DesktopSubMenuItems({ label, route }: { label: string; route: string }) {
   const { visibleSubItems } = useContext(NavContext)
   const navigate = useNavigate()
 
-  const route = `/${item.toLowerCase()}`
-
   return (
-    <Fade in={!!item} timeout={250}>
-      <ListItem key={item} sx={{ paddingRight: '0', justifyContent: 'center' }}>
-        <MenuTypography sx={{ scale: '0.85', opacity: visibleSubItems ? 1 : 0 }} onClick={() => navigate(route)}>
-          {item}
+    <Fade in={!!label} timeout={250}>
+      <ListItem key={label} sx={{ paddingRight: '0', justifyContent: 'center' }}>
+        <MenuTypography
+          className={!route ? 'disabled' : ''}
+          sx={{ scale: '0.85', opacity: visibleSubItems ? 1 : 0 }}
+          onClick={() => !!route && navigate(route)}
+        >
+          {label}
         </MenuTypography>
       </ListItem>
     </Fade>
@@ -64,8 +66,8 @@ function DesktopSecondaryNavBar() {
       >
         {siteMap
           ?.find((item: SiteMap) => item.label === activeMenuItem)
-          ?.items.map((item: string) => (
-            <DesktopSubMenuItems item={item} key={item} />
+          ?.items.map(({ label, route }) => (
+            <DesktopSubMenuItems label={label} key={label} route={route} />
           ))}
       </List>
     </AppNavigationBar>

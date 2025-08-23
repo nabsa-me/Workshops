@@ -3,12 +3,43 @@ import { SiteMap } from '../../types/navigation'
 import { DesktopAppNavigation } from './DesktopAppNavigation'
 import { Context } from '../../context'
 import { MobileAppNavigation } from './MobileAppNavigation'
+import { MONSTERS } from '../../constants'
 
 const siteMap: SiteMap[] = [
-  { label: 'Tools', items: ['Loots', 'Character', 'Encounter', 'Homebrew', 'Glossary'] },
-  { label: 'Player', items: ['Classes', 'Species', 'Backgrounds', 'Feats'] },
-  { label: 'Rules', items: ['Monsters', 'Spells', 'Items'] },
-  { label: 'Sources', items: ['Adventures', 'Books'] }
+  {
+    label: 'Tools',
+    items: [
+      { label: 'Loots', route: '' },
+      { label: 'Character', route: '' },
+      { label: 'Encounter', route: '' },
+      { label: 'Homebrew', route: '' },
+      { label: 'Glossary', route: '' }
+    ]
+  },
+  {
+    label: 'Player',
+    items: [
+      { label: 'Classes', route: '' },
+      { label: 'Species', route: '' },
+      { label: 'Backgrounds', route: '' },
+      { label: 'Feats', route: '' }
+    ]
+  },
+  {
+    label: 'Rules',
+    items: [
+      { label: 'Monsters', route: MONSTERS },
+      { label: 'Spells', route: '' },
+      { label: 'Items', route: '' }
+    ]
+  },
+  {
+    label: 'Sources',
+    items: [
+      { label: 'Adventures', route: '' },
+      { label: 'Books', route: '' }
+    ]
+  }
 ]
 
 export function Header() {

@@ -10,6 +10,7 @@ import { Route, Routes } from 'react-router'
 import { DesktopLayout } from './components/layout/DesktopLayout'
 import { Monsters } from './components/routes/Monsters'
 import { MobileLayout } from './components/layout/MobileLayout'
+import { HOMEPAGE, MONSTERS } from './constants'
 
 const image = '/005-00-005.goblins.webp'
 
@@ -28,9 +29,9 @@ const App = () => {
         <BackgroundImage>
           <Header />
           <Routes>
-            <Route path='/' element={<Homepage />} />
+            <Route path={HOMEPAGE} element={<Homepage />} />
             <Route element={isSmallScreen ? <MobileLayout /> : <DesktopLayout />}>
-              <Route path='/monsters' element={<Monsters />} />
+              <Route path={MONSTERS} element={<Monsters />} />
             </Route>
           </Routes>
           <Footer />

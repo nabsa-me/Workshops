@@ -1,11 +1,12 @@
 import { Outlet, useLocation } from 'react-router'
 import { Box } from '@mui/material'
 import { TopMenu } from '../pageMenu/TopMenu'
+import { HOMEPAGE } from '../../constants'
 
 export function MobileLayout() {
   const location = useLocation()
 
-  const isHomePage = location.pathname === '/'
+  const isHomePage = location.pathname === HOMEPAGE
 
   return (
     <Box

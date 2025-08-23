@@ -6,15 +6,24 @@ import { Context, NavContext } from '../../context'
 import { MenuDropDownIconButton, AppNavigationBar, MenuTypography } from './componentsAppNavigation'
 import { quickTransition } from '../../styles/styles-constants'
 import { LogoToHome } from '../common/buttons'
+import { useNavigate } from 'react-router'
 
-const MobileMenuItems = ({ item }: { item: string }) => {
+const MobileMenuItems = ({ item, handleCloseModal }: { item: string; handleCloseModal: () => void }) => {
   const { siteMap, activeModalItems, setActiveModalItems } = useContext(NavContext)
+  const navigate = useNavigate()
 
   const handleDropDownMenu = () => {
     if (activeModalItems?.includes(item)) {
       setActiveModalItems?.(activeModalItems?.filter((label: string) => label !== item))
     } else {
       setActiveModalItems?.([...activeModalItems!, item])
+    }
+  }
+
+  const handleNavigate = (route: string) => {
+    if (route) {
+      navigate(route)
+      handleCloseModal()
     }
   }
 
@@ -41,9 +50,11 @@ const MobileMenuItems = ({ item }: { item: string }) => {
         <List sx={{ marginBottom: '1rem', marginTop: '-0.5rem', opacity: '0.8' }}>
           {siteMap
             ?.find((label: SiteMap) => label.label === item)
-            ?.items.map((item: string) => (
-              <ListItem key={item} sx={{ justifyContent: 'center' }}>
-                <MenuTypography>{item}</MenuTypography>
+            ?.items.map(({ label, route }) => (
+              <ListItem key={label} sx={{ justifyContent: 'center' }}>
+                <MenuTypography className={!route ? 'disabled' : ''} onClick={() => handleNavigate(route)}>
+                  {label}
+                </MenuTypography>
               </ListItem>
             ))}
         </List>
@@ -52,7 +63,7 @@ const MobileMenuItems = ({ item }: { item: string }) => {
   )
 }
 
-function MobileNavModal({ modaIsOpen, handleCloseModal }: { modaIsOpen: boolean; handleCloseModal: () => void }) {
+function MobileNavModal({ modaIsOpen, handleCloseModal }: { modaIsOpen: boolean; handleCloseModal: any }) {
   const { siteMap } = useContext(NavContext)
   const { styles } = useContext(Context)
 
@@ -61,7 +72,7 @@ function MobileNavModal({ modaIsOpen, handleCloseModal }: { modaIsOpen: boolean;
   return (
     <Modal
       open={modaIsOpen}
-      onClose={() => handleCloseModal()}
+      onClose={() => handleCloseModal(!modaIsOpen)}
       sx={{
         overflowY: 'scroll',
         top: `${styles.navBarHeight}`,
@@ -85,7 +96,7 @@ function MobileNavModal({ modaIsOpen, handleCloseModal }: { modaIsOpen: boolean;
         >
           <List sx={{ width: '100%', marginTop: '30%', marginBottom: '20%' }}>
             {siteMap.map(({ label }: SiteMap) => (
-              <MobileMenuItems item={label} key={label} />
+              <MobileMenuItems item={label} key={label} handleCloseModal={handleCloseModal} />
             ))}
           </List>
         </Paper>
@@ -98,8 +109,8 @@ export function MobileAppNavigation({ siteMap }: AppNavigationProps) {
   const [activeModalItems, setActiveModalItems] = useState<string[]>([])
   const [modaIsOpen, setModalIsOpen] = useState<boolean>(false)
 
-  const handleCloseModal = () => {
-    setModalIsOpen(!modaIsOpen)
+  const handleCloseModal = (modalState: boolean) => {
+    setModalIsOpen(modalState)
     setTimeout(() => {
       setActiveModalItems?.([])
     }, 500)
@@ -109,9 +120,9 @@ export function MobileAppNavigation({ siteMap }: AppNavigationProps) {
     <NavContext.Provider value={{ siteMap, setActiveModalItems, activeModalItems }}>
       <MobileNavModal modaIsOpen={modaIsOpen} handleCloseModal={handleCloseModal} />
       <AppNavigationBar position='sticky'>
-        <LogoToHome />
+        <LogoToHome handleCloseModal={handleCloseModal} />
         <MenuDropDownIconButton
-          onClick={() => handleCloseModal()}
+          onClick={() => handleCloseModal(!modaIsOpen)}
           sx={{
             scale: '1.3',
             marginRight: '0.5rem'
