@@ -30,6 +30,12 @@ export const GlobalStyles = () => (
         box-shadow: none;
       }
 
+      .disabled {
+        cursor: default !important;
+        filter: brightness(0.5) !important;
+        text-shadow: none !important;
+      }
+
       @keyframes metal-animation-back {
         0% {
           background-size: 100%;

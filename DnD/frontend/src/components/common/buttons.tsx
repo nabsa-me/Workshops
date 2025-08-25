@@ -1,5 +1,8 @@
-import { Button, ButtonProps, styled, Theme } from '@mui/material'
-import { metalTransition, colors } from '../../styles/styles-constants'
+import { Button, ButtonProps, IconButton, IconButtonProps, styled, Theme } from '@mui/material'
+import { METAL_TRANSITION, QUICK_TRANSITION, SOFT_TRANSITION, colors } from '../../styles/styles-constants'
+import { useNavigate } from 'react-router'
+import { Logo } from './typography'
+import { HOMEPAGE } from '../../constants'
 
 export const CTAButton = styled((props: ButtonProps) => <Button {...props} />)(({ theme }: { theme: Theme }) => ({
   color: colors.grey1,
@@ -12,7 +15,7 @@ export const CTAButton = styled((props: ButtonProps) => <Button {...props} />)((
   height: '2.8rem',
   width: '8.5rem',
   zIndex: 1,
-  transition: metalTransition,
+  transition: METAL_TRANSITION,
   '&::after': {
     content: '""',
     position: 'absolute',
@@ -26,7 +29,7 @@ export const CTAButton = styled((props: ButtonProps) => <Button {...props} />)((
       ${theme.palette.secondary[200]} 40%,
       ${theme.palette.primary[400]} 100%)`,
     opacity: 0.35,
-    animation: `shine-back ${metalTransition}`
+    animation: `shine-back ${METAL_TRANSITION}`
   },
   '&::before': {
     content: '""',
@@ -43,7 +46,7 @@ export const CTAButton = styled((props: ButtonProps) => <Button {...props} />)((
     color: colors.white,
     '&::after': {
       opacity: 0.5,
-      animation: `shine ${metalTransition}`
+      animation: `shine ${METAL_TRANSITION}`
     }
   },
   '&:active': {
@@ -55,3 +58,33 @@ export const CTAButton = styled((props: ButtonProps) => <Button {...props} />)((
     }
   }
 }))
+
+export const MenuIconButton = styled((props: IconButtonProps) => <IconButton {...props} />)(({ theme }) => ({
+  color: theme.palette.negative[200],
+  borderRadius: '0',
+  transition: SOFT_TRANSITION,
+  scale: '1.3',
+  '&:hover': {
+    filter: 'drop-shadow(0px 0px 2px rgba(255, 255, 255, 0.6))'
+  },
+  '&:active': {
+    transition: QUICK_TRANSITION,
+    filter: 'drop-shadow(0px 0px 10px rgb(0, 0, 0, 0.4))',
+    color: theme.palette.negative[300]
+  }
+}))
+
+export const LogoToHome = ({ handleCloseModal }: { handleCloseModal?: any }) => {
+  const navigate = useNavigate()
+
+  const handleNavigate = () => {
+    if (handleCloseModal) {
+      handleCloseModal(false)
+      navigate(HOMEPAGE)
+    } else {
+      navigate(HOMEPAGE)
+    }
+  }
+
+  return <Logo onClick={handleNavigate}>DrAkiA</Logo>
+}

@@ -1,9 +1,10 @@
 import { Box } from '@mui/material'
-import { CTAButton } from './common/buttons'
-import { GradientTitle, HeroSubtitle, HeroTitle, TextBody } from './common/typography'
+import { CTAButton } from '../common/buttons'
+import { GradientTitle, HeroSubtitle, HeroTitle, TextBody } from '../common/typography'
 import { useNavigate } from 'react-router'
+import { MONSTERS } from '../../constants'
 
-export function Body() {
+export function Homepage() {
   const navigate = useNavigate()
 
   return (
@@ -25,7 +26,7 @@ export function Body() {
         the game and teaches you, the Dungeon Master, how to run it for them. This short adventure is meant to last
         approximately 1-2 hours of play.
       </TextBody>
-      <CTAButton onClick={() => navigate('/monsters')} sx={{ alignSelf: 'center', mt: '3rem' }}>
+      <CTAButton onClick={() => navigate(MONSTERS)} sx={{ alignSelf: 'center', mt: '3rem' }}>
         Play Now!
       </CTAButton>
     </Box>

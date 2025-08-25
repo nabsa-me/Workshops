@@ -7,7 +7,11 @@ interface ContextProps {
   isSmallScreen: boolean
 }
 
-export const Context = createContext<ContextProps>({ isSmallScreen: false })
+export const initialContext = {
+  isSmallScreen: false
+}
+
+export const Context = createContext<ContextProps>(initialContext)
 
 // NAVIGATION CONTEXT
 

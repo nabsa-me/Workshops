@@ -3,15 +3,24 @@ import { useContext, useState } from 'react'
 import { AppNavigationProps, SiteMap } from '../../types/navigation'
 import { NavContext } from '../../context'
 import { AppNavigationBar, MenuTypography } from './componentsAppNavigation'
-import { Logo } from '../common/typography'
+import { useNavigate } from 'react-router'
+import { LogoToHome } from '../common/buttons'
+import { NAVBAR_HEIGHT, NAVBAR_HEIGHT_MOBILE } from '../../styles/styles-constants'
 
-function DesktopSubMenuItems({ item }: { item: string }) {
+function DesktopSubMenuItems({ label, route }: { label: string; route: string }) {
   const { visibleSubItems } = useContext(NavContext)
+  const navigate = useNavigate()
 
   return (
-    <Fade in={!!item} timeout={250}>
-      <ListItem key={item} sx={{ paddingRight: '0', justifyContent: 'center' }}>
-        <MenuTypography sx={{ scale: '0.85', opacity: visibleSubItems ? 1 : 0 }}>{item}</MenuTypography>
+    <Fade in={!!label} timeout={250}>
+      <ListItem key={label} sx={{ paddingRight: '0', justifyContent: 'center' }}>
+        <MenuTypography
+          className={!route ? 'disabled' : ''}
+          sx={{ scale: '0.85', opacity: visibleSubItems ? 1 : 0 }}
+          onClick={() => !!route && navigate(route)}
+        >
+          {label}
+        </MenuTypography>
       </ListItem>
     </Fade>
   )
@@ -41,8 +50,8 @@ function DesktopSecondaryNavBar() {
   return (
     <AppNavigationBar
       zIndex={5}
-      height='50px !important'
-      top={visibleSubItems ? '64px' : '0'}
+      height={NAVBAR_HEIGHT_MOBILE}
+      top={visibleSubItems ? `${NAVBAR_HEIGHT}` : '0'}
       opacity={visibleSubItems ? 1 : 0}
       background={`linear-gradient(to right, ${theme.palette.base[100]} -15%,  transparent 150%)`}
       justifyContent='flex-end'
@@ -51,13 +60,13 @@ function DesktopSecondaryNavBar() {
         sx={{
           display: 'flex',
           padding: '0 !important',
-          height: '100%'
+          maxHeight: NAVBAR_HEIGHT_MOBILE
         }}
       >
         {siteMap
           ?.find((item: SiteMap) => item.label === activeMenuItem)
-          ?.items.map((item: string) => (
-            <DesktopSubMenuItems item={item} key={item} />
+          ?.items.map(({ label, route }) => (
+            <DesktopSubMenuItems label={label} key={label} route={route} />
           ))}
       </List>
     </AppNavigationBar>
@@ -69,7 +78,7 @@ function DesktopPrimaryNavBar() {
 
   return (
     <AppNavigationBar>
-      <Logo>DrAkiA</Logo>
+      <LogoToHome />
       <List sx={{ display: 'flex' }}>
         {siteMap?.map(({ label }: SiteMap) => (
           <DesktopMenuItems item={label} key={label} />

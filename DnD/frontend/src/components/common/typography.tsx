@@ -1,5 +1,5 @@
 import { styled, Theme, Typography, TypographyProps } from '@mui/material'
-import { metalTransition } from '../../styles/styles-constants'
+import { METAL_TRANSITION } from '../../styles/styles-constants'
 
 const titleCommonProps = {
   backgroundClip: 'text',
@@ -17,7 +17,7 @@ export const HeroTitle = styled((props: TypographyProps) => <Typography {...prop
     },
     padding: '0rem 0.5rem',
     '&:hover': {
-      animation: `metal-animation-back ${metalTransition}`
+      animation: `metal-animation-back ${METAL_TRANSITION}`
     },
     background: `linear-gradient(
       135deg,
@@ -30,7 +30,7 @@ export const HeroTitle = styled((props: TypographyProps) => <Typography {...prop
       ${theme.palette.negative[300]} 100%)`,
     textShadow: '0px 0px 2px rgba(231, 187, 42, 0.1), 3px 2px 3px rgba(0, 0, 0, 0.6)',
     filter: `contrast(150%) saturate(205%) drop-shadow(3px 3px ${theme.palette.base[100]})`,
-    animation: `metal-animation ${metalTransition}`,
+    animation: `metal-animation ${METAL_TRANSITION}`,
     ...titleCommonProps
   })
 )
@@ -57,7 +57,7 @@ export const Logo = styled(HeroTitle)(() => ({
   },
   '&:active': {
     filter: 'saturate(100%) contrast(150%)',
-    animation: `metal-animation ${metalTransition}`
+    animation: `metal-animation ${METAL_TRANSITION}`
   }
 }))
 
