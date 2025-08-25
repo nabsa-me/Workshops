@@ -2,8 +2,8 @@ import { useContext } from 'react'
 import { SiteMap } from '../../types/navigation'
 import { Context } from '../../context'
 import { MONSTERS } from '../../constants'
-import { MobileAppNavigation } from './mobileAppNavigation'
-import { DesktopAppNavigation } from './desktopAppNavigation'
+import { MobileAppNavigation } from './MobileAppNavigation'
+import { DesktopAppNavigation } from './DesktopAppNavigation'
 
 const siteMap: SiteMap[] = [
   {
