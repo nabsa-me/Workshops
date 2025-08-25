@@ -4,11 +4,11 @@ import { SideMenu } from '../pageMenu/SideMenu'
 import { useContext } from 'react'
 import { Context } from '../../context'
 import { HOMEPAGE } from '../../constants'
+import { FOOTER_HEIGHT, NAVBAR_HEIGHT } from '../../styles/styles-constants'
 
 export function DesktopLayout() {
   const location = useLocation()
   const { isSmallScreen } = useContext(Context)
-  const { styles } = useContext(Context)
 
   const isHomePage = location.pathname === HOMEPAGE
 
@@ -16,8 +16,8 @@ export function DesktopLayout() {
     <Box
       sx={{
         display: 'flex',
-        marginTop: isSmallScreen ? '0px' : `${styles.navBarHeight}`,
-        minHeight: `calc(100vh - ${styles.navBarHeight} - ${styles.footerHeight})`
+        marginTop: isSmallScreen ? '0px' : `${NAVBAR_HEIGHT}`,
+        minHeight: `calc(100vh - ${NAVBAR_HEIGHT} - ${FOOTER_HEIGHT})`
       }}
     >
       {!isHomePage && <SideMenu />}

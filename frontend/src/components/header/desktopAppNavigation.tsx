@@ -1,10 +1,11 @@
 import { Box, Fade, List, ListItem, useTheme } from '@mui/material'
 import { useContext, useState } from 'react'
 import { AppNavigationProps, SiteMap } from '../../types/navigation'
-import { Context, NavContext } from '../../context'
+import { NavContext } from '../../context'
 import { AppNavigationBar, MenuTypography } from './componentsAppNavigation'
 import { useNavigate } from 'react-router'
 import { LogoToHome } from '../common/buttons'
+import { NAVBAR_HEIGHT, NAVBAR_HEIGHT_MOBILE } from '../../styles/styles-constants'
 
 function DesktopSubMenuItems({ label, route }: { label: string; route: string }) {
   const { visibleSubItems } = useContext(NavContext)
@@ -44,15 +45,13 @@ function DesktopMenuItems({ item }: { item: string }) {
 
 function DesktopSecondaryNavBar() {
   const { siteMap, activeMenuItem, visibleSubItems } = useContext(NavContext)
-  const { styles } = useContext(Context)
-
   const theme = useTheme()
 
   return (
     <AppNavigationBar
       zIndex={5}
-      height='50px !important'
-      top={visibleSubItems ? `${styles.navBarHeight}` : '0'}
+      height={NAVBAR_HEIGHT_MOBILE}
+      top={visibleSubItems ? `${NAVBAR_HEIGHT}` : '0'}
       opacity={visibleSubItems ? 1 : 0}
       background={`linear-gradient(to right, ${theme.palette.base[100]} -15%,  transparent 150%)`}
       justifyContent='flex-end'
@@ -61,7 +60,7 @@ function DesktopSecondaryNavBar() {
         sx={{
           display: 'flex',
           padding: '0 !important',
-          height: '100%'
+          maxHeight: NAVBAR_HEIGHT_MOBILE
         }}
       >
         {siteMap

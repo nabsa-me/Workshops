@@ -28,6 +28,12 @@ export const colors = {
   gr6: '#2c2400'
 }
 
-export const softTransition = '0.5s ease-in'
-export const quickTransition = '0.25s ease-in'
-export const metalTransition = '0.75s ease-in'
+export const SOFT_TRANSITION = '0.5s ease-in'
+export const QUICK_TRANSITION = '0.25s ease-in'
+export const METAL_TRANSITION = '0.75s ease-in'
+
+export const NAVBAR_HEIGHT = '64px'
+export const NAVBAR_HEIGHT_MOBILE = '50px !important'
+export const FOOTER_HEIGHT = '80px'
+export const SIDEMENU_WIDTH = '300px'
+export const TOPMENU_WIDTH = '150px'

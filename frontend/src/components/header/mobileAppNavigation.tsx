@@ -2,10 +2,10 @@ import { Collapse, Fade, List, ListItem, Modal, Paper, useTheme } from '@mui/mat
 import { Close, Menu, PlayCircleOutline } from '@mui/icons-material'
 import { useContext, useState } from 'react'
 import { AppNavigationProps, SiteMap } from '../../types/navigation'
-import { Context, NavContext } from '../../context'
-import { MenuDropDownIconButton, AppNavigationBar, MenuTypography } from './componentsAppNavigation'
-import { quickTransition } from '../../styles/styles-constants'
-import { LogoToHome } from '../common/buttons'
+import { NavContext } from '../../context'
+import { AppNavigationBar, MenuTypography } from './componentsAppNavigation'
+import { NAVBAR_HEIGHT, QUICK_TRANSITION } from '../../styles/styles-constants'
+import { LogoToHome, MenuIconButton } from '../common/buttons'
 import { useNavigate } from 'react-router'
 
 const MobileMenuItems = ({ item, handleCloseModal }: { item: string; handleCloseModal: () => void }) => {
@@ -30,7 +30,7 @@ const MobileMenuItems = ({ item, handleCloseModal }: { item: string; handleClose
   return (
     <>
       <ListItem key={item} sx={{ paddingRight: '0', justifyContent: 'center' }}>
-        <MenuDropDownIconButton onClick={() => handleDropDownMenu()}>
+        <MenuIconButton onClick={() => handleDropDownMenu()}>
           <MenuTypography sx={{ scale: '1.7' }}>
             {item}
             <PlayCircleOutline
@@ -39,11 +39,11 @@ const MobileMenuItems = ({ item, handleCloseModal }: { item: string; handleClose
                 marginBottom: '0.1rem',
                 scale: '0.6',
                 transform: activeModalItems?.includes(item) ? 'rotate(90deg)' : 'rotate(0deg)',
-                transition: quickTransition
+                transition: QUICK_TRANSITION
               }}
             />
           </MenuTypography>
-        </MenuDropDownIconButton>
+        </MenuIconButton>
       </ListItem>
 
       <Collapse in={activeModalItems?.includes(item)} timeout={250}>
@@ -63,27 +63,25 @@ const MobileMenuItems = ({ item, handleCloseModal }: { item: string; handleClose
   )
 }
 
-function MobileNavModal({ modaIsOpen, handleCloseModal }: { modaIsOpen: boolean; handleCloseModal: any }) {
+function MobileNavModal({ modalIsOpen, handleCloseModal }: { modalIsOpen: boolean; handleCloseModal: any }) {
   const { siteMap } = useContext(NavContext)
-  const { styles } = useContext(Context)
-
   const theme = useTheme()
 
   return (
     <Modal
-      open={modaIsOpen}
-      onClose={() => handleCloseModal(!modaIsOpen)}
+      open={modalIsOpen}
+      onClose={() => handleCloseModal(!modalIsOpen)}
       sx={{
         overflowY: 'scroll',
-        top: `${styles.navBarHeight}`,
+        top: `${NAVBAR_HEIGHT}`,
         display: 'flex',
         flexDirection: 'column',
-        minHeight: `calc(100vh - ${styles.navBarHeight})`
+        minHeight: `calc(100vh - ${NAVBAR_HEIGHT})`
       }}
       hideBackdrop
       closeAfterTransition
     >
-      <Fade in={modaIsOpen} timeout={500}>
+      <Fade in={modalIsOpen} timeout={500}>
         <Paper
           sx={{
             display: 'flex',
@@ -107,7 +105,7 @@ function MobileNavModal({ modaIsOpen, handleCloseModal }: { modaIsOpen: boolean;
 
 export function MobileAppNavigation({ siteMap }: AppNavigationProps) {
   const [activeModalItems, setActiveModalItems] = useState<string[]>([])
-  const [modaIsOpen, setModalIsOpen] = useState<boolean>(false)
+  const [modalIsOpen, setModalIsOpen] = useState<boolean>(false)
 
   const handleCloseModal = (modalState: boolean) => {
     setModalIsOpen(modalState)
@@ -118,23 +116,17 @@ export function MobileAppNavigation({ siteMap }: AppNavigationProps) {
 
   return (
     <NavContext.Provider value={{ siteMap, setActiveModalItems, activeModalItems }}>
-      <MobileNavModal modaIsOpen={modaIsOpen} handleCloseModal={handleCloseModal} />
+      <MobileNavModal modalIsOpen={modalIsOpen} handleCloseModal={handleCloseModal} />
       <AppNavigationBar position='sticky'>
         <LogoToHome handleCloseModal={handleCloseModal} />
-        <MenuDropDownIconButton
-          onClick={() => handleCloseModal(!modaIsOpen)}
-          sx={{
-            scale: '1.3',
-            marginRight: '0.5rem'
-          }}
-        >
-          <Fade in={!modaIsOpen} timeout={500}>
+        <MenuIconButton onClick={() => handleCloseModal(!modalIsOpen)} sx={{ marginRight: '0.5rem' }}>
+          <Fade in={!modalIsOpen} timeout={500}>
             <Menu sx={{ position: 'absolute' }} />
           </Fade>
-          <Fade in={modaIsOpen} timeout={500}>
-            <Close sx={{ position: 'absolute' }} />
+          <Fade in={modalIsOpen} timeout={500}>
+            <Close />
           </Fade>
-        </MenuDropDownIconButton>
+        </MenuIconButton>
       </AppNavigationBar>
     </NavContext.Provider>
   )

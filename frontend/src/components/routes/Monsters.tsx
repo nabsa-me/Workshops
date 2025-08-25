@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Box, Divider, useTheme } from '@mui/material'
-import { HeroSubtitle } from '../common/typography'
+import { GradientTitle } from '../common/typography'
 
 import { Context } from '../../context'
 
@@ -17,7 +17,7 @@ export function Monsters() {
         marginTop: isSmallScreen ? '14rem' : '4rem'
       }}
     >
-      <HeroSubtitle>Monsters</HeroSubtitle>
+      <GradientTitle sx={{ fontSize: '1.75rem !important' }}>Monsters</GradientTitle>
       <Divider sx={{ boxShadow: `0px 2px 5px ${theme.palette.secondary[300]}60` }} />
     </Box>
   )

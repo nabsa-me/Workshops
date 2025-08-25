@@ -1,11 +1,9 @@
 import { Box, List, ListItem } from '@mui/material'
 import { MenuTypography } from '../header/componentsAppNavigation'
-import { useContext } from 'react'
-import { Context } from '../../context'
+import { TOPMENU_WIDTH } from '../../styles/styles-constants'
 
 export function TopMenu() {
   const arr = Array.from({ length: 50 }, (_, i) => i)
-  const { styles } = useContext(Context)
 
   return (
     <Box
@@ -15,7 +13,7 @@ export function TopMenu() {
         display: 'flex',
         flexDirection: 'column',
         background: 'green',
-        minHeight: styles.topMenuWidth,
+        minHeight: TOPMENU_WIDTH,
         width: '100%',
         zIndex: 5
       }}
