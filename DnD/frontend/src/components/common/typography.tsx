@@ -12,6 +12,7 @@ export const HeroTitle = styled((props: TypographyProps) => <Typography {...prop
     fontFamily: "'Cinzel Decorative', serif",
     fontWeight: 700,
     fontSize: '2rem',
+    width: 'fit-content',
     ['@media (min-width: 600px)']: {
       fontSize: '3.1rem'
     },
@@ -46,12 +47,14 @@ export const HeroSubtitle = styled(HeroTitle)(({ theme }: { theme: Theme }) => (
   ${theme.palette.negative[100]} 10%,
   ${theme.palette.negative[0]} 40%,
   ${theme.palette.negative[300]} 100%)`,
+  width: 'fit-content',
   ...titleCommonProps
 }))
 
 export const Logo = styled(HeroTitle)(() => ({
   fontSize: '1.5rem !important',
   padding: '0 2rem 0 0',
+  width: 'fit-content',
   '&:hover': {
     cursor: 'pointer'
   },
@@ -67,6 +70,7 @@ export const GradientTitle = styled(HeroTitle)(({ theme }: { theme: Theme }) => 
     fontSize: '1.3rem'
   },
   textShadow: 'none',
+  width: 'fit-content',
   filter: 'contrast(130%) saturate(150%)',
   background: `linear-gradient(
       135deg,
