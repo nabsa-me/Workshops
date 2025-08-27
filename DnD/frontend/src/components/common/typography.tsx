@@ -77,6 +77,7 @@ export const GradientTitle = styled(HeroTitle)(({ theme }: { theme: Theme }) => 
       ${theme.palette.negative[100]} 0%,
       ${theme.palette.negative[200]} 50%,
       ${theme.palette.secondary[0]} 100%)`,
+  animation: 'none !important',
   ...titleCommonProps
 }))
 

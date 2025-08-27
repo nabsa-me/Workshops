@@ -1,8 +1,15 @@
-import { Button, ButtonProps, IconButton, IconButtonProps, styled, Theme } from '@mui/material'
-import { METAL_TRANSITION, QUICK_TRANSITION, SOFT_TRANSITION, colors } from '../../styles/styles-constants'
+import { Box, Button, ButtonProps, Fade, IconButton, IconButtonProps, styled, Theme } from '@mui/material'
+import {
+  FADE_TIMEOUT,
+  METAL_TRANSITION,
+  QUICK_TRANSITION,
+  SOFT_TRANSITION,
+  colors
+} from '../../styles/styles-constants'
 import { useNavigate } from 'react-router'
 import { Logo } from './typography'
 import { HOMEPAGE } from '../../constants'
+import { MenuIconButtonProps } from '../../types/buttons'
 
 export const CTAButton = styled((props: ButtonProps) => <Button {...props} />)(({ theme }: { theme: Theme }) => ({
   color: colors.grey1,
@@ -59,7 +66,7 @@ export const CTAButton = styled((props: ButtonProps) => <Button {...props} />)((
   }
 }))
 
-export const MenuIconButton = styled((props: IconButtonProps) => <IconButton {...props} />)(({ theme }) => ({
+export const StyledIconButton = styled((props: IconButtonProps) => <IconButton {...props} />)(({ theme }) => ({
   color: theme.palette.negative[200],
   borderRadius: '0',
   transition: SOFT_TRANSITION,
@@ -74,17 +81,21 @@ export const MenuIconButton = styled((props: IconButtonProps) => <IconButton {..
   }
 }))
 
-export const LogoToHome = ({ handleCloseModal }: { handleCloseModal?: any }) => {
+export const MenuIconButton = ({ menuIsOpen, setMenuIsOpen, firstIcon, secondIcon, sx }: MenuIconButtonProps) => {
+  return (
+    <StyledIconButton onClick={() => setMenuIsOpen(!menuIsOpen)} sx={{ ...sx }}>
+      <Fade in={menuIsOpen} timeout={FADE_TIMEOUT}>
+        <Box sx={{ position: 'absolute' }}>{firstIcon}</Box>
+      </Fade>
+      <Fade in={!menuIsOpen} timeout={FADE_TIMEOUT}>
+        <Box>{secondIcon}</Box>
+      </Fade>
+    </StyledIconButton>
+  )
+}
+
+export const LogoToHome = () => {
   const navigate = useNavigate()
 
-  const handleNavigate = () => {
-    if (handleCloseModal) {
-      handleCloseModal(false)
-      navigate(HOMEPAGE)
-    } else {
-      navigate(HOMEPAGE)
-    }
-  }
-
-  return <Logo onClick={handleNavigate}>DrAkiA</Logo>
+  return <Logo onClick={() => navigate(HOMEPAGE)}>DrAkiA</Logo>
 }

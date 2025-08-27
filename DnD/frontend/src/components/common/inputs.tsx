@@ -1,7 +1,7 @@
-import { styled, TextField } from '@mui/material'
+import { styled, TextField, TextFieldProps } from '@mui/material'
 import { QUICK_TRANSITION } from '../../styles/styles-constants'
 
-export const InputField = styled(TextField)(({ theme }) => ({
+const Input = styled(TextField)(({ theme }) => ({
   width: '100%',
   '& .MuiInputBase-root': {
     color: theme.palette.negative[100],
@@ -29,7 +29,16 @@ export const InputField = styled(TextField)(({ theme }) => ({
     top: '-7px'
   },
   '& .MuiInputLabel-shrink': {
-    top: '0',
+    top: '0'
+  },
+  '& .MuiInputLabel-root.Mui-focused': {
     color: theme.palette.negative[200]
+  },
+  '& .MuiInputBase-input::placeholder': {
+    color: theme.palette.negative[300]
   }
 }))
+
+export const InputField = (props: TextFieldProps) => {
+  return <Input slotProps={{ inputLabel: { shrink: true } }} {...props} />
+}

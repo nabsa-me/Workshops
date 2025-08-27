@@ -21,7 +21,7 @@ export function useCustomBackground() {
       backgroundSize: 'cover !important'
     },
     [MONSTERS]: {
-      background: `linear-gradient(to bottom, ${theme.palette.base[0]} calc(0% + 120px), ${theme.palette.base[100]} calc(0% + 300px), transparent calc(0% + 5000px), transparent 100%), url(/01-062.unicorn-lair.webp)`
+      background: `linear-gradient(to bottom, ${theme.palette.base[0]} calc(0% + 50px), ${theme.palette.base[100]} calc(0% + 200px), transparent calc(0% + 5000px), transparent 100%), url(/01-062.unicorn-lair.webp)`
     }
   }
 

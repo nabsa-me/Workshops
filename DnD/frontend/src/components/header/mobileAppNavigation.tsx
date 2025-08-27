@@ -1,14 +1,14 @@
-import { Collapse, Fade, List, ListItem, Modal, Paper, useTheme } from '@mui/material'
+import { Box, Collapse, Fade, List, ListItem, Modal, Paper, useTheme } from '@mui/material'
 import { Close, Menu, PlayCircleOutline } from '@mui/icons-material'
 import { useContext, useState } from 'react'
-import { AppNavigationProps, SiteMap } from '../../types/navigation'
+import { AppNavigationProps, MobileMenuItemsProps, MobileNavModalProps, SiteMap } from '../../types/navigation'
 import { NavContext } from '../../context'
 import { AppNavigationBar, MenuTypography } from './componentsAppNavigation'
-import { NAVBAR_HEIGHT, QUICK_TRANSITION } from '../../styles/styles-constants'
-import { LogoToHome, MenuIconButton } from '../common/buttons'
+import { FADE_TIMEOUT, NAVBAR_HEIGHT, QUICK_TRANSITION } from '../../styles/styles-constants'
+import { LogoToHome, MenuIconButton, StyledIconButton } from '../common/buttons'
 import { useNavigate } from 'react-router'
 
-const MobileMenuItems = ({ item, handleCloseModal }: { item: string; handleCloseModal: () => void }) => {
+const MobileMenuItems = ({ item, handleCloseModal }: MobileMenuItemsProps) => {
   const { siteMap, activeModalItems, setActiveModalItems } = useContext(NavContext)
   const navigate = useNavigate()
 
@@ -23,14 +23,14 @@ const MobileMenuItems = ({ item, handleCloseModal }: { item: string; handleClose
   const handleNavigate = (route: string) => {
     if (route) {
       navigate(route)
-      handleCloseModal()
+      handleCloseModal(false)
     }
   }
 
   return (
     <>
       <ListItem key={item} sx={{ paddingRight: '0', justifyContent: 'center' }}>
-        <MenuIconButton onClick={() => handleDropDownMenu()}>
+        <StyledIconButton onClick={() => handleDropDownMenu()}>
           <MenuTypography sx={{ scale: '1.7' }}>
             {item}
             <PlayCircleOutline
@@ -43,7 +43,7 @@ const MobileMenuItems = ({ item, handleCloseModal }: { item: string; handleClose
               }}
             />
           </MenuTypography>
-        </MenuIconButton>
+        </StyledIconButton>
       </ListItem>
 
       <Collapse in={activeModalItems?.includes(item)} timeout={250}>
@@ -63,7 +63,7 @@ const MobileMenuItems = ({ item, handleCloseModal }: { item: string; handleClose
   )
 }
 
-function MobileNavModal({ modalIsOpen, handleCloseModal }: { modalIsOpen: boolean; handleCloseModal: any }) {
+const MobileNavModal = ({ modalIsOpen, handleCloseModal }: MobileNavModalProps) => {
   const { siteMap } = useContext(NavContext)
   const theme = useTheme()
 
@@ -81,7 +81,7 @@ function MobileNavModal({ modalIsOpen, handleCloseModal }: { modalIsOpen: boolea
       hideBackdrop
       closeAfterTransition
     >
-      <Fade in={modalIsOpen} timeout={500}>
+      <Fade in={modalIsOpen} timeout={FADE_TIMEOUT}>
         <Paper
           sx={{
             display: 'flex',
@@ -103,11 +103,11 @@ function MobileNavModal({ modalIsOpen, handleCloseModal }: { modalIsOpen: boolea
   )
 }
 
-export function MobileAppNavigation({ siteMap }: AppNavigationProps) {
+export const MobileAppNavigation = ({ siteMap }: AppNavigationProps) => {
   const [activeModalItems, setActiveModalItems] = useState<string[]>([])
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false)
 
-  const handleCloseModal = (modalState: boolean) => {
+  const handleCloseModal: (modalState: boolean) => void = (modalState) => {
     setModalIsOpen(modalState)
     setTimeout(() => {
       setActiveModalItems?.([])
@@ -118,15 +118,16 @@ export function MobileAppNavigation({ siteMap }: AppNavigationProps) {
     <NavContext.Provider value={{ siteMap, setActiveModalItems, activeModalItems }}>
       <MobileNavModal modalIsOpen={modalIsOpen} handleCloseModal={handleCloseModal} />
       <AppNavigationBar position='sticky'>
-        <LogoToHome handleCloseModal={handleCloseModal} />
-        <MenuIconButton onClick={() => handleCloseModal(!modalIsOpen)} sx={{ marginRight: '0.5rem' }}>
-          <Fade in={!modalIsOpen} timeout={500}>
-            <Menu sx={{ position: 'absolute' }} />
-          </Fade>
-          <Fade in={modalIsOpen} timeout={500}>
-            <Close />
-          </Fade>
-        </MenuIconButton>
+        <Box onClick={() => handleCloseModal(false)}>
+          <LogoToHome />
+        </Box>
+        <MenuIconButton
+          sx={{ marginRight: '0.5rem' }}
+          firstIcon={<Close />}
+          secondIcon={<Menu />}
+          menuIsOpen={modalIsOpen}
+          setMenuIsOpen={setModalIsOpen}
+        />
       </AppNavigationBar>
     </NavContext.Provider>
   )
