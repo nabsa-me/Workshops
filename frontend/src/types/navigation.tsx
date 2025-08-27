@@ -9,7 +9,7 @@ export type AppNavigationProps = {
   siteMap: SiteMap[]
 }
 
-export interface NavigationBarProps {
+export type NavigationBarProps = {
   children: React.ReactNode
   height?: string
   position?: 'sticky' | 'fixed'
@@ -19,4 +19,14 @@ export interface NavigationBarProps {
   zIndex?: number
   background?: CSSProperties['background'] | string
   elevation?: number
+}
+
+export type MobileNavModalProps = {
+  modalIsOpen: boolean
+  handleCloseModal: (modalState: boolean) => void
+}
+
+export type MobileMenuItemsProps = {
+  item: string
+  handleCloseModal: (modalState: boolean) => void
 }

@@ -35,5 +35,6 @@ export const METAL_TRANSITION = '0.75s ease-in'
 export const NAVBAR_HEIGHT = '64px'
 export const NAVBAR_HEIGHT_MOBILE = '50px !important'
 export const FOOTER_HEIGHT = '80px'
-export const SIDEMENU_WIDTH = '300px'
+export const SIDEMENU_WIDTH = '400px'
 export const TOPMENU_WIDTH = '150px'
+export const FADE_TIMEOUT = 500
