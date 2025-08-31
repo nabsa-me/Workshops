@@ -1,4 +1,18 @@
-import { Box, Button, ButtonProps, Fade, IconButton, IconButtonProps, styled, Theme } from '@mui/material'
+import * as React from 'react'
+import {
+  Box,
+  Button,
+  ButtonProps,
+  Fade,
+  IconButton,
+  IconButtonProps,
+  styled,
+  Theme,
+  Switch,
+  FormGroup,
+  FormControlLabel,
+  FormControl
+} from '@mui/material'
 import {
   FADE_TIMEOUT,
   METAL_TRANSITION,
@@ -10,6 +24,7 @@ import { useNavigate } from 'react-router'
 import { Logo } from './typography'
 import { HOMEPAGE } from '../../constants'
 import { MenuIconButtonProps } from '../../types/buttons'
+import { getInputProps } from './helper'
 
 export const CTAButton = styled((props: ButtonProps) => <Button {...props} />)(({ theme }: { theme: Theme }) => ({
   color: colors.grey1,
@@ -98,4 +113,26 @@ export const LogoToHome = () => {
   const navigate = useNavigate()
 
   return <Logo onClick={() => navigate(HOMEPAGE)}>DrAkiA</Logo>
+}
+
+const SwitchLabel = styled(FormControlLabel)(({ theme }) => {
+  const props = getInputProps(theme)
+
+  return {
+    color: props.INPUT_TEXT_COLOR,
+    '& .MuiFormControlLabel-label': {
+      fontSize: '0.8rem',
+      fontFamily: props.FONT_FAMILY
+    }
+  }
+})
+
+export const SwitchButton = ({ label }: { label: string }) => {
+  return (
+    <FormControl>
+      <FormGroup row>
+        <SwitchLabel value='top' control={<Switch color='secondary' />} label={label} labelPlacement='top' />
+      </FormGroup>
+    </FormControl>
+  )
 }

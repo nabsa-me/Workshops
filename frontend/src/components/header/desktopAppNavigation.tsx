@@ -79,7 +79,7 @@ function DesktopPrimaryNavBar() {
   return (
     <AppNavigationBar>
       <LogoToHome />
-      <List sx={{ display: 'flex' }}>
+      <List sx={{ display: 'flex', marginLeft: 'calc(100vw - 550px)' }}>
         {siteMap?.map(({ label }: SiteMap) => (
           <DesktopMenuItems item={label} key={label} />
         ))}
