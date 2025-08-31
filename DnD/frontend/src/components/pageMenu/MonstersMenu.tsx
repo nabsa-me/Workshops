@@ -3,31 +3,43 @@ import { InputField } from '../common/inputs'
 import { FiltersBlock } from './FiltersBlock'
 import { SwitchButton } from '../common/buttons'
 import { MultipleSelectorPlaceholder } from '../common/selectors'
+import { monstersOptions } from '../common/helper'
 
 export const MonstersMenu = () => {
   return (
     <Box sx={{ padding: '1.25rem 25px 2rem 25px', display: 'flex', flexWrap: 'wrap' }}>
       <FiltersBlock title='Monster Filters'>
         <InputField label='Monster Name' placeholder='Monster Name' />
-        <MultipleSelectorPlaceholder label='Type' placeholder='Giant, Humanoid...' />
-        <MultipleSelectorPlaceholder label='Size' placeholder='Tiny, Small...' />
+        <MultipleSelectorPlaceholder label='Type' placeholder='Giant, Humanoid...' options={monstersOptions.type} />
+        <MultipleSelectorPlaceholder label='Size' placeholder='Tiny, Small...' options={monstersOptions.size} />
         <Box sx={{ display: 'flex', gap: '1rem' }}>
           <InputField label='Min CR' placeholder='0' />
           <InputField label='Max CR' placeholder='30' />
         </Box>
-        <InputField label='Habitat' placeholder='Arctic, Forest...' />
+        <MultipleSelectorPlaceholder
+          label='Habitat'
+          placeholder='Arctic, Forest...'
+          options={monstersOptions.habitat}
+        />
       </FiltersBlock>
 
       <FiltersBlock title='Advanced Filters'>
-        <MultipleSelectorPlaceholder label='Alignment' placeholder='Lawful, Good...' />
-        <MultipleSelectorPlaceholder label='Languages' placeholder='Elvish, Infernal...' />
-        <MultipleSelectorPlaceholder label='Source' placeholder='Book, Adventure...' />
+        <MultipleSelectorPlaceholder
+          label='Alignment'
+          placeholder='Lawful, Good...'
+          options={monstersOptions.alignment}
+        />
+        <MultipleSelectorPlaceholder
+          label='Languages'
+          placeholder='Elvish, Infernal...'
+          options={monstersOptions.language}
+        />
         <Box sx={{ display: 'flex', justifyContent: 'space-around' }}>
           <SwitchButton label='Leyendary' />
           <SwitchButton label='Mythic' />
           <SwitchButton label='Has Lair' />
         </Box>
-        <MultipleSelectorPlaceholder label='Size' placeholder='Tiny, Small...' />
+        <MultipleSelectorPlaceholder label='Source' placeholder='Book, Adventure...' options={monstersOptions.source} />
       </FiltersBlock>
 
       <FiltersBlock title='Battle Field Filters'>

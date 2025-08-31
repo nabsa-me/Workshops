@@ -4,19 +4,7 @@ import { FormControl, InputLabel, styled, Theme, useTheme } from '@mui/material'
 import { getInputProps } from './helper'
 import { QUICK_TRANSITION } from '../../styles/styles-constants'
 import { useRef, useState } from 'react'
-
-const names = [
-  'Oliver Hansen',
-  'Van Henry',
-  'April Tucker',
-  'Ralph Hubbard',
-  'Omar Alexander',
-  'Carlos Abbott',
-  'Miriam Wagner',
-  'Bradley Wilkerson',
-  'Virginia Andrews',
-  'Kelly Snyder'
-]
+import { MultipleSelectorPlaceholderProps } from '../../types/selectors'
 
 const MultipleSelector = styled(Select)(({ theme }: { theme: Theme }) => {
   const props = getInputProps(theme)
@@ -76,8 +64,8 @@ const DropDownListItem = styled(MenuItem)(({ theme }: { theme: Theme }) => {
   }
 })
 
-export function MultipleSelectorPlaceholder({ label, placeholder }: { label: string; placeholder: string }) {
-  const [personName, setPersonName] = useState<string[]>([])
+export function MultipleSelectorPlaceholder({ label, placeholder, options }: MultipleSelectorPlaceholderProps) {
+  const [selectedValues, setSelectedValues] = useState<string[]>([])
   const [menuPosition, setMenuPosition] = useState<'bottom' | 'top'>('bottom')
   const inputRef = useRef<HTMLDivElement | null>(null)
   const theme = useTheme()
@@ -88,20 +76,31 @@ export function MultipleSelectorPlaceholder({ label, placeholder }: { label: str
       const menuSpace = window.innerHeight - bottom
       setMenuPosition(menuSpace < 300 ? 'top' : 'bottom')
     }
+    requestAnimationFrame(() => {
+      document.getElementsByClassName('MuiPopover-paper')[0]?.scrollTo(0, 0)
+    })
   }
 
   const handleChange = (event: SelectChangeEvent) => {
-    const {
-      target: { value }
-    } = event
-    setPersonName(typeof value === 'string' ? value.split(',') : value)
+    const value = event.target.value
+
+    if (value.includes('Select All')) {
+      setSelectedValues(options || [])
+      requestAnimationFrame(() => {
+        document.getElementsByClassName('MuiPopover-paper')[0]?.scrollTo(0, 0)
+      })
+    } else if (value.includes('Select None')) {
+      setSelectedValues([])
+    } else {
+      setSelectedValues(typeof value === 'string' ? value.split(',') : value)
+    }
   }
 
   const renderSelectedValues = (selected: string[]): React.ReactNode => {
-    if (selected.length === 0) {
+    if (selected?.length === 0) {
       return <em>{placeholder}</em>
     }
-    return selected.join(', ')
+    return selected?.join(', ')
   }
 
   return (
@@ -112,11 +111,12 @@ export function MultipleSelectorPlaceholder({ label, placeholder }: { label: str
         displayEmpty
         ref={inputRef}
         label={label}
-        value={personName}
+        value={selectedValues}
         onOpen={handleOnOpen}
         onChange={(event) => handleChange(event as SelectChangeEvent)}
         renderValue={(selected) => renderSelectedValues(selected as string[])}
         MenuProps={{
+          ref: inputRef,
           anchorOrigin: {
             vertical: menuPosition === 'bottom' ? 'bottom' : 'top',
             horizontal: 'center'
@@ -138,12 +138,12 @@ export function MultipleSelectorPlaceholder({ label, placeholder }: { label: str
           }
         }}
       >
-        <DropDownListItem value=''>
-          <em>Select All / Select None</em>
+        <DropDownListItem value={selectedValues?.length === options?.length ? 'Select None' : 'Select All'}>
+          <em>{selectedValues?.length === options?.length ? 'Select None' : 'Select All'}</em>
         </DropDownListItem>
-        {names.map((name) => (
-          <DropDownListItem key={name} value={name}>
-            {name}
+        {options?.map((option) => (
+          <DropDownListItem key={option} value={option}>
+            {option}
           </DropDownListItem>
         ))}
       </MultipleSelector>
