@@ -21,6 +21,23 @@ export const GlobalStyles = () => (
         padding: 0;
       }
 
+      &::-webkit-scrollbar {
+        width: 4px;
+        height: 4px;
+      }
+      &::-webkit-scrollbar-thumb {
+        background-color: #474740;
+        border-radius: 8px;
+        border: 1px solid #474740;
+      }
+      &::-webkit-scrollbar-track {
+        border-left: 1px solid #151312;
+        background-color: #2c2928;
+      }
+      &::-webkit-scrollbar-button {
+        display: none;
+      }
+
       .MuiTouchRipple-root {
         display: none;
       }
@@ -28,6 +45,11 @@ export const GlobalStyles = () => (
       .MuiButtonBase-root.Mui-focusVisible {
         background-color: transparent !important;
         box-shadow: none;
+      }
+
+      .MuiMenu-list {
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
       }
 
       .disabled {

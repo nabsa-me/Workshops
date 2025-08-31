@@ -17,28 +17,11 @@ export const SideMenu = () => {
         minWidth: menuIsOpen ? SIDEMENU_WIDTH : '50px',
         transform: menuIsOpen ? 'translateX(0px)' : 'translateX(-100%)+50px',
         transition: QUICK_TRANSITION,
-        overflowY: 'auto',
+        overflowY: 'scroll',
         overflowX: 'hidden',
         position: 'relative',
         background: `${theme.palette.base[0]}85`,
-        boxShadow: `-15px 0px 25px 15px ${theme.palette.base[300]}, -35px 0px 15px 20px ${theme.palette.negative[300]}`,
-
-        '&::-webkit-scrollbar': {
-          width: '4px',
-          height: '4px'
-        },
-        '&::-webkit-scrollbar-thumb': {
-          backgroundColor: `${theme.palette.negative[400]}`,
-          borderRadius: '8px',
-          border: `1px solid ${theme.palette.negative[400]}`
-        },
-        '&::-webkit-scrollbar-track': {
-          borderLeft: `1px solid ${theme.palette.base[0]}`,
-          backgroundColor: theme.palette.base[500]
-        },
-        '&::-webkit-scrollbar-button': {
-          display: 'none'
-        }
+        boxShadow: `-15px 0px 25px 15px ${theme.palette.base[300]}, -35px 0px 15px 20px ${theme.palette.negative[300]}`
       }}
     >
       <Box

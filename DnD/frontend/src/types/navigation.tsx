@@ -13,7 +13,7 @@ export type NavigationBarProps = {
   children: React.ReactNode
   height?: string
   position?: 'sticky' | 'fixed'
-  justifyContent?: 'flex-end' | 'space-between'
+  justifyContent?: 'flex-end' | 'flex-start'
   top?: string | number
   opacity?: number
   zIndex?: number

@@ -25,7 +25,7 @@ export function AppNavigationBar({
   top = 0,
   opacity = 1,
   zIndex = 10,
-  justifyContent = 'space-between',
+  justifyContent = 'flex-start',
   background
 }: NavigationBarProps) {
   const theme = useTheme()
