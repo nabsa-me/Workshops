@@ -23,3 +23,53 @@ export const getInputProps = (theme: Theme) => {
     }
   }
 }
+
+export const monstersOptions = {
+  type: [
+    'Aberration',
+    'Beast',
+    'Celestial',
+    'Construct',
+    'Dragon',
+    'Elemental',
+    'Fey',
+    'Giant',
+    'Humanoid',
+    'Monstrosity',
+    'Ooze',
+    'Plant',
+    'Undead'
+  ],
+  size: ['Tiny', 'Small', 'Medium', 'Large', 'Huge', 'Gargantuan'],
+  habitat: ['Artic', 'Coastal', 'Desert', 'Forest', 'Grassland', 'Hill', 'Mountain', 'Plannar'],
+  alignment: [
+    'Lawful Good',
+    'Neutral Good',
+    'Chaotic Good',
+    'Neutral',
+    'Lawful Evil',
+    'Neutral Evil',
+    'Chaotic Evil',
+    'Unaligned'
+  ],
+  language: [
+    'Aarakocra',
+    'Abyssal',
+    'Celestial',
+    'Common',
+    'Draconic',
+    'Dwarvish',
+    'Elvish',
+    'Giant',
+    'Infernal',
+    'Orc',
+    'Primordial',
+    'Sylvan'
+  ],
+  source: [
+    'Monster Manual',
+    "Volo's Guide to Monsters",
+    "Mordenkainen's Tome of Foes",
+    "Tasha's Cauldron of Everything"
+  ]
+}

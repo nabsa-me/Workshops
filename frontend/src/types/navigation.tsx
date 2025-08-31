@@ -1,15 +1,15 @@
 import { CSSProperties } from '@mui/material'
 
-export type SiteMap = {
+export interface SiteMap {
   label: string
   items: { label: string; route: string }[]
 }
 
-export type AppNavigationProps = {
+export interface AppNavigationProps {
   siteMap: SiteMap[]
 }
 
-export type NavigationBarProps = {
+export interface NavigationBarProps {
   children: React.ReactNode
   height?: string
   position?: 'sticky' | 'fixed'
@@ -21,12 +21,12 @@ export type NavigationBarProps = {
   elevation?: number
 }
 
-export type MobileNavModalProps = {
+export interface MobileNavModalProps {
   modalIsOpen: boolean
   handleCloseModal: (modalState: boolean) => void
 }
 
-export type MobileMenuItemsProps = {
+export interface MobileMenuItemsProps {
   item: string
   handleCloseModal: (modalState: boolean) => void
 }
