@@ -1,0 +1,12 @@
+{
+  "name": "typescript-fundamentals-v4",
+  "version": "1.0.0",
+  "author": "nabsa.me",
+  "private": true,
+  "devDependencies": {
+    "typescript": "^5.2.0"
+  },
+  "scripts": {
+    "dev": "tsc --watch --preserveWatchOutput"
+  }
+}

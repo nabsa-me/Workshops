@@ -15,3 +15,5 @@ Learn to build scalable React 18.x+ applications using the latest tools and tech
 
 CSS Grid is the most important tool in a modern web developer's toolkit for laying out web pages. With its two-dimensional structure, precise positioning, and overlapping elements, you’ll learn to achieve complex layouts with minimal code. You'll also explore advanced techniques like container queries for adaptive components and subgrids for nested layouts. Through hands-on CodePen exercises, you'll apply these techniques to real-world projects!
 
+### [TypeScript 5+ Fundamentals v4](https://frontendmasters.com/courses/typescript-v4/)
+TypeScript reduces bugs and improves maintainability when writing JavaScript. Learn all the key Typescript features such as variable typing, function signatures, union and intersection types, type aliases, and generics. Use effective strategies for transitioning your codebase to TypeScript for more robust and scalable applications.
