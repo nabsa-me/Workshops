@@ -59,7 +59,8 @@ export const FiltersBlock = ({ children, ...props }: { children: React.ReactNode
           transition: `${QUICK_TRANSITION}`,
           transform: stackAvailable ? 'translateY(0px)' : `translateY(calc(-${top}px - ${contentHeight}px))`,
           opacity: filterIsOpen ? 1 : 0,
-          marginBottom: filterIsOpen ? '2rem' : '0rem'
+          marginBottom: filterIsOpen ? '2rem' : '0rem',
+          zIndex: filterIsOpen ? 0 : -1
         }}
       >
         {children}

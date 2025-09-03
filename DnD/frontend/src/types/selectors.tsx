@@ -1,5 +1,7 @@
-export interface MultipleSelectorPlaceholderProps {
+export interface SelectorPlaceholderProps {
   label: string
   placeholder: string
-  options?: string[]
+  options: string[]
 }
+
+export type MonstersOptions = { [key: string]: string[] }
