@@ -1,4 +1,5 @@
 import { Theme } from '@mui/material'
+import { MonstersOptions } from '../../types/selectors'
 
 export const getInputProps = (theme: Theme) => {
   const INPUT_TEXT_COLOR = theme.palette.negative[200]
@@ -24,7 +25,7 @@ export const getInputProps = (theme: Theme) => {
   }
 }
 
-export const monstersOptions = {
+export const monstersOptions: MonstersOptions = {
   type: [
     'Aberration',
     'Beast',

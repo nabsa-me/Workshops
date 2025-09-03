@@ -46,10 +46,10 @@ const MobileMenuItems = ({ item, handleCloseModal }: MobileMenuItemsProps) => {
         </StyledIconButton>
       </ListItem>
 
-      <Collapse in={activeModalItems?.includes(item)} timeout={250}>
+      <Collapse in={!!activeModalItems?.includes(item)} timeout={250}>
         <List sx={{ marginBottom: '1rem', marginTop: '-0.5rem', opacity: '0.8' }}>
           {siteMap
-            ?.find((label: SiteMap) => label.label === item)
+            .find((label: SiteMap) => label.label === item)
             ?.items.map(({ label, route }) => (
               <ListItem key={label} sx={{ justifyContent: 'center' }}>
                 <MenuTypography className={!route ? 'disabled' : ''} onClick={() => handleNavigate(route)}>

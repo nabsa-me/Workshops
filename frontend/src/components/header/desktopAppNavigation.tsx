@@ -64,7 +64,7 @@ function DesktopSecondaryNavBar() {
         }}
       >
         {siteMap
-          ?.find((item: SiteMap) => item.label === activeMenuItem)
+          .find((item: SiteMap) => item.label === activeMenuItem)
           ?.items.map(({ label, route }) => (
             <DesktopSubMenuItems label={label} key={label} route={route} />
           ))}

@@ -1,4 +1,3 @@
-import * as React from 'react'
 import {
   Box,
   Button,
@@ -27,7 +26,7 @@ import { MenuIconButtonProps } from '../../types/buttons'
 import { getInputProps } from './helper'
 
 export const CTAButton = styled((props: ButtonProps) => <Button {...props} />)(({ theme }: { theme: Theme }) => ({
-  color: colors.grey1,
+  color: colors['grey1'],
   fontFamily: "'Cinzel Decorative', serif",
   fontWeight: 700,
   borderColor: theme.palette.negative[300],
@@ -65,7 +64,7 @@ export const CTAButton = styled((props: ButtonProps) => <Button {...props} />)((
   '&:hover': {
     boxShadow: `0 0 30px -1px ${theme.palette.secondary[300]}, 0 0 15px -5px ${theme.palette.negative[300]}`,
     borderColor: theme.palette.negative[200],
-    color: colors.white,
+    color: colors['white'],
     '&::after': {
       opacity: 0.5,
       animation: `shine ${METAL_TRANSITION}`

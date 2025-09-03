@@ -4,9 +4,9 @@ import { FormControl, InputLabel, styled, Theme, useTheme } from '@mui/material'
 import { getInputProps } from './helper'
 import { QUICK_TRANSITION } from '../../styles/styles-constants'
 import { useRef, useState } from 'react'
-import { MultipleSelectorPlaceholderProps } from '../../types/selectors'
+import { SelectorPlaceholderProps } from '../../types/selectors'
 
-const MultipleSelector = styled(Select)(({ theme }: { theme: Theme }) => {
+const Selector = styled(Select)(({ theme }: { theme: Theme }) => {
   const props = getInputProps(theme)
 
   return {
@@ -64,7 +64,7 @@ const DropDownListItem = styled(MenuItem)(({ theme }: { theme: Theme }) => {
   }
 })
 
-export function MultipleSelectorPlaceholder({ label, placeholder, options }: MultipleSelectorPlaceholderProps) {
+export const SelectorPlaceholder = ({ label, placeholder, options }: SelectorPlaceholderProps) => {
   const [selectedValues, setSelectedValues] = useState<string[]>([])
   const [menuPosition, setMenuPosition] = useState<'bottom' | 'top'>('bottom')
   const inputRef = useRef<HTMLDivElement | null>(null)
@@ -87,7 +87,7 @@ export function MultipleSelectorPlaceholder({ label, placeholder, options }: Mul
     if (value.includes('Select All')) {
       setSelectedValues(options || [])
       requestAnimationFrame(() => {
-        document.getElementsByClassName('MuiPopover-paper')[0]?.scrollTo(0, 0)
+        document.getElementsByClassName('MuiPopover-paper')[0].scrollTo(0, 0)
       })
     } else if (value.includes('Select None')) {
       setSelectedValues([])
@@ -97,16 +97,16 @@ export function MultipleSelectorPlaceholder({ label, placeholder, options }: Mul
   }
 
   const renderSelectedValues = (selected: string[]): React.ReactNode => {
-    if (selected?.length === 0) {
+    if (selected.length === 0) {
       return <em>{placeholder}</em>
     }
-    return selected?.join(', ')
+    return selected.join(', ')
   }
 
   return (
-    <FormControl>
+    <FormControl className={options.length ? '' : 'disabled'} disabled={!options.length}>
       <SelectorInputLabel shrink>{label}</SelectorInputLabel>
-      <MultipleSelector
+      <Selector
         multiple
         displayEmpty
         ref={inputRef}
@@ -138,15 +138,15 @@ export function MultipleSelectorPlaceholder({ label, placeholder, options }: Mul
           }
         }}
       >
-        <DropDownListItem value={selectedValues?.length === options?.length ? 'Select None' : 'Select All'}>
-          <em>{selectedValues?.length === options?.length ? 'Select None' : 'Select All'}</em>
+        <DropDownListItem value={selectedValues.length === options.length ? 'Select None' : 'Select All'}>
+          <em>{selectedValues.length === options.length ? 'Select None' : 'Select All'}</em>
         </DropDownListItem>
-        {options?.map((option) => (
+        {options.map((option) => (
           <DropDownListItem key={option} value={option}>
             {option}
           </DropDownListItem>
         ))}
-      </MultipleSelector>
+      </Selector>
     </FormControl>
   )
 }
