@@ -18,7 +18,7 @@ export const MenuTypography = styled((props: TypographyProps) => <GradientTitle 
   }
 }))
 
-export function AppNavigationBar({
+export const AppNavigationBar = ({
   children,
   height = NAVBAR_HEIGHT,
   position = 'fixed',
@@ -27,7 +27,7 @@ export function AppNavigationBar({
   zIndex = 10,
   justifyContent = 'flex-start',
   background
-}: NavigationBarProps) {
+}: NavigationBarProps) => {
   const theme = useTheme()
 
   const themedBackground =

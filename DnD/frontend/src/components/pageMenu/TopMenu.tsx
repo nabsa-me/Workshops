@@ -2,7 +2,7 @@ import { Box, List, ListItem } from '@mui/material'
 import { MenuTypography } from '../header/componentsAppNavigation'
 import { TOPMENU_WIDTH } from '../../styles/styles-constants'
 
-export function TopMenu() {
+export const TopMenu = () => {
   const arr = Array.from({ length: 50 }, (_, i) => i)
 
   return (

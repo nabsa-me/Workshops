@@ -4,7 +4,7 @@ import { GradientTitle, HeroSubtitle, HeroTitle, TextBody } from '../common/typo
 import { useNavigate } from 'react-router'
 import { MONSTERS } from '../../constants'
 
-export function Homepage() {
+export const Homepage = () => {
   const navigate = useNavigate()
 
   return (

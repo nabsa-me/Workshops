@@ -6,7 +6,7 @@ import { Context } from '../../context'
 import { HOMEPAGE } from '../../constants'
 import { FOOTER_HEIGHT, NAVBAR_HEIGHT } from '../../styles/styles-constants'
 
-export function DesktopLayout() {
+export const DesktopLayout = () => {
   const location = useLocation()
   const { isSmallScreen } = useContext(Context)
 

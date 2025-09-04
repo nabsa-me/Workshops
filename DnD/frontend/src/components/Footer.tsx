@@ -4,7 +4,7 @@ import { LogoToHome } from './common/buttons'
 
 const year = new Date().getFullYear()
 
-export function Footer() {
+export const Footer = () => {
   const theme = useTheme()
 
   return (

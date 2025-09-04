@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router'
 import { LogoToHome } from '../common/buttons'
 import { NAVBAR_HEIGHT, NAVBAR_HEIGHT_MOBILE } from '../../styles/styles-constants'
 
-function DesktopSubMenuItems({ label, route }: { label: string; route: string }) {
+const DesktopSubMenuItems = ({ label, route }: { label: string; route: string }) => {
   const { visibleSubItems } = useContext(NavContext)
   const navigate = useNavigate()
 
@@ -26,7 +26,7 @@ function DesktopSubMenuItems({ label, route }: { label: string; route: string })
   )
 }
 
-function DesktopMenuItems({ item }: { item: string }) {
+const DesktopMenuItems = ({ item }: { item: string }) => {
   const { setActiveMenuItem, setVisibleSubItem } = useContext(NavContext)
 
   return (
@@ -43,7 +43,7 @@ function DesktopMenuItems({ item }: { item: string }) {
   )
 }
 
-function DesktopSecondaryNavBar() {
+const DesktopSecondaryNavBar = () => {
   const { siteMap, activeMenuItem, visibleSubItems } = useContext(NavContext)
   const theme = useTheme()
 
@@ -73,7 +73,7 @@ function DesktopSecondaryNavBar() {
   )
 }
 
-function DesktopPrimaryNavBar() {
+const DesktopPrimaryNavBar = () => {
   const { siteMap } = useContext(NavContext)
 
   return (
@@ -88,7 +88,7 @@ function DesktopPrimaryNavBar() {
   )
 }
 
-export function DesktopAppNavigation({ siteMap }: AppNavigationProps) {
+export const DesktopAppNavigation = ({ siteMap }: AppNavigationProps) => {
   const [activeMenuItem, setActiveMenuItem] = useState<string>('')
   const [visibleSubItems, setVisibleSubItem] = useState<boolean>(false)
 

@@ -4,7 +4,7 @@ import { HOMEPAGE, MONSTERS } from '../constants'
 import type { Location } from 'react-router'
 import { Background, BackgroundSize, DinamicBackground } from '../types/app'
 
-export function useCustomBackground() {
+export const useCustomBackground = () => {
   const theme: Theme = useTheme()
   const location: Location = useLocation()
 

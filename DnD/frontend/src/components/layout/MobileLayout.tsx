@@ -3,7 +3,7 @@ import { Box } from '@mui/material'
 import { TopMenu } from '../pageMenu/TopMenu'
 import { HOMEPAGE } from '../../constants'
 
-export function MobileLayout() {
+export const MobileLayout = () => {
   const location = useLocation()
 
   const isHomePage = location.pathname === HOMEPAGE

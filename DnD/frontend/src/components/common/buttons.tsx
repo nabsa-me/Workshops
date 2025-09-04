@@ -114,7 +114,7 @@ export const LogoToHome = () => {
   return <Logo onClick={() => navigate(HOMEPAGE)}>DrAkiA</Logo>
 }
 
-const SwitchLabel = styled(FormControlLabel)(({ theme }) => {
+const SwitchLabel = styled(FormControlLabel)(({ theme }: { theme: Theme }) => {
   const props = getInputProps(theme)
 
   return {
