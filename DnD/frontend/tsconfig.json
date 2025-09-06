@@ -1,24 +1,14 @@
 {
-    "compilerOptions":  {
+  "extends": "../tsconfig.json",
+  "compilerOptions":  {
     "target": "ES2022",                         // ✅ Moderno, compatible con React 18+
     "lib": ["DOM", "DOM.Iterable", "ES2022"],   // ✅ APIs modernas + DOM para React
     "module": "ESNext",                         // ✅ Para bundlers modernos como Vite, Webpack, etc.
     "jsx": "react-jsx",                         // ✅ Soporta JSX sin necesidad de importar React (React 17+)
-    "exactOptionalPropertyTypes": true,         // ✅ Requiere diferenciar bien entre `x?: T` y `x: T | undefined`
-    "useUnknownInCatchVariables": true,         // ✅ Evita `any` en bloques catch
-    "noUnusedLocals": true,                     // 🔍 Activa limpieza de código
-    "noUnusedParameters": true,
-    "noPropertyAccessFromIndexSignature": true, // ✅ Mejora la seguridad con objetos indexados
-    "strictNullChecks": true,                   // ✅ Evita errores con null/undefined
-    "strictPropertyInitialization": true,       // ✅ Fuerza inicialización de propiedades
-    "skipLibCheck": false,                      // ⚠️ Puedes desactivarlo para verificar tipos de libs externas
-    "types": [],
-    "typeRoots": ["./node_modules/@types"],
     "allowJs": false,                           // ✅ Prohíbe `.js` para forzar solo TS
     "checkJs": false,
     "noEmit": true,                             // ✅ Solo para type-checking, no genera archivos
-    "moduleResolution": "node",
-  },
-    "exclude": ["**/node_modules"],
-    "include": ["**/*.tsx", "**/*.ts", "**/.*js", "**/.*jsx"]
+    },
+  "exclude": ["**/node_modules"],
+  "include": ["src"]
   }

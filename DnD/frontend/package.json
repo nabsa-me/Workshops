@@ -7,7 +7,9 @@
   "scripts": {
     "build": "vite build",
     "preview": "vite preview",
-    "dev": "vite"
+    "dev": "vite",
+    "ts": "npx tsc --noEmit",
+    "ts-show": "npx tsc --showConfig"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
