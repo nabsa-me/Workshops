@@ -15,6 +15,7 @@ isJSON(true)
 isJSON(null)
 isJSON({ a: { b: [2, 3, 'foo'] } })
 
+// NEGATIVE test cases (mustn't pass)
 isJSON(() => '')
 isJSON(class {})
 isJSON(undefined)
