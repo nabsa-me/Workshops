@@ -1,81 +1,87 @@
 {
-    "extends": [
-        "eslint:recommended",
-        "plugin:@typescript-eslint/eslint-recommended",
-        "plugin:prettier/recommended"
+  "extends": ["eslint:recommended", "plugin:@typescript-eslint/eslint-recommended", "plugin:prettier/recommended"],
+  "globals": {
+    "Atomics": "readonly",
+    "SharedArrayBuffer": "readonly"
+  },
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 11,
+    "sourceType": "module"
+  },
+  "plugins": ["react-hooks", "@typescript-eslint", "prettier", "jsonc"],
+  "env": {
+    "browser": true,
+    "es6": true,
+    "node": true
+  },
+  "rules": {
+    "prettier/prettier": [
+      "warn",
+      {
+        "eslintIntegration": true,
+        "printWidth": 120,
+        "tabWidth": 2,
+        "semi": false,
+        "singleQuote": true,
+        "jsxSingleQuote": true,
+        "trailingComma": "none",
+        "endOfLine": "crlf"
+      }
     ],
-    "globals": {
-        "Atomics": "readonly",
-        "SharedArrayBuffer": "readonly"
-    },
-    "parser": "@typescript-eslint/parser",
-    "parserOptions": {
-        "ecmaFeatures": {
-            "jsx": true
-        },
-        "ecmaVersion": 11,
-        "sourceType": "module"
-    },
-    "plugins": [
-        "react-hooks",
-        "@typescript-eslint",
-        "prettier"
+    "no-case-declarations": 0,
+    "no-unexpected-multiline": "warn",
+    "no-debugger": "warn",
+    "react/prop-types": 0,
+    "react/jsx-key": 0,
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": ["warn"],
+    "linebreak-style": ["error", "windows"],
+    "quotes": [
+      "warn",
+      "single",
+      {
+        "avoidEscape": true
+      }
     ],
-    "env": {
-        "browser": true,
-        "es6": true,
-        "node": true
+    "semi": ["error", "never"],
+    "no-multiple-empty-lines": ["warn", { "max": 1, "maxEOF": 0 }],
+    "padding-line-between-statements": [
+      "warn",
+      {
+        "blankLine": "always",
+        "prev": ["function", "class"],
+        "next": ["function", "class"]
+      },
+      { "blankLine": "always", "prev": ["function", "class"], "next": "*" },
+      {
+        "blankLine": "never",
+        "prev": ["const", "let", "var"],
+        "next": ["const", "let", "var"]
+      },
+      { "blankLine": "always", "prev": "*", "next": "function" },
+      { "blankLine": "always", "prev": "function", "next": "*" }
+    ],
+    "lines-between-class-members": ["warn", "always", { "exceptAfterSingleLine": true }]
+  },
+  "overrides": [
+    {
+      "files": ["*.json"],
+      "parser": "jsonc-eslint-parser",
+      "extends": ["plugin:jsonc/recommended-with-json"],
+      "rules": {
+        "quotes": ["error", "double"],
+        "quote-props": ["error", "always"]
+      }
     },
-    "rules": {
-        "prettier/prettier": [
-            "warn",
-            {
-                "eslintIntegration": true,
-                "printWidth": 120,
-                "tabWidth": 2,
-                "semi": false,
-                "singleQuote": true,
-                "jsxSingleQuote": true,
-                "trailingComma": "none",
-                "endOfLine": "crlf"
-            }
-        ],
-        "no-case-declarations": 0,
-        "no-unexpected-multiline": "warn",
-        "no-debugger": "warn",
-        "react/prop-types": 0,
-        "react/jsx-key": 0,
-        "no-unused-vars": "off",
-        "@typescript-eslint/no-unused-vars": [
-            "warn"
-        ],
-        "linebreak-style": [
-            "error",
-            "windows"
-        ],
-        "quotes": [
-            "warn",
-            "single",
-            {
-                "avoidEscape": true
-            }
-        ],
-        "semi": [
-            "error",
-            "never"
-        ]
-    },
-    "overrides": [
-        {
-            "files": [
-                "**/*.spec.js",
-                "**/*.spec.jsx",
-                "**/*.test.js",
-                "**/*.test.jsx"
-            ],
-            "env": {
-                "jest": true
-            }
-        }
-    ]
+    {
+      "files": ["**/*.spec.js", "**/*.spec.jsx", "**/*.test.js", "**/*.test.jsx"],
+      "env": {
+        "jest": true
+      }
+    }
+  ]
 }
