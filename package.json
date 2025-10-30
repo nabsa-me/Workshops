@@ -4,7 +4,10 @@
   "author": "nabsa.me",
   "private": true,
   "scripts": {
-    "commit": "npx git-cz"
+    "commit": "npx git-cz",
+    "push-dnd": "git subtree push --prefix=DnD DnD main",
+    "pull-dnd": "git subtree pull --prefix=DnD DnD main --squash",
+    "log-dnd": "git log DnD/main --oneline"
   },
   "devDependencies": {
     "@types/node": "^22.10.1",
