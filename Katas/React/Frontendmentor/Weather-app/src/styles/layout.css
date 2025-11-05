@@ -1,0 +1,46 @@
+.grid {
+      display: grid;
+      margin-top: 0.75rem;
+      gap: 0.5rem;
+}
+
+
+.section-container{
+  margin-bottom: 2rem;
+  .hourly-menu {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.hourly-list{
+  padding: 0 0.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.hourly-section{
+  padding: 0.75rem 0;
+  background-color: var(--color-primary);
+  border: 1px solid var(--color-border);
+}
+
+.daily-container {
+  display: flex;
+  flex-wrap: wrap;
+    > .daily-detail-container {
+      width: 100%;
+      grid-template-columns: repeat(2, 1fr);
+
+    }
+}
+
+.weekly-container {
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+}
+
+h2 {
+  margin-bottom: 0.5rem;
+}

@@ -1,0 +1,21 @@
+.card {
+  background-color: var(--color-primary);
+  border: 1px solid var(--color-border);
+}
+
+.main-card {
+  height: 150px;
+  width: 100%;
+}
+
+.data-card {
+  height: 100px;
+}
+
+.daily-card {
+  height: 75px;
+}
+
+.hourly-card{
+  height: 50px;
+}
