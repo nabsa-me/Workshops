@@ -1,0 +1,35 @@
+{
+  "compilerOptions":  {
+    "declaration": true,
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "inlineSourceMap": true,
+    "inlineSources": true,
+    "experimentalDecorators": true,
+    "strictPropertyInitialization": false,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
+    "resolveJsonModule": true,
+    "moduleResolution": "node",
+    "typeRoots": ["./node_modules/@types"],
+    "target": "ES2022",                         // ✅ Moderno, compatible con React 18+
+    "lib": ["DOM", "DOM.Iterable", "ES2022"],   // ✅ APIs modernas + DOM para React
+    "module": "ESNext",                         // ✅ Para bundlers modernos como Vite, Webpack, etc.
+    "jsx": "react-jsx",                         // ✅ Soporta JSX sin necesidad de importar React (React 17+)
+    "allowJs": false,                           // ✅ Prohíbe `.js` para forzar solo TS
+    "checkJs": false,
+    "noEmit": true,                             // ✅ Solo para type-checking, no genera archivos
+    },
+  "exclude": ["**/node_modules"],
+  "include": ["src"]
+  }
