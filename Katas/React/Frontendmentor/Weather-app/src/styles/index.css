@@ -32,8 +32,9 @@ body,
 main {
   box-sizing: border-box;
   width: 100%;
-  margin: 0 0.5rem;
+  margin: 0 1rem;
   * {
-    border-radius: 8px;
+    border-radius: 12px;
+    font-family: "Urbanist", sans-serif;
   }
 }
