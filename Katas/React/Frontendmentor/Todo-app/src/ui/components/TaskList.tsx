@@ -22,16 +22,18 @@ export const TaskList = () => {
   const tasks = useGetTaskList()
 
   return (
-    <ul className='rounded'>
-      {tasks.map((task) => (
-        <Task value={String(task.text)} key={task.id} id={task.id} />
-      ))}
-      <div className='single-box'>
-        <div className='manage-box'>
-          <p>Items left</p>
-          <p>Clear completed</p>
+    <div className='task-list-wraper'>
+      <ul className='rounded'>
+        {tasks.map((task) => (
+          <Task value={String(task.text)} key={task.id} id={task.id} />
+        ))}
+        <div className='single-box'>
+          <div className='manage-box'>
+            <p>Items left</p>
+            <p>Clear completed</p>
+          </div>
         </div>
-      </div>
-    </ul>
+      </ul>
+    </div>
   )
 }

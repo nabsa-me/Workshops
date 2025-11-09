@@ -1,9 +1,10 @@
 .wrapper {
   position: relative;
   min-height: 100vh;
-  min-width: 100vw;
-  overflow: hidden;
+  min-width: 100%;
+  /* overflow: hidden; */
   display: flex;
+  
 }
 
 .background {

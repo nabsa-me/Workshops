@@ -7,7 +7,6 @@
   justify-content: space-evenly;
 }
 
-
 .buttons-box {
   display: flex;
   width: 250px;
@@ -21,6 +20,7 @@
   color: var(--color-text-accent);
   text-shadow: 0 0 10px var(--color-text-shadow);
 }
+
 .manage-box{
   display: flex;
   width: 100%;
@@ -29,7 +29,6 @@
   justify-content: space-between;
   font-size: 0.75rem;
   color: var(--color-text-secondary);
-
 
 }
 .rounded {
@@ -51,13 +50,45 @@
 }
 
 ul {
+  position: absolute;
+  overflow-y: scroll;
+  height: 100%;
+  width: 100%;
+  & .single-box:last-child{
+    position: sticky;
+    bottom: 0;
+    background-color: var(--color-primary);
+    border-top: 1px solid var(--color-border-light);
+  }
+}
+
+ul::-webkit-scrollbar {
+  width: 8px;
+}
+
+ul::-webkit-scrollbar-track {
+  background-color:var(--color-primary-light);
+  border-left: 1px solid var(--color-border-dark);
+  border-radius: 0 8px 8px 0;
+}
+
+ul::-webkit-scrollbar-thumb {
+  background-color: var(--color-primary);
+  border-radius: 10px;
+  border:1px solid var(--color-border-dark);
+}
+
+.task-list-wraper {
+  position: relative;
+  height: calc(100vh - 6rem - 280px);
+  width: 100%;
   margin: 1rem 0;
 }
 
 form {
   width: 100%;
-
 }
+
 input {
   display: flex;
   color: var(--color-text-primary);
