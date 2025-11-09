@@ -1,0 +1,62 @@
+.button-background {
+    border-radius: 50%;
+    background-image: var(--button-gradient);
+}
+
+.button {
+  border:1px solid var(--color-light-border);
+  border-radius: 50%;
+  & .pendant {
+    opacity: 0%;
+    &:hover {
+      opacity: 50%;
+    }
+  }
+  & .done {
+    opacity: 80%;
+    &:hover{
+      opacity: 100%;
+    }
+  }
+  &.inactive {
+    pointer-events: none;
+    opacity: 0.5;
+  }
+}
+
+.button,
+.deleted, 
+.current {
+  height: 20px;
+  aspect-ratio: 1;
+  margin: 10px;
+}
+
+.deleted {
+  transform: rotate(45deg);
+}
+
+.check-icon,
+.delete-icon {
+  display: flex;
+  aspect-ratio: 1;
+  height: 100%;
+  background-position: center;
+  background-size: cover;
+  scale: 60%;
+}
+
+.check-icon {
+  background-image: url('../../public/check.png');
+  filter: invert(100%);
+
+}
+
+.delete-icon {
+  background-image: url('../../public/cross.png');
+  filter: var(--color-delete-icon);
+  opacity: 50%;
+  &:hover {
+    opacity: 100%;
+  }
+}

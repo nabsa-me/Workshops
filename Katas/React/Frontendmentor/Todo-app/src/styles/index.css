@@ -1,0 +1,25 @@
+@import "./layout.css";
+@import "./tasks.css";
+@import "./buttons.css";
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    transition: 0.25s ease-in-out;
+  }
+
+html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
+}
+
+#root {
+  min-height: 100vh;
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  font-family: 'Urbanist', 'sans-serif';
+
+}
