@@ -6,7 +6,7 @@ export const useTasksStore = create<TasksState>((set) => ({
 
   addTask: (text) =>
     set((state) => ({
-      tasks: [...state.tasks, { id: crypto.randomUUID(), text, completed: false, status: 'pendant' }]
+      tasks: [{ id: crypto.randomUUID(), text, completed: false, status: 'pendant' }, ...state.tasks]
     })),
 
   toggleTask: (id) =>

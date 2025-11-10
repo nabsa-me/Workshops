@@ -43,18 +43,18 @@
   &:first-child {
     border-radius: 5px 5px 0px 0px;
   }
-  &:last-child {
-      border-bottom: none;
-      border-radius: 0px 0px 5px 5px;
+  &.last-task {
+    border-bottom: none;
+    border-radius: 0px 0px 5px 5px;
   }
 }
 
 ul {
   position: absolute;
   overflow-y: scroll;
-  height: 100%;
+  max-height: calc(100vh - 6rem - 280px);
   width: 100%;
-  & .single-box:last-child{
+  & .single-box:last-child {
     position: sticky;
     bottom: 0;
     background-color: var(--color-primary);
@@ -67,20 +67,21 @@ ul::-webkit-scrollbar {
 }
 
 ul::-webkit-scrollbar-track {
-  background-color:var(--color-primary-light);
+  background-color:var(--color-primary-dark);
   border-left: 1px solid var(--color-border-dark);
   border-radius: 0 8px 8px 0;
 }
 
 ul::-webkit-scrollbar-thumb {
-  background-color: var(--color-primary);
+  background-color: var(--color-primary-light);
   border-radius: 10px;
   border:1px solid var(--color-border-dark);
 }
 
 .task-list-wraper {
   position: relative;
-  height: calc(100vh - 6rem - 280px);
+  max-height: calc(100vh - 6rem - 280px);
+  height: 100%;
   width: 100%;
   margin: 1rem 0;
 }
