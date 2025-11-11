@@ -78,7 +78,7 @@ ul::-webkit-scrollbar-thumb {
   border:1px solid var(--color-border-dark);
 }
 
-.task-list-wraper {
+.task-list-wrapper {
   position: relative;
   max-height: calc(100vh - 6rem - 280px);
   height: 100%;

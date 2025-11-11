@@ -7,9 +7,11 @@ export const TaskButton = () => {
 
   return (
     <div role='button' className={'button'} onClick={handleTaskStatus}>
-      <div className={`button-background ${taskStatus}`}>
-        <div className='check-icon'></div>
-      </div>
+      {taskStatus && (
+        <div className={`button-background ${taskStatus}`}>
+          <div className='check-icon'></div>
+        </div>
+      )}
     </div>
   )
 }
@@ -20,8 +22,10 @@ export const DeleteButton = () => {
   const handleDeleteStatus = () => setDeleteStatus(deleteStatus === 'current' ? 'deleted' : 'current')
 
   return (
-    <div role='button' className={`${deleteStatus}`} onClick={handleDeleteStatus}>
-      <div className='delete-icon'></div>
-    </div>
+    deleteStatus && (
+      <div role='button' className={`${deleteStatus}`} onClick={handleDeleteStatus}>
+        <div className='delete-icon'></div>
+      </div>
+    )
   )
 }

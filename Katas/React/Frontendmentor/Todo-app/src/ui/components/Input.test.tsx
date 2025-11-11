@@ -1,19 +1,20 @@
 import { fireEvent, render, screen } from '@testing-library/react'
 import { Input } from './Input'
 import { useAddTask } from '../hooks/useTasks'
+import { inputNewValue, placeholderInitialText } from '../../../test/constants'
 
 jest.mock('../hooks/useTasks', () => ({ useAddTask: jest.fn() }))
 
-const placeholderInitialText = 'My new Todoy is...'
-const inputNewValue = 'New task value'
+const createMockAddTask = () => {
+  const mockAddTask = jest.fn()
+  ;(useAddTask as jest.Mock).mockReturnValue(mockAddTask)
+  return mockAddTask
+}
 
 describe('Input component', () => {
   beforeEach(() => {
     render(<Input />)
   })
-
-  // on submit preventDefault is called
-  // with empty inputValue addTask is not called
 
   it('renders and the initial text is shown', () => {
     const form = document.querySelector('form')
@@ -31,9 +32,7 @@ describe('Input component', () => {
   })
 
   it('calls useAddTask on submit and clears input', () => {
-    const mockAddTask = jest.fn()
-    ;(useAddTask as jest.Mock).mockReturnValue(mockAddTask)
-
+    const mockAddTask = createMockAddTask()
     const input = screen.getByPlaceholderText(placeholderInitialText)
     const form = input.closest('form')
 
@@ -44,13 +43,25 @@ describe('Input component', () => {
     expect(input).toHaveValue('')
   })
 
-  it.only('doesn`t call addTask when input is empty', () => {
-    const mockAddTask = jest.fn()
-    ;(useAddTask as jest.Mock).mockReturnValue(mockAddTask)
-  })
-  it('prevents default form submission behavior', () => {})
+  it('doesn`t call addTask when input is empty', () => {
+    const mockAddTask = createMockAddTask()
+    const form = document.querySelector('form')!
+    fireEvent.submit(form)
 
-  it('', () => {})
-  it('', () => {})
-  it('', () => {})
+    expect(mockAddTask).toHaveBeenCalledTimes(0)
+  })
+
+  it('prevents default form submission behavior', () => {
+    createMockAddTask()
+
+    const preventDefault = jest.spyOn(Event.prototype, 'preventDefault')
+
+    const form = document.querySelector('form')!
+    const input = screen.getByPlaceholderText(placeholderInitialText)
+
+    fireEvent.change(input, { target: { value: inputNewValue } })
+    fireEvent.submit(form, { preventDefault })
+
+    expect(preventDefault).toHaveBeenCalled()
+  })
 })
