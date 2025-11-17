@@ -1,0 +1,43 @@
+.banner-wrapper {
+  min-height: calc(100vh - 60px - 120px);
+  height: 100%;
+  min-width: calc(320px - 4rem);
+  width: 100%;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: clamp(1rem, 3vh, 2rem);
+  & h1, & h2 {
+    margin-bottom: 1rem;
+  }
+  & button {
+    margin-top: 3rem;
+    align-self: center;
+  }
+}
+
+.CTA {
+  height: 30px;
+  width: 75px;
+}
+
+p {
+  color:var(--color-text);
+}
+
+@media (min-width: 431px) {
+  .banner-wrapper {
+    padding: 2rem 5rem 2rem 5rem;
+  }
+}
+
+@media (min-width: 769px) {
+  .banner-wrapper {
+    max-width: 66%;
+    &.vertical{
+      padding: 2rem 8rem 2rem 8rem;
+      max-width: 100%;
+    }
+  }
+}

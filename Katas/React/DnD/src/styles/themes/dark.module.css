@@ -1,0 +1,10 @@
+@import "./palette.module.css";
+
+.theme {
+  --color-primary: var(--gold-metallic-500-43);
+
+  --color-bg: var(--battleship-gray-100-43);
+
+  --color-text: var(--battleship-gray-900-43);
+  --color-border: var(--battleship-gray-300-43);
+}
