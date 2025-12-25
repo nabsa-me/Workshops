@@ -3,110 +3,375 @@
   --black:#000000;
 }
 
-/* hue 43 - YELLOW #d8ae48 */
+/* hue 213 - BLUE */
 :root {
-    /* saturation 100 */
-  --selective-yellow-100-43:#241A00;
-  --selective-yellow-200-43:#5B4100;
-  --selective-yellow-300-43:#926800;
-  --selective-yellow-400-43:#C89000;
-  --selective-yellow-500-43:#FFB700;
-  --selective-yellow-600-43:#FFC637;
-  --selective-yellow-700-43:#FFD66D;
-  --selective-yellow-800-43:#FFE5A4;
-  --selective-yellow-900-43:#FFF5DB;
-    /* saturation 65 */
-  --gold-metallic-100-43:#221A07;
-  --gold-metallic-200-43:#544112;
-  --gold-metallic-300-43:#87691D;
-  --gold-metallic-400-43:#B99027;
-  --gold-metallic-500-43:#d8ae48;
-  --gold-metallic-600-43:#E0C06E;
-  --gold-metallic-700-43:#E9D195;
-  --gold-metallic-800-43:#F1E2BD;
-  --gold-metallic-900-43:#F9F3E5;
-    /* saturation 32 */
-  --ecru-100-43:#1B170E;
-  --ecru-200-43:#433B23;
-  --ecru-300-43:#6C5E37;
-  --ecru-400-43:#94814C;
-  --ecru-500-43:#B39F6A;
-  --ecru-600-43:#C3B48B;
-  --ecru-700-43:#D3C8AA;
-  --ecru-800-43:#E4DDCA;
-  --ecru-900-43:#F4F1EA;
-    /* saturation 16 */
-  --khaki-100-43:#181611;
-  --khaki-200-43:#3B372B;
-  --khaki-300-43:#5F5745;
-  --khaki-400-43:#82785E;
-  --khaki-500-43:#A1977D;
-  --khaki-600-43:#B5AD99;
-  --khaki-700-43:#C9C3B5;
-  --khaki-800-43:#DDDAD1;
-  --khaki-900-43:#F2F0EC;
-    /* saturation 8 */
-  --battleship-gray-100-43:#161513;
-  --battleship-gray-200-43:#37352F;
-  --battleship-gray-300-43:#58544B;
-  --battleship-gray-400-43:#797467;
-  --battleship-gray-500-43:#989386;
-  --battleship-gray-600-43:#AEAAA0;
-  --battleship-gray-700-43:#C4C1BA;
-  --battleship-gray-800-43:#DAD8D4;
-  --battleship-gray-900-43:#F0F0EE;
+  --blue-213-100-100:#dbebff;
+  --blue-213-100-200:#A4CDFF;
+  --blue-213-100-300:#6DAFFF;
+  --blue-213-100-400:#3791FF;
+  --blue-213-100-500:#0073ff;
+  --blue-213-100-500:#005AC8;
+  --blue-213-100-700:#004292;
+  --blue-213-100-800:#00295B;
+  --blue-213-100-900:#001024;
+
+  --blue-213-80-100:#DEEBFB;
+  --blue-213-80-200:#ADCEF5;
+  --blue-213-80-300:#7DB0F0;
+  --blue-213-80-400:#4C93EA;
+  --blue-213-80-500:#1B75E4;
+  --blue-213-80-600:#1B75E4;
+  --blue-213-80-700:#0F4382;
+  --blue-213-80-800:#0A2A52;
+  --blue-213-80-900:#041121;
+
+  --blue-213-60-100:#E2ECF7;
+  --blue-213-60-200:#B8CFEB;
+  --blue-213-60-300:#8DB2E0;
+  --blue-213-60-400:#6295D4;
+  --blue-213-60-500:#3778C8;
+  --blue-213-60-600:#2B5E9D;
+  --blue-213-60-700:#1F4572;
+  --blue-213-60-800:#142B47;
+  --blue-213-60-900:#08111D;
+
+  --blue-213-40-100:#E6ECF3;
+  --blue-213-40-200:#C1D0E2;
+  --blue-213-40-300:#9CB4D0;
+  --blue-213-40-400:#7797BF;
+  --blue-213-40-500:#527BAD;
+  --blue-213-40-600:#406188;
+  --blue-213-40-700:#2F4663;
+  --blue-213-40-800:#1D2C3E;
+  --blue-213-40-900:#0C1219;
+
+  --blue-213-20-100:#EAEDF0;
+  --blue-213-20-200:#CBD1D8;
+  --blue-213-20-300:#ABB5C1;
+  --blue-213-20-400:#8C9AAA;
+  --blue-213-20-500:#6D7E92;
+  --blue-213-20-600:#556373;
+  --blue-213-20-700:#3E4854;
+  --blue-213-20-800:#272D34;
+  --blue-213-20-900:#0F1215;
 }
 
-/* hue 198 - LIGHT BLUE #33becc */
+/* hue 178 -CYAN */
 :root {
-    /* saturation 100 */
-  --electric-blue-100-198:#002124;
-  --electric-blue-200-198:#00535B;
-  --electric-blue-300-198:#008692;
-  --electric-blue-400-198:#00B8C8;
-  --electric-blue-500-198:#00EAFF;
-  --electric-blue-600-198:#37EEFF;
-  --electric-blue-700-198:#6DF3FF;
-  --electric-blue-800-198:#A4F7FF;
-  --electric-blue-900-198:#DBFCFF;
-    /* saturation 60 */
-  --robin-egg-blue-100-198:#071B1D;
-  --robin-egg-blue-200-198:#124449;
-  --robin-egg-blue-300-198:#1D6D75;
-  --robin-egg-blue-400-198:#2896A0;
-  --robin-egg-blue-500-198:#33BECC;
-  --robin-egg-blue-600-198:#5FCDD7;
-  --robin-egg-blue-700-198:#8ADBE2;
-  --robin-egg-blue-800-198:#B6E8ED;
-  --robin-egg-blue-900-198:#E2F6F8;
-    /* saturation 30 */
-  --moonstone-100-198:#0D1718;
-  --moonstone-200-198:#20393B;
-  --moonstone-300-198:#335B5F;
-  --moonstone-400-198:#467D82;
-  --moonstone-500-198:#599FA6;
-  --moonstone-600-198:#7DB4B9;
-  --moonstone-700-198:#A0C8CC;
-  --moonstone-800-198:#C4DDDF;
-  --moonstone-900-198:#E7F1F2;
-    /* saturation 15 */
-  --air-force-blue-100-198:#0F1415;
-  --air-force-blue-200-198:#273334;
-  --air-force-blue-300-198:#3E5254;
-  --air-force-blue-400-198:#557073;
-  --air-force-blue-500-198:#6C8F93;
-  --air-force-blue-600-198:#8CA7AA;
-  --air-force-blue-700-198:#ABBFC1;
-  --air-force-blue-800-198:#CBD7D8;
-  --air-force-blue-900-198:#EAEFF0;
-    /* saturation 7 */
-  --battleship-gray-100-198:#111313;
-  --battleship-gray-200-198:#2A3031;
-  --battleship-gray-300-198:#444D4E;
-  --battleship-gray-400-198:#5D6A6B;
-  --battleship-gray-500-198:#768789;
-  --battleship-gray-600-198:#94A0A2;
-  --battleship-gray-700-198:#B1BABB;
-  --battleship-gray-800-198:#CED4D5;
-  --battleship-gray-900-198:#ECEEEE;
+  --cyan-178-100-100:#DBFFFE;
+  --cyan-178-100-200:#A4FFFC;
+  --cyan-178-100-300:#6DFFFA;
+  --cyan-178-100-400:#37FFF8;
+  --cyan-178-100-500:#00FFF7;
+  --cyan-178-100-500:#00C8C2;
+  --cyan-178-100-700:#00928D;
+  --cyan-178-100-800:#005B58;
+  --cyan-178-100-900:#002423;
+
+  --cyan-178-80-100:#DEFBFA;
+  --cyan-178-80-200:#ADF5F3;
+  --cyan-178-80-300:#7DF0EC;
+  --cyan-178-80-400:#4CEAE5;
+  --cyan-178-80-500:#1BE4DD;
+  --cyan-178-80-600:#15B3AE;
+  --cyan-178-80-700:#0F827F;
+  --cyan-178-80-800:#0A524F;
+  --cyan-178-80-900:#042120;
+
+  --cyan-178-60-100:#E2F7F6;
+  --cyan-178-60-200:#B8EBEA;
+  --cyan-178-60-300:#8DE0DD;
+  --cyan-178-60-400:#62D4D0;
+  --cyan-178-60-500:#37C8C4;
+  --cyan-178-60-600:#2B9D99;
+  --cyan-178-60-700:#1F7270;
+  --cyan-178-60-800:#144746;
+  --cyan-178-60-900:#081D1C;
+
+  --cyan-178-40-100:#E6F3F3;
+  --cyan-178-40-200:#C1E2E1;
+  --cyan-178-40-300:#9CD0CF;
+  --cyan-178-40-400:#77BFBC;
+  --cyan-178-40-500:#52ADAA;
+  --cyan-178-40-600:#408886;
+  --cyan-178-40-700:#2F6361;
+  --cyan-178-40-800:#1D3E3D;
+  --cyan-178-40-900:#0C1918;
+
+  --cyan-178-20-100:#EAF0EF;
+  --cyan-178-20-200:#CBD8D8;
+  --cyan-178-20-300:#ABC1C0;
+  --cyan-178-20-400:#8CAAA9;
+  --cyan-178-20-500:#6D9291;
+  --cyan-178-20-600:#557372;
+  --cyan-178-20-700:#3E5453;
+  --cyan-178-20-800:#273434;
+  --cyan-178-20-900:#0F1515;
+}
+
+/* hue 45 - YELLOW */
+:root {
+  --yellow-45-100-100:#FFF6DB;
+  --yellow-45-100-200:#FFE8A4;
+  --yellow-45-100-300:#FFDB6D;
+  --yellow-45-100-400:#FFCD37;
+  --yellow-45-100-500:#FFBF00;
+  --yellow-45-100-500:#C89600;
+  --yellow-45-100-700:#926D00;
+  --yellow-45-100-800:#5B4400;
+  --yellow-45-100-900:#241B00;
+
+  --yellow-45-80-100:#FBF4DE;
+  --yellow-45-80-200:#F5E3AD;
+  --yellow-45-80-300:#F0D37D;
+  --yellow-45-80-400:#EAC24C;
+  --yellow-45-80-500:#E4B21B;
+  --yellow-45-80-600:#B38C15;
+  --yellow-45-80-700:#82660F;
+  --yellow-45-80-800:#52400A;
+  --yellow-45-80-900:#211904;
+
+  --yellow-45-60-100:#F7F2E2;
+  --yellow-45-60-200:#EBDEB8;
+  --yellow-45-60-300:#E0CB8D;
+  --yellow-45-60-400:#D4B762;
+  --yellow-45-60-500:#C8A437;
+  --yellow-45-60-600:#9D812B;
+  --yellow-45-60-700:#725E1F;
+  --yellow-45-60-800:#473B14;
+  --yellow-45-60-900:#1D1708;
+
+  --yellow-45-40-100:#F3F0E6;
+  --yellow-45-40-200:#E2DAC1;
+  --yellow-45-40-300:#D0C39C;
+  --yellow-45-40-400:#BFAD77;
+  --yellow-45-40-500:#AD9652;
+  --yellow-45-40-600:#887640;
+  --yellow-45-40-700:#63562F;
+  --yellow-45-40-800:#3E361D;
+  --yellow-45-40-900:#3E361D;
+
+  --yellow-45-20-100:#F0EEEA;
+  --yellow-45-20-200:#D8D5CB;
+  --yellow-45-20-300:#C1BCAB;
+  --yellow-45-20-400:#AAA28C;
+  --yellow-45-20-500:#92896D;
+  --yellow-45-20-600:#736C55;
+  --yellow-45-20-700:#736C55;
+  --yellow-45-20-800:#343127;
+  --yellow-45-20-900:#15140F;
+}
+
+/* CLOUD WALKER 2026 */
+
+/* hue 48 - YELLOW */
+:root {
+  --yellow-45-100-100:#FFF8DB;
+  --yellow-45-100-200:#FFEDA4;
+  --yellow-45-100-300:#FFE26D;
+  --yellow-45-100-400:#FFD737;
+  --yellow-45-100-500:#FFCC00;
+  --yellow-45-100-600:#C8A000;
+  --yellow-45-100-700:#927500;
+  --yellow-45-100-800:#5B4900;
+  --yellow-45-100-900:#241D00;
+
+  --yellow-45-80-100:#FBF5DE;
+  --yellow-45-80-200:#F5E7AD;
+  --yellow-45-80-300:#F0D97D;
+  --yellow-45-80-400:#EACA4C;
+  --yellow-45-80-500:#E4BC1B;
+  --yellow-45-80-600:#B39415;
+  --yellow-45-80-700:#826B0F;
+  --yellow-45-80-800:#52430A;
+  --yellow-45-80-900:#211B04;
+
+  --yellow-45-60-100:#F7F3E2;
+  --yellow-45-60-200:#EBE1B8;
+  --yellow-45-60-300:#E0CF8D;
+  --yellow-45-60-400:#D4BD62;
+  --yellow-45-60-500:#C8AB37;
+  --yellow-45-60-600:#9D862B;
+  --yellow-45-60-700:#72621F;
+  --yellow-45-60-800:#473D14;
+  --yellow-45-60-900:#1D1808;
+
+  --yellow-45-40-100:#F3F1E6;
+  --yellow-45-40-200:#E2DBC1;
+  --yellow-45-40-300:#D0C69C;
+  --yellow-45-40-400:#BFB077;
+  --yellow-45-40-500:#AD9B52;
+  --yellow-45-40-600:#887A40;
+  --yellow-45-40-700:#63592F;
+  --yellow-45-40-800:#3E371D;
+  --yellow-45-40-900:#19160C;
+
+  --yellow-45-20-100:#F0EEEA;
+  --yellow-45-20-200:#D8D5CB;
+  --yellow-45-20-300:#C1BCAB;
+  --yellow-45-20-400:#AAA38C;
+  --yellow-45-20-500:#928A6D;
+  --yellow-45-20-600:#736D55;
+  --yellow-45-20-700:#544F3E;
+  --yellow-45-20-800:#343127;
+  --yellow-45-20-900:#15140F;
+}
+
+/* hue 187 - BLUE */
+:root {
+  --blue-187-100-100:#DBFBFF;
+  --blue-187-100-200:#A4F4FF;
+  --blue-187-100-300:#6DEEFF;
+  --blue-187-100-400:#37E8FF;
+  --blue-187-100-500:#00E1FF;
+  --blue-187-100-600:#00B1C8;
+  --blue-187-100-700:#008192;
+  --blue-187-100-800:#00505B;
+  --blue-187-100-900:#002024;
+
+  --blue-187-80-100:#DEF8FB;
+  --blue-187-80-200:#ADEDF5;
+  --blue-187-80-300:#7DE2F0;
+  --blue-187-80-400:#4CD7EA;
+  --blue-187-80-500:#1BCCE4;
+  --blue-187-80-600:#15A1B3;
+  --blue-187-80-700:#0F7582;
+  --blue-187-80-800:#0A4952;
+  --blue-187-80-900:#041D21;
+
+  --blue-187-60-100:#E2F5F7;
+  --blue-187-60-200:#B8E5EB;
+  --blue-187-60-300:#8DD6E0;
+  --blue-187-60-400:#62C7D4;
+  --blue-187-60-500:#37B7C8;
+  --blue-187-60-600:#2B909D;
+  --blue-187-60-700:#1F6972;
+  --blue-187-60-800:#144147;
+  --blue-187-60-900:#081A1D;
+
+  --blue-187-40-100:#E6F2F3;
+  --blue-187-40-200:#C1DEE2;
+  --blue-187-40-300:#9CCAD0;
+  --blue-187-40-400:#77B6BF;
+  --blue-187-40-500:#52A2AD;
+  --blue-187-40-600:#408088;
+  --blue-187-40-700:#2F5D63;
+  --blue-187-40-800:#1D3A3E;
+  --blue-187-40-900:#0C1719;
+
+  --blue-187-20-100:#EAEFF0;
+  --blue-187-20-200:#CBD6D8;
+  --blue-187-20-300:#ABBEC1;
+  --blue-187-20-400:#8CA6AA;
+  --blue-187-20-500:#6D8D92;
+  --blue-187-20-600:#556F73;
+  --blue-187-20-700:#3E5154;
+  --blue-187-20-800:#273334;
+  --blue-187-20-900:#0F1415;
+}
+
+/* hue 65 - GREEN */
+:root {
+  --green-65-100-100:#FCFFDB;
+  --green-65-100-200:#F7FFA4;
+  --green-65-100-300:#F3FF6D;
+  --green-65-100-400:#EEFF37;
+  --green-65-100-500:#EAFF00;
+  --green-65-100-600:#B8C800;
+  --green-65-100-700:#869200;
+  --green-65-100-800:#535B00;
+  --green-65-100-900:#212400;
+
+  --green-65-80-100:#F9FBDE;
+  --green-65-80-200:#EFF5AD;
+  --green-65-80-300:#E6F07D;
+  --green-65-80-400:#DDEA4C;
+  --green-65-80-500:#D3E41B;
+  --green-65-80-600:#A6B315;
+  --green-65-80-700:#79820F;
+  --green-65-80-800:#4C520A;
+  --green-65-80-900:#1E2104;
+
+  --green-65-60-100:#F5F7E2;
+  --green-65-60-200:#E7EBB8;
+  --green-65-60-300:#D9E08D;
+  --green-65-60-400:#CAD462;
+  --green-65-60-500:#BCC837;
+  --green-65-60-600:#949D2B;
+  --green-65-60-700:#6B721F;
+  --green-65-60-800:#434714;
+  --green-65-60-900:#1B1D08;
+
+  --green-65-40-100:#F2F3E6;
+  --green-65-40-200:#DFE2C1;
+  --green-65-40-300:#CCD09C;
+  --green-65-40-400:#B9BF77;
+  --green-65-40-500:#A5AD52;
+  --green-65-40-600:#828840;
+  --green-65-40-700:#5F632F;
+  --green-65-40-800:#3B3E1D;
+  --green-65-40-900:#18190C;
+
+  --green-65-20-100:#EFF0EA;
+  --green-65-20-200:#D7D8CB;
+  --green-65-20-300:#BFC1AB;
+  --green-65-20-400:#A7AA8C;
+  --green-65-20-500:#8F926D;
+  --green-65-20-600:#717355;
+  --green-65-20-700:#52543E;
+  --green-65-20-800:#333427;
+  --green-65-20-900:#14150F;
+}
+
+/* hue 351 - RED */
+:root {
+  --red-351-100-100:#FFDBE0;
+  --red-351-100-200:#FFA4B2;
+  --red-351-100-300:#FF6D83;
+  --red-351-100-400:#FF3755;
+  --red-351-100-500:#FF0026;
+  --red-351-100-600:#C8001E;
+  --red-351-100-700:#920016;
+  --red-351-100-800:#5B000E;
+  --red-351-100-900:#240005;
+
+  --red-351-80-100:#FBDEE3;
+  --red-351-80-200:#F5ADB8;
+  --red-351-80-300:#F07D8E;
+  --red-351-80-400:#EA4C63;
+  --red-351-80-500:#E41B39;
+  --red-351-80-600:#B3152D;
+  --red-351-80-700:#820F21;
+  --red-351-80-800:#520A14;
+  --red-351-80-900:#210408;
+
+  --red-351-60-100:#F7E2E6;
+  --red-351-60-200:#EBB8BF;
+  --red-351-60-300:#E08D99;
+  --red-351-60-400:#D46273;
+  --red-351-60-500:#C8374D;
+  --red-351-60-600:#9D2B3C;
+  --red-351-60-700:#721F2C;
+  --red-351-60-800:#47141B;
+  --red-351-60-900:#1D080B;
+
+  --red-351-40-100:#F3E6E8;
+  --red-351-40-200:#E2C1C6;
+  --red-351-40-300:#D09CA4;
+  --red-351-40-400:#BF7782;
+  --red-351-40-500:#AD5260;
+  --red-351-40-600:#88404B;
+  --red-351-40-700:#632F36;
+  --red-351-40-800:#3E1D22;
+  --red-351-40-900:#190C0E;
+
+  --red-351-20-100:#F0EAEB;
+  --red-351-20-200:#D8CBCD;
+  --red-351-20-300:#C1ABAF;
+  --red-351-20-400:#AA8C91;
+  --red-351-20-500:#926D73;
+  --red-351-20-600:#73555A;
+  --red-351-20-700:#543E42;
+  --red-351-20-800:#342729;
+  --red-351-20-900:#150F10;
 }
