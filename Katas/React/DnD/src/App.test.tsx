@@ -34,26 +34,26 @@ describe('App component', () => {
     mockResize(1024, 800)
     render(<App />)
 
-    expect(screen.getByTestId('desktop-header')).toBeInTheDocument()
+    expect(document.getElementsByClassName('desktop-header')[0]).toBeInTheDocument()
   })
 
   it('renders Mobile Header when width < 425px', () => {
     mockResize(300, 800)
     render(<App />)
 
-    expect(screen.getByTestId('mobile-header')).toBeInTheDocument()
+    expect(document.getElementsByClassName('mobile-header')[0]).toBeInTheDocument()
   })
 
   it('updates to Desktop when resize to > 425px', () => {
     mockResize(300, 800)
     render(<App />)
 
-    expect(screen.getByTestId('mobile-header')).toBeInTheDocument()
+    expect(document.getElementsByClassName('mobile-header')[0]).toBeInTheDocument()
 
     act(() => {
       mockResize(1024, 800)
     })
-    expect(screen.getByTestId('desktop-header')).toBeInTheDocument()
+    expect(document.getElementsByClassName('desktop-header')[0]).toBeInTheDocument()
   })
 
   it('changes orientation when screen does', () => {

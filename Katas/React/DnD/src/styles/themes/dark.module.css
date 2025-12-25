@@ -4,7 +4,23 @@
   --color-primary: var(--gold-metallic-500-43);
 
   --color-bg: var(--battleship-gray-100-43);
+  --color-bg-blur: var(--battleship-gray-200-43);
 
-  --color-text: var(--battleship-gray-900-43);
-  --color-border: var(--battleship-gray-300-43);
+
+  --color-text: var(--battleship-gray-800-43);
+  --color-text-disabled: var(--battleship-gray-500-43);
+  
+  --color-label: var(--ecru-600-43);
+  --color-label-hover: var(--ecru-900-43);
+  --color-label-click: var(--battleship-gray-800-43);
+
+  --color-border: var(--battleship-gray-100-43);
+
+  --color-shadow: var(--battleship-gray-100-43);
+  --color-shadow-bright: var(--ecru-900-43); 
+
+
+  --transition-soft: 0.3s ease-in-out;
+  --transition-quick: 0.15s ease-in-out
+
 }

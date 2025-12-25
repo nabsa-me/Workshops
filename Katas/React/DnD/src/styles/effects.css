@@ -1,0 +1,28 @@
+.blur {
+  border-bottom: 1px solid var(--color-border);
+  box-shadow: 0 0 25px -5px var(--color-shadow);
+  position: relative;
+  backdrop-filter: blur(10px);
+  z-index: 10;
+  &::after { 
+    content: "";
+    background-color: var(--black);
+    opacity: 0.6;
+    display: flex;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    z-index: -10;
+  }
+  &.aux-navbar {
+    backdrop-filter: blur(5px);
+    &::after{
+      opacity: 0.3;
+    }
+  }
+  &.footer {
+    border-bottom: none;
+    border-top: 1px solid var(--color-border);
+  }
+}

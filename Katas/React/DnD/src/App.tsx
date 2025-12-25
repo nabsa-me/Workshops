@@ -2,6 +2,8 @@ import React, { JSX, useEffect, useState } from 'react'
 import lightTheme from './styles/themes/light.module.css'
 import darkTheme from './styles/themes/dark.module.css'
 import { useMediaQuery } from './ui/hooks/useMediaQuery'
+import { DesktopNavBar } from './ui/components/DesktopNavBar'
+import { siteMap } from './utils/siteMap'
 
 const App = (): JSX.Element => {
   const [theme] = useState<'light' | 'dark'>('dark')
@@ -21,15 +23,7 @@ const App = (): JSX.Element => {
       </div>
 
       <div className='app-wrapper'>
-        {isMobile ? (
-          <header className='header' data-testid='mobile-header'>
-            MOBILE HEADER
-          </header>
-        ) : (
-          <header className='header' data-testid='desktop-header'>
-            DESKTOP HEADER
-          </header>
-        )}
+        {isMobile ? <header className='mobile-header'>MOBILE HEADER</header> : <DesktopNavBar siteMap={siteMap} />}
 
         <main className='main'>
           <div className={`banner-wrapper ${windowSize.orientation}`}>
@@ -48,7 +42,9 @@ const App = (): JSX.Element => {
           </div>
         </main>
 
-        <footer className='footer'>Footer copyright</footer>
+        <footer className='footer'>
+          <div className='blur footer'>Footer copyright</div>
+        </footer>
       </div>
     </div>
   )

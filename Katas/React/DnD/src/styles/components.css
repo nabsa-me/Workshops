@@ -1,5 +1,5 @@
 .banner-wrapper {
-  min-height: calc(100vh - 60px - 120px);
+  min-height: calc(100vh - 105px - 120px);
   height: 100%;
   min-width: calc(320px - 4rem);
   width: 100%;
@@ -7,7 +7,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  font-size: clamp(1rem, 3vh, 2rem);
+  font-size: clamp(1rem, 2.5vh, 2rem);
   & h1, & h2 {
     margin-bottom: 1rem;
   }
@@ -22,8 +22,52 @@
   width: 75px;
 }
 
-p {
-  color:var(--color-text);
+.main-navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2rem 0 0;
+  z-index: 10;
+  font-size: 1.1rem;
+}
+
+.aux-navbar {
+  >li{
+    justify-content: flex-end;
+    padding: 0 2.5rem 0 0;
+  }
+  &.hide, & ul.hide {
+    transition: var(--transition-soft);
+    opacity: 0;
+    transform: translateY(-45px);
+    z-index: 5;
+  }
+  &.show {
+    transition: var(--transition-soft);
+    opacity: 1;
+    transform: translateY(0px);
+    z-index: 5;
+  }
+}
+
+.route-label {
+  transition: var(--transition-soft);
+  margin: 0 1rem 0 2rem;
+  color: var(--color-label);
+  text-shadow: 0 0 1px var(--color-label-hover);
+  filter: drop-shadow(0 0 10px var(--color-shadow));
+  &:hover {
+    cursor: pointer;
+    color: var(--color-label-hover);
+    text-shadow: 0 0 2px var(--color-label-hover);
+    filter: drop-shadow(0 0 15px var(--color-shadow-bright) );
+  }
+  &:active { 
+    transition: var(--transition-quick);
+    color: var(--color-label-click);
+    text-shadow: 0 0 1px var(--color-shadow);
+    filter: drop-shadow(0 0 20px var(--color-shadow-bright) );
+  }
 }
 
 @media (min-width: 431px) {
