@@ -1,0 +1,112 @@
+:root {
+  --white:#ffffff;
+  --black:#000000;
+}
+
+/* hue 43 - YELLOW #d8ae48 */
+:root {
+    /* saturation 100 */
+  --selective-yellow-100-43:#241A00;
+  --selective-yellow-200-43:#5B4100;
+  --selective-yellow-300-43:#926800;
+  --selective-yellow-400-43:#C89000;
+  --selective-yellow-500-43:#FFB700;
+  --selective-yellow-600-43:#FFC637;
+  --selective-yellow-700-43:#FFD66D;
+  --selective-yellow-800-43:#FFE5A4;
+  --selective-yellow-900-43:#FFF5DB;
+    /* saturation 65 */
+  --gold-metallic-100-43:#221A07;
+  --gold-metallic-200-43:#544112;
+  --gold-metallic-300-43:#87691D;
+  --gold-metallic-400-43:#B99027;
+  --gold-metallic-500-43:#d8ae48;
+  --gold-metallic-600-43:#E0C06E;
+  --gold-metallic-700-43:#E9D195;
+  --gold-metallic-800-43:#F1E2BD;
+  --gold-metallic-900-43:#F9F3E5;
+    /* saturation 32 */
+  --ecru-100-43:#1B170E;
+  --ecru-200-43:#433B23;
+  --ecru-300-43:#6C5E37;
+  --ecru-400-43:#94814C;
+  --ecru-500-43:#B39F6A;
+  --ecru-600-43:#C3B48B;
+  --ecru-700-43:#D3C8AA;
+  --ecru-800-43:#E4DDCA;
+  --ecru-900-43:#F4F1EA;
+    /* saturation 16 */
+  --khaki-100-43:#181611;
+  --khaki-200-43:#3B372B;
+  --khaki-300-43:#5F5745;
+  --khaki-400-43:#82785E;
+  --khaki-500-43:#A1977D;
+  --khaki-600-43:#B5AD99;
+  --khaki-700-43:#C9C3B5;
+  --khaki-800-43:#DDDAD1;
+  --khaki-900-43:#F2F0EC;
+    /* saturation 8 */
+  --battleship-gray-100-43:#161513;
+  --battleship-gray-200-43:#37352F;
+  --battleship-gray-300-43:#58544B;
+  --battleship-gray-400-43:#797467;
+  --battleship-gray-500-43:#989386;
+  --battleship-gray-600-43:#AEAAA0;
+  --battleship-gray-700-43:#C4C1BA;
+  --battleship-gray-800-43:#DAD8D4;
+  --battleship-gray-900-43:#F0F0EE;
+}
+
+/* hue 198 - LIGHT BLUE #33becc */
+:root {
+    /* saturation 100 */
+  --electric-blue-100-198:#002124;
+  --electric-blue-200-198:#00535B;
+  --electric-blue-300-198:#008692;
+  --electric-blue-400-198:#00B8C8;
+  --electric-blue-500-198:#00EAFF;
+  --electric-blue-600-198:#37EEFF;
+  --electric-blue-700-198:#6DF3FF;
+  --electric-blue-800-198:#A4F7FF;
+  --electric-blue-900-198:#DBFCFF;
+    /* saturation 60 */
+  --robin-egg-blue-100-198:#071B1D;
+  --robin-egg-blue-200-198:#124449;
+  --robin-egg-blue-300-198:#1D6D75;
+  --robin-egg-blue-400-198:#2896A0;
+  --robin-egg-blue-500-198:#33BECC;
+  --robin-egg-blue-600-198:#5FCDD7;
+  --robin-egg-blue-700-198:#8ADBE2;
+  --robin-egg-blue-800-198:#B6E8ED;
+  --robin-egg-blue-900-198:#E2F6F8;
+    /* saturation 30 */
+  --moonstone-100-198:#0D1718;
+  --moonstone-200-198:#20393B;
+  --moonstone-300-198:#335B5F;
+  --moonstone-400-198:#467D82;
+  --moonstone-500-198:#599FA6;
+  --moonstone-600-198:#7DB4B9;
+  --moonstone-700-198:#A0C8CC;
+  --moonstone-800-198:#C4DDDF;
+  --moonstone-900-198:#E7F1F2;
+    /* saturation 15 */
+  --air-force-blue-100-198:#0F1415;
+  --air-force-blue-200-198:#273334;
+  --air-force-blue-300-198:#3E5254;
+  --air-force-blue-400-198:#557073;
+  --air-force-blue-500-198:#6C8F93;
+  --air-force-blue-600-198:#8CA7AA;
+  --air-force-blue-700-198:#ABBFC1;
+  --air-force-blue-800-198:#CBD7D8;
+  --air-force-blue-900-198:#EAEFF0;
+    /* saturation 7 */
+  --battleship-gray-100-198:#111313;
+  --battleship-gray-200-198:#2A3031;
+  --battleship-gray-300-198:#444D4E;
+  --battleship-gray-400-198:#5D6A6B;
+  --battleship-gray-500-198:#768789;
+  --battleship-gray-600-198:#94A0A2;
+  --battleship-gray-700-198:#B1BABB;
+  --battleship-gray-800-198:#CED4D5;
+  --battleship-gray-900-198:#ECEEEE;
+}
