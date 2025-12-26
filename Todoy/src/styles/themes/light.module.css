@@ -1,6 +1,4 @@
 .theme {
-  --color-bg: #d7dee2;
-  --color-text: #232427;
-  --color-primary: #ffffff86;
-  --color-border: #0c2e7480;
+  --color-bg: var(--white);
+  --color-text: var(--black);
 }
