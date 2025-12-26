@@ -1,6 +1,6 @@
 import { JSX, useEffect, useState } from 'react'
-import lightTheme from './styles/themes/light.module.css'
-import darkTheme from './styles/themes/dark.module.css'
+import lightTheme from '../styles/themes/light.module.css'
+import darkTheme from '../styles/themes/dark.module.css'
 
 const App = (): JSX.Element => {
   const [theme, setTheme] = useState<'light' | 'dark'>('dark')
