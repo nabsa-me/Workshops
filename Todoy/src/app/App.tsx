@@ -1,10 +1,15 @@
 import { JSX } from 'react'
 import useTheme from '../shared/hooks/useTheme'
+import DesktopLayout from '../layouts/Desktop/DesktopLayout'
 
 const App = (): JSX.Element => {
-  const { theme, setTheme } = useTheme()
+  useTheme()
 
-  return <div onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}>Hello World</div>
+  return (
+    <div className='appRoot'>
+      <DesktopLayout />
+    </div>
+  )
 }
 
 export default App

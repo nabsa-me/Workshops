@@ -1,0 +1,50 @@
+.desktop-appRoot-fullPage {
+  flex-direction: column;
+  min-height: 560px;
+  min-width: 320px;
+  display: flex;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+}
+
+.desktop-navBar {
+  background-color: var(--color-background-enphasis);
+  border-bottom: 1px solid var(--color-border);
+  flex: 0 0 48px;
+  justify-content: space-between;
+  align-items: center;
+  column-gap: 4px;
+  width: 100%;
+  min-width: 320px;
+  display: flex;
+  position: relative;
+}
+
+.desktop-main {
+    flex: 1 1 0;
+    min-height: 1px;
+    display: flex;
+}
+
+.desktop-sideBar {
+    background-color: var(--color-background-enphasis);
+    justify-content: flex-end;
+    display: flex;
+    position: relative;
+    border-right: 1px solid var(--color-border);
+    width: 240px;
+    &.hidden{
+      width: 0px;
+    }
+
+}
+
+@media (min-width: 575px) {
+  .navBar {
+    column-gap: 12px;
+  }
+}

@@ -1,7 +1,10 @@
+@import "../layouts/Desktop/desktopStyles.css";
+
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    transition: ease-in-out 0.2s all;
   }
 
 *,
@@ -19,7 +22,14 @@ body,
 
 #root {
   min-height: 100vh;
-  background-color: var(--color-bg);
+  background-color: var(--color-background);
   color: var(--color-text);
+}
 
+.appRoot {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  overflow-y: auto;
 }
