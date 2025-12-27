@@ -3,8 +3,12 @@
 .theme {
   --color-background: var(--white);
   --color-background-enphasis: var(--gray-100);
-  /* --color-background-contrast: var(--very-light-gray); */
+  --color-background-hover: var(--gray-150);
+  --color-background-selected: var(--gray-200);
+  --color-background-contrast: var(--gray-600);
 
-  --color-border: var(--gray-200);
-  --color-text: var(--black);
+  --color-scrollbar: var(--gray-500);
+
+  --color-border: var(--gray-150);
+  --color-text: var(--gray-800);
 }

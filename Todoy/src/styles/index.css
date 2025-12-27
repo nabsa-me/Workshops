@@ -1,16 +1,18 @@
 @import "../layouts/Desktop/desktopStyles.css";
+@import "../shared/components/navigationCards/navigationCardsStyles.css";
 
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    transition: ease-in-out 0.2s all;
   }
 
 *,
 *:before,
 *:after {
   box-sizing: inherit;
+  transition: ease-in-out 0.2s all;
+  font-family: 'Segoe UI', 'Roboto', Tahoma, Verdana, sans-serif;
 }
 
 html,
@@ -32,4 +34,8 @@ body,
   position: absolute;
   top: 0;
   overflow-y: auto;
+}
+
+#root {
+  --border-radius: 8px;
 }

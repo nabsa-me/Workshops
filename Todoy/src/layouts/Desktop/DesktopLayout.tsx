@@ -1,7 +1,7 @@
 import { useState } from 'react'
+import Homepage from '../../pages/Homepage'
 import DesktopNavBar from './DesktopNavBar'
 import DesktopSideBar from './DesktopSideBar'
-import Homepage from '../../pages/Homepage'
 
 const DesktopLayout = () => {
   const [sideBarHidden, setSideBarHidden] = useState<boolean>(true)
