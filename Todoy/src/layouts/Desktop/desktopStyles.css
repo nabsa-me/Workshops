@@ -33,6 +33,7 @@
     flex: 1 1 0;
     min-height: 1px;
     display: flex;
+    min-width: 320px;
 }
 
 .desktop-sideBar {
@@ -41,10 +42,10 @@
     display: flex;
     position: relative;
     border-right: 1px solid var(--color-border);
-    width: 240px;
+    min-width: 240px;
     flex-direction: column;
     &.hidden{
-      width: 0px;
+      min-width: 0px;
     }
 }
 

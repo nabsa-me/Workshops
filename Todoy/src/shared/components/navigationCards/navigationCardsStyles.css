@@ -1,20 +1,6 @@
-.material-symbols-rounded {
+.sideBar-icon {
   color: var(--color-background-contrast);
-  transform: scale(0.95);
-  font-variation-settings:
-  'FILL' 0,
-  'wght' 350,
-  'GRAD' 0,
-  'opsz' 24;
-  &.filled {
-    font-variation-settings:
-    'FILL' 1,
-    'wght' 350,
-    'GRAD' 0,
-    'opsz' 24
-  }
 }
-
 
 .sideBar-navigationCard {
   display: flex;
@@ -31,4 +17,41 @@
   &:active {
     background-color: var(--color-background-selected);
   }
+}
+
+.tabsList {
+  display: flex;
+  gap: 16px;
+  padding: 10px 0px 0px;
+  font-weight: 500;
+  color: var(--color-text-soft);
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.tabNavigationCard {
+  &.active {
+    color: var(--color-text);
+    border-bottom: 2px solid var(--blue-213-500);
+    text-shadow: 0px 0px 0.65px var(--color-text-soft);
+      & .tabNavigationCard-decoration {
+      transform: scaleX(1);
+    }
+  }
+  &:hover {
+  color: var(--color-text);
+  border-bottom: 2px solid var(--blue-213-500);
+    & .tabNavigationCard-decoration {
+      transform: scaleX(1);
+    }
+  }
+}
+
+.tabNavigationCard-decoration {
+  height: 2px;
+  width: 100%;
+  background-color: var(--color-text-soft);
+  margin-top: 6px;
+  transform: scaleX(0);
+  transform-origin: center;
 }

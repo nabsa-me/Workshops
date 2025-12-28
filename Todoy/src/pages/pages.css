@@ -1,0 +1,138 @@
+.homePage-wrapper {
+  flex-direction: column;
+  flex: auto;
+  display: flex;
+  overflow: hidden;
+  margin: 24px 32px;
+  min-width: calc(320px - 32px - 32px); /* REVIEW AFTER TABS*/
+  container-type: inline-size;
+  container-name: homePage;
+  }
+
+.homePage-topBar {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  }
+
+.homePage-topBar-greeting {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  row-gap: 4px;
+  padding-bottom: 8px;
+  min-width: 0;
+  & span {
+    font-weight: 500;
+  }
+  & h1 {
+    font-weight: 400;
+    color: var(--black);   
+    overflow: hidden;
+    display: block;
+    text-overflow: ellipsis; 
+    width: 100%;
+  }
+  }
+
+.homePage-topBar-report {
+  display: flex;
+  margin: auto 0 8px;
+  padding: 0px 10px 2px;
+  border-radius: var(--border-radius);
+  background-color: var(--color-background-token);
+  font-size: small;
+  min-width: fit-content;
+  width: fit-content;
+  color: var(--color-text-token);
+  }
+
+.homePage-topBar-report-tasks {
+  display: flex;
+  gap: 3px;
+  align-items: center;
+  min-width: fit-content;
+  & span {
+    padding-top: 2px;
+    transform: scale(0.85);
+  }
+  & p:first-of-type {
+    font-weight: 500;
+    font-size: larger;
+  } 
+}
+
+.homePage-main {
+  flex: auto;
+  margin-top: 8px;
+  border: 1px solid var(--color-line);
+  border-radius: var(--border-radius);
+  display: flex;
+  flex-direction: column;
+  
+}
+
+.homePage-main-topBar {
+  display: flex;
+  border-bottom: 1px solid var(--color-line);
+  padding: 24px 24px 0px;;
+}
+
+.homePage-main-topBar-avatar {
+  width: 48px;
+  height: 48px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background-color: var(--color-background-avatar);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 16px;
+  font-weight: 500;
+  color: var(--white);
+}
+
+.homePage-main-topBar-title {
+  font-weight: 500;
+  font-size: 20px;
+  &:hover {
+    text-decoration: underline;
+    cursor: pointer;
+    text-underline-offset: 2px;
+    text-decoration-thickness: 7%;
+  }
+}
+
+.homePage-main-tasksContainer {
+  display: flex;
+  flex-direction: column;
+  flex: auto;
+  position: relative;
+}
+
+.homePage-main-taskList {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 50px;
+  width: 100%;
+  height: calc(100% - 50px);
+  overflow-y: auto;
+}
+
+@media (min-width: 375px) {
+.homePage-topBar-greeting {
+  & h1 { 
+    white-space: nowrap;
+  }
+  }
+}
+
+@container homePage (min-width: 650px) {
+  .homePage-topBar {
+    flex-direction: row;
+  }
+  .homePage-topBar-report {
+  margin: auto 0 8px 24px;
+  }
+}

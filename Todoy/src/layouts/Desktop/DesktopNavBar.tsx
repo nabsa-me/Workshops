@@ -2,10 +2,10 @@ const DesktopNavBar = ({
   setSideBarHidden,
   sideBarHidden
 }: {
-  setSideBarHidden: (hidden: boolean) => void
-  sideBarHidden: boolean
+  setSideBarHidden: (hidden: 'hidden' | '') => void
+  sideBarHidden: 'hidden' | ''
 }) => {
-  return <div className='desktop-navBar' onClick={() => setSideBarHidden(!sideBarHidden)}></div>
+  return <div className='desktop-navBar' onClick={() => setSideBarHidden(sideBarHidden ? '' : 'hidden')}></div>
 }
 
 export default DesktopNavBar

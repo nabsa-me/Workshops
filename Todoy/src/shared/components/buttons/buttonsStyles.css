@@ -1,0 +1,42 @@
+.task-button {
+  position: relative;
+  cursor: pointer;
+  margin-top: 3px;
+  color: var(--color-text-soft);
+  &:hover {
+    & .material-symbols-rounded.task-button {
+      color: var(--color-background-accent);
+    }
+    & .material-symbols-rounded.task-delete-button {
+      color:var(--color-danger);
+    }
+    & .material-symbols-rounded.task-button-background {
+      opacity: 0.2;
+    }
+  }
+}
+
+.material-symbols-rounded.task-button,
+.material-symbols-rounded.task-delete-button {
+  font-size: 23px;
+  position: relative;
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 300,
+  'GRAD' 0,
+  'opsz' 0;
+}
+
+.material-symbols-rounded.task-button-background {
+  font-size: 23px;
+  position: absolute;
+  left: 0;
+  top: 3px;
+  opacity: 0;
+  color: var(--color-background-accent-light);
+  font-variation-settings:
+  'FILL' 1,
+  'wght' 300,
+  'GRAD' 0,
+  'opsz' 0;
+}

@@ -4,7 +4,7 @@ import DesktopNavBar from './DesktopNavBar'
 import DesktopSideBar from './DesktopSideBar'
 
 const DesktopLayout = () => {
-  const [sideBarHidden, setSideBarHidden] = useState<boolean>(true)
+  const [sideBarHidden, setSideBarHidden] = useState<'' | 'hidden'>('')
 
   return (
     <div className='desktop-appRoot-fullPage'>

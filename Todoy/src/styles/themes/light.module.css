@@ -6,9 +6,25 @@
   --color-background-hover: var(--gray-150);
   --color-background-selected: var(--gray-200);
   --color-background-contrast: var(--gray-600);
+  
+  --color-background-token: var(--gray-150);
+  --color-background-avatar: var(--blue-213-80-500);
 
   --color-scrollbar: var(--gray-500);
 
   --color-border: var(--gray-150);
+  --color-line: var(--gray-200);
+  --color-line-hover: var(--gray-500);
+  --color-line-accent: var(--cyan-178-100-700);
+
+
   --color-text: var(--gray-800);
+  --color-text-soft: var(--gray-600);
+  --color-text-token: var(--gray-700);
+
+  --color-background-accent: var(--cyan-178-80-700);
+  --color-background-accent-light: var(--cyan-178-80-500);
+
+  --color-danger: var(--red-351-60-500)
+
 }
