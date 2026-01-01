@@ -1,13 +1,20 @@
 import { useState, useRef, useEffect } from 'react'
-import { DeleteButton, TaskButton } from '../buttons/taskButtons'
-import { ITask } from './tasksTypes'
+import { DeleteButton, TaskButton } from '../../../shared/components/buttons/taskButtons'
+import { ITask } from '../tasksTypes'
 
-const HomeTask = ({ task }: { task: ITask }) => {
+const HomeTask = ({ task, autofocus, onBlur }: { task: ITask; autofocus?: boolean; onBlur?: () => void }) => {
   const [selectedTask, setSelectedTask] = useState<'selected' | ''>('')
   const [taskContent, setTaskContent] = useState<string>(task.title)
 
   const taskRef = useRef<HTMLDivElement | null>(null)
   const inputRef = useRef<HTMLInputElement | null>(null)
+
+  useEffect(() => {
+    if (autofocus) {
+      inputRef.current?.focus()
+      setSelectedTask('selected')
+    }
+  }, [autofocus])
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -41,6 +48,8 @@ const HomeTask = ({ task }: { task: ITask }) => {
             onClick={() => setSelectedTask('selected')}
             onChange={handleChange}
             tabIndex={-1}
+            onBlur={() => onBlur}
+            autoFocus={autofocus}
           ></input>
         </form>
         <DeleteButton />

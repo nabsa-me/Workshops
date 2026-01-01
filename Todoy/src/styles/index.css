@@ -1,6 +1,6 @@
 @import "../layouts/Desktop/desktopStyles.css";
 @import "../shared/components/navigationCards/navigationCardsStyles.css";
-@import "../shared/components/tasks/tasksStyles.css";
+@import "../features/tasks/tasksStyles.css";
 @import "../shared/components/buttons/buttonsStyles.css";
 
 @import "../pages/pages.css";
@@ -58,4 +58,5 @@ body,
 
 #root {
   --border-radius: 8px;
+  --border-radius-small: 5px;
 }

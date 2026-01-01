@@ -39,7 +39,7 @@
   display: flex;
   margin: auto 0 8px;
   padding: 0px 10px 2px;
-  border-radius: var(--border-radius);
+  border-radius: var(--border-radius-small);
   background-color: var(--color-background-token);
   font-size: small;
   min-width: fit-content;
@@ -62,7 +62,7 @@
   } 
 }
 
-.homePage-main {
+.widget-container.full {
   flex: auto;
   margin-top: 8px;
   border: 1px solid var(--color-line);
@@ -72,13 +72,13 @@
   
 }
 
-.homePage-main-topBar {
+.task-widget-topBar {
   display: flex;
   border-bottom: 1px solid var(--color-line);
   padding: 24px 24px 0px;;
 }
 
-.homePage-main-topBar-avatar {
+.task-widget-topBar-avatar {
   width: 48px;
   height: 48px;
   aspect-ratio: 1;
@@ -92,7 +92,7 @@
   color: var(--white);
 }
 
-.homePage-main-topBar-title {
+.task-widget-topBar-title {
   font-weight: 500;
   font-size: 20px;
   &:hover {
@@ -103,14 +103,14 @@
   }
 }
 
-.homePage-main-tasksContainer {
+.task-widget-tasksContainer {
   display: flex;
   flex-direction: column;
   flex: auto;
   position: relative;
 }
 
-.homePage-main-taskList {
+.task-widget-taskList {
   display: flex;
   flex-direction: column;
   position: absolute;
@@ -118,6 +118,11 @@
   width: 100%;
   height: calc(100% - 50px);
   overflow-y: auto;
+}
+
+.task-widget-tasksContainer-topBar {
+  padding: 12px 24px;
+
 }
 
 @media (min-width: 375px) {

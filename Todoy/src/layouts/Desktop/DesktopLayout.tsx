@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import Homepage from '../../pages/Homepage'
+import Homepage from '../../pages/homepage/Homepage'
 import DesktopNavBar from './DesktopNavBar'
 import DesktopSideBar from './DesktopSideBar'
 

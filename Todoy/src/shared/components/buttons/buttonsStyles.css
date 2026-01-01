@@ -40,3 +40,32 @@
   'GRAD' 0,
   'opsz' 0;
 }
+
+.createTaskButton {
+  display: flex;
+  width: fit-content;
+  padding: 2px 8px 2px 2px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--color-text-soft);
+  gap: 2px;
+  align-items: center;
+  cursor: pointer;
+  border-radius: var(--border-radius-small);
+  & p {
+    padding-bottom: 1px;
+  }
+  &:hover {
+    background-color: var(--color-background-hover);
+    color: var(--color-text)
+  }
+}
+
+.material-symbols-rounded.add-task-button {
+  font-size: 21px;
+    font-variation-settings:
+  'FILL' 1,
+  'wght' 500,
+  'GRAD' 0,
+  'opsz' 0;
+}

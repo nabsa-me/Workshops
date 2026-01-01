@@ -4,5 +4,3 @@ export interface ITask {
   completed: boolean
   deleted: boolean
 }
-
-export type HomeTabName = 'Active' | 'Completed' | 'Deleted'
