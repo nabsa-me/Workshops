@@ -118,6 +118,7 @@
   height: calc(100% - 50px);
   overflow-y: auto;
   top: 16px;
+  scrollbar-gutter: stable;
   &.active-tab {
     top: 50px;
   }

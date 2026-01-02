@@ -63,4 +63,17 @@ body,
 
 .inactive {
   opacity: 0.6;
+} 
+
+*::-webkit-scrollbar {
+  width: 7px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--color-scrollbar);
+  border-radius: 7px;
+}
+
+*.hidden::-webkit-scrollbar-thumb {
+  display: none;
 }

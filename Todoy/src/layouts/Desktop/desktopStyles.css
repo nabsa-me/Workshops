@@ -68,19 +68,6 @@
   
 }
 
-.desktop-sideBar-body-scrollable::-webkit-scrollbar {
-  width: 7px;
-}
-
-.desktop-sideBar-body-scrollable::-webkit-scrollbar-thumb {
-  background-color: var(--color-scrollbar);
-  border-radius: 7px;
-}
-
-.desktop-sideBar-body-scrollable.hidden::-webkit-scrollbar-thumb {
-  display: none;
-}
-
 .desktop-sideBar-body-content {
   min-height: calc(100% - 24px);
   padding: 12px 0 12px;
@@ -90,7 +77,6 @@
 .desktop-sideBar-body-topLinks {
   padding-bottom: 12px;
 }
-
 
 .desktop-sideBar-footer {
   border-top: 1px solid var(--color-border);
