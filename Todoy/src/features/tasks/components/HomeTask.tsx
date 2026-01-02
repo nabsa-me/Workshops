@@ -53,7 +53,7 @@ const HomeTask = ({ task, autofocus, onBlur }: { task: ITask; autofocus?: boolea
             autoFocus={autofocus}
           ></input>
         </form>
-        <DeleteButton />
+        <DeleteButton icon={task.deleted ? 'restore_from_trash' : 'delete'} />
       </div>
       <div className={`homePage-taskItem-background ${selectedTask} ${doneTask}`}></div>
     </div>

@@ -31,14 +31,16 @@
     & .material-symbols-rounded.task-delete-button {
       color:var(--color-danger);
     }
+    & .material-symbols-rounded.task-restore_from_trash-button {
+      color:var(--color-text);
+    }
     & .material-symbols-rounded.task-button-background {
       opacity: 0.2;
     }
   }
 }
 
-.material-symbols-rounded.task-button,
-.material-symbols-rounded.task-delete-button {
+.task-button >.material-symbols-rounded {
   font-size: 23px;
   position: relative;
   font-variation-settings:

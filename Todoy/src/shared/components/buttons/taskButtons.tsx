@@ -21,11 +21,11 @@ export const TaskButton = ({
   )
 }
 
-export const DeleteButton = () => {
+export const DeleteButton = ({ icon }: { icon: 'restore_from_trash' | 'delete' }) => {
   return (
     <div className='task-button'>
-      <span className='material-symbols-rounded task-delete-button' role='button'>
-        delete
+      <span className={`material-symbols-rounded task-${icon}-button`} role='button'>
+        {icon}
       </span>
     </div>
   )
