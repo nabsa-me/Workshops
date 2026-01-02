@@ -2,7 +2,6 @@
 @import "../shared/components/navigationCards/navigationCardsStyles.css";
 @import "../features/tasks/tasksStyles.css";
 @import "../shared/components/buttons/buttonsStyles.css";
-
 @import "../pages/pages.css";
 
 * {
