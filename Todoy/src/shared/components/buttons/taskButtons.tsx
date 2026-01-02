@@ -1,6 +1,14 @@
-export const TaskButton = () => {
+import { Dispatch, SetStateAction } from 'react'
+
+export const TaskButton = ({
+  setDoneTask,
+  doneTask
+}: {
+  setDoneTask: Dispatch<SetStateAction<'' | 'done'>>
+  doneTask: 'done' | ''
+}) => {
   return (
-    <div className='task-button'>
+    <div className={`task-button ${doneTask}`} onClick={() => setDoneTask(doneTask === 'done' ? '' : 'done')}>
       <span className='material-symbols-rounded task-button' role='button'>
         check_circle
       </span>

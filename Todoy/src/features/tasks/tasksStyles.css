@@ -2,9 +2,10 @@
   position: relative;
   height: 34px;
   z-index: 0;
+  transform-origin: top;
   &:hover {
   & .homePage-taskItem-background {
-    opacity: 1;
+    background-color: var(--color-background-enphasis);
   }
   & .task-title {
     border: 1px solid var(--color-line);
@@ -26,6 +27,9 @@
   &.selected {
     z-index: 1;
   }
+  &.done {
+    animation: taskDone 0.75s ease-in-out forwards;
+  }
 }
 
 .homePage-taskItem-task {
@@ -46,8 +50,7 @@
 }
 
 .homePage-taskItem-background {
-  opacity: 0;
-  background-color: var(--color-background-enphasis);
+  background-color: transparent;
   border-top: 1px solid var(--color-line);
   border-bottom: 1px solid var(--color-line);
   position: absolute;
@@ -56,9 +59,53 @@
   height: calc(100% - 0.5px);
   width: calc(100%);
   &.selected {
-    opacity: 1;
     background-color: transparent;
     border-color: var(--color-line-accent);
+  }
+  &::before{
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--color-background-done-gradient);
+    transform: scaleX(0);
+    transform-origin: left top;
+  }
+  &.done{
+    &::before{
+    animation: taskDoneBackground 0.75s ease-in-out;
+  }
+  }
+}
+
+@keyframes taskDoneBackground {
+  0% {
+    transform: scaleX(0);
+  }
+  35% {
+    transform: scaleX(1);
+  }
+  100% {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes taskDone {
+  0% {
+    height: 34px;
+    transform: scaleY(1) translateY(0px);
+
+  }
+  80% {
+    height: 34px;
+    transform: scaleY(1) translateY(0px);
+    opacity: 1;
+
+  }
+  100% {
+    height: 0px;
+    transform: scaleY(0) translateY(34px);
+    display: none;
+    opacity: 0;
   }
 }
 

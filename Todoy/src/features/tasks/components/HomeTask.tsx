@@ -5,6 +5,7 @@ import { ITask } from '../tasksTypes'
 const HomeTask = ({ task, autofocus, onBlur }: { task: ITask; autofocus?: boolean; onBlur?: () => void }) => {
   const [selectedTask, setSelectedTask] = useState<'selected' | ''>('')
   const [taskContent, setTaskContent] = useState<string>(task.title)
+  const [doneTask, setDoneTask] = useState<'done' | ''>('')
 
   const taskRef = useRef<HTMLDivElement | null>(null)
   const inputRef = useRef<HTMLInputElement | null>(null)
@@ -36,9 +37,9 @@ const HomeTask = ({ task, autofocus, onBlur }: { task: ITask; autofocus?: boolea
   }
 
   return (
-    <div className={`homePage-taskItem ${selectedTask}`} ref={taskRef}>
+    <div className={`homePage-taskItem ${selectedTask} ${doneTask}`} ref={taskRef}>
       <div className={`homePage-taskItem-task ${selectedTask}`}>
-        <TaskButton />
+        <TaskButton setDoneTask={setDoneTask} doneTask={doneTask} />
         <form className='task-form' onSubmit={handleSubmit}>
           <input
             ref={inputRef}
@@ -48,13 +49,13 @@ const HomeTask = ({ task, autofocus, onBlur }: { task: ITask; autofocus?: boolea
             onClick={() => setSelectedTask('selected')}
             onChange={handleChange}
             tabIndex={-1}
-            onBlur={() => onBlur}
+            onBlur={() => onBlur?.()}
             autoFocus={autofocus}
           ></input>
         </form>
         <DeleteButton />
       </div>
-      <div className={`homePage-taskItem-background ${selectedTask}`}></div>
+      <div className={`homePage-taskItem-background ${selectedTask} ${doneTask}`}></div>
     </div>
   )
 }

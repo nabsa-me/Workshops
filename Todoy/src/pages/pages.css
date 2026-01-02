@@ -110,14 +110,17 @@
   position: relative;
 }
 
-.task-widget-taskList {
+.task-widget-taskList{
   display: flex;
   flex-direction: column;
   position: absolute;
-  top: 50px;
   width: 100%;
   height: calc(100% - 50px);
   overflow-y: auto;
+  top: 16px;
+  &.active-tab {
+    top: 50px;
+  }
 }
 
 .task-widget-tasksContainer-topBar {

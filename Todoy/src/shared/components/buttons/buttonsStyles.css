@@ -3,6 +3,10 @@
   cursor: pointer;
   margin-top: 3px;
   color: var(--color-text-soft);
+  &.done {
+    opacity: 0;
+    transition: none;
+  }
   &:hover {
     & .material-symbols-rounded.task-button {
       color: var(--color-background-accent);

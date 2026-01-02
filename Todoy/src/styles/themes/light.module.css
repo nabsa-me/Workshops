@@ -10,6 +10,8 @@
   --color-background-token: var(--gray-150);
   --color-background-avatar: var(--blue-213-80-500);
 
+  --color-background-done-gradient: linear-gradient(155deg, var(--cyan-178-80-700) -100%, var(--cyan-178-80-600) 15%, var(--blue-213-80-500) 150%);
+
   --color-scrollbar: var(--gray-500);
 
   --color-border: var(--gray-150);
