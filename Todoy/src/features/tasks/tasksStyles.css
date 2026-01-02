@@ -4,15 +4,21 @@
   z-index: 0;
   transform-origin: top;
   &:hover {
-  & .homePage-taskItem-background {
-    background-color: var(--color-background-enphasis);
-  }
-  & .task-title {
-    border: 1px solid var(--color-line);
-    &.selected {
-      border-color: transparent;
+    & .homePage-taskItem-background {
+      background-color: var(--color-background-enphasis);
+      border-top: 1px solid var(--color-line);
+      border-bottom: 1px solid var(--color-line);
+      &.selected {
+      border-color: var(--color-line-accent);
+      background-color: transparent;
+      }
     }
-  }
+    & .task-title {
+      border: 1px solid var(--color-line);
+      &.selected {
+        border-color: transparent;
+      }
+    }
   }
   &:first-child .homePage-taskItem-task {
     border-top: 1px solid var(--color-line);
@@ -51,8 +57,8 @@
 
 .homePage-taskItem-background {
   background-color: transparent;
-  border-top: 1px solid var(--color-line);
-  border-bottom: 1px solid var(--color-line);
+  border-top: 1px solid transparent;
+  border-bottom: 1px solid transparent;
   position: absolute;
   top: 0;
   z-index: -1;
@@ -92,12 +98,12 @@
 @keyframes taskDone {
   0% {
     height: 34px;
-    transform: scaleY(1) translateY(0px);
+    transform: scaleY(1) translateY(-0.5px);
 
   }
   80% {
     height: 34px;
-    transform: scaleY(1) translateY(0px);
+    transform: scaleY(1) translateY(-0.5px);
     opacity: 1;
 
   }

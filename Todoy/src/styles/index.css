@@ -60,3 +60,7 @@ body,
   --border-radius: 8px;
   --border-radius-small: 5px;
 }
+
+.inactive {
+  opacity: 0.6;
+}

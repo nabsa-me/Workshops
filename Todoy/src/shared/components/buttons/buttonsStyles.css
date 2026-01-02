@@ -3,9 +3,26 @@
   cursor: pointer;
   margin-top: 3px;
   color: var(--color-text-soft);
-  &.done {
-    opacity: 0;
-    transition: none;
+  &.done,
+  &.done:hover {
+    & .material-symbols-rounded.task-button {
+      color: transparent;
+    }
+    & .material-symbols-rounded.task-button-background {
+      opacity: 0.9;
+      color: var(--white);
+      transition: none;
+    }
+  }
+  &.completed,
+  &.completed:hover {
+    & .material-symbols-rounded.task-button {
+      color: transparent;
+    }
+    & .material-symbols-rounded.task-button-background {
+      color: var(--color-background-accent-mid);
+      opacity: 0.75;
+    }
   }
   &:hover {
     & .material-symbols-rounded.task-button {

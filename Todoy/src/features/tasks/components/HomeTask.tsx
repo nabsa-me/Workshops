@@ -37,9 +37,9 @@ const HomeTask = ({ task, autofocus, onBlur }: { task: ITask; autofocus?: boolea
   }
 
   return (
-    <div className={`homePage-taskItem ${selectedTask} ${doneTask}`} ref={taskRef}>
-      <div className={`homePage-taskItem-task ${selectedTask}`}>
-        <TaskButton setDoneTask={setDoneTask} doneTask={doneTask} />
+    <div className={`homePage-taskItem ${selectedTask} ${doneTask} `} ref={taskRef}>
+      <div className={`homePage-taskItem-task ${selectedTask} ${(task.completed || task.deleted) && 'inactive'}`}>
+        <TaskButton setDoneTask={setDoneTask} doneTask={doneTask} status={task.completed ? 'completed' : ''} />
         <form className='task-form' onSubmit={handleSubmit}>
           <input
             ref={inputRef}

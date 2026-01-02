@@ -12,7 +12,7 @@ const tasks: ITask[] = [
   { id: 4, title: 'Project meeting', completed: true, deleted: false },
   { id: 5, title: 'Doctor appointment', completed: true, deleted: false },
   { id: 6, title: 'Pay bills', completed: false, deleted: true },
-  { id: 7, title: 'Clean room', completed: false, deleted: true }
+  { id: 7, title: 'Clean room', completed: true, deleted: true }
 ]
 const tabsList = WIDGET_TASK_TABS
 

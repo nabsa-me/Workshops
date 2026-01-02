@@ -25,6 +25,7 @@
   --color-text-token: var(--gray-700);
 
   --color-background-accent: var(--cyan-178-80-700);
+  --color-background-accent-mid: var(--cyan-178-80-600);
   --color-background-accent-light: var(--cyan-178-80-500);
 
   --color-danger: var(--red-351-60-500)
