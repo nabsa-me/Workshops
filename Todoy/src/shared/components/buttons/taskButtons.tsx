@@ -1,4 +1,5 @@
-import { Dispatch, SetStateAction } from 'react'
+import { Dispatch, SetStateAction, useContext } from 'react'
+import { AppContext } from '../../context/appContext'
 
 export const TaskButton = ({
   setDoneTask,
@@ -9,8 +10,16 @@ export const TaskButton = ({
   doneTask: 'done' | ''
   status: 'completed' | ''
 }) => {
+  const context = useContext(AppContext)
+  const { doneEffect, setDoneEffect } = context
+
+  const handleClick = () => {
+    setDoneTask(doneTask === 'done' ? '' : 'done')
+    setDoneEffect(doneEffect - 1)
+  }
+
   return (
-    <div className={`task-button ${doneTask} ${status}`} onClick={() => setDoneTask(doneTask === 'done' ? '' : 'done')}>
+    <div className={`task-button ${doneTask} ${status}`} onClick={() => handleClick()}>
       <span className='material-symbols-rounded task-button' role='button'>
         check_circle
       </span>
@@ -21,9 +30,9 @@ export const TaskButton = ({
   )
 }
 
-export const DeleteButton = ({ icon }: { icon: 'restore_from_trash' | 'delete' }) => {
+export const DeleteButton = ({ icon, doneTask }: { icon: 'restore_from_trash' | 'delete'; doneTask: 'done' | '' }) => {
   return (
-    <div className='task-button'>
+    <div className={`task-button ${doneTask}`}>
       <span className={`material-symbols-rounded task-${icon}-button`} role='button'>
         {icon}
       </span>

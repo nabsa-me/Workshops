@@ -1,6 +1,7 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, useContext } from 'react'
 import { DeleteButton, TaskButton } from '../../../shared/components/buttons/taskButtons'
 import { ITask } from '../tasksTypes'
+import { AppContext } from '../../../shared/context/appContext'
 
 const HomeTask = ({ task, autofocus, onBlur }: { task: ITask; autofocus?: boolean; onBlur?: () => void }) => {
   const [selectedTask, setSelectedTask] = useState<'selected' | ''>('')
@@ -22,9 +23,12 @@ const HomeTask = ({ task, autofocus, onBlur }: { task: ITask; autofocus?: boolea
       if (taskRef.current && !taskRef.current.contains(event.target as Node)) setSelectedTask('')
     }
 
-    document.addEventListener('mousedown', handleClickOutside)
-    return () => document.removeEventListener('mousedown', handleClickOutside)
+    document.addEventListener('mouseup', handleClickOutside)
+    return () => document.removeEventListener('mouseup', handleClickOutside)
   }, [])
+
+  const context = useContext(AppContext)
+  const { doneEffect } = context
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTaskContent(event.target.value)
@@ -37,25 +41,27 @@ const HomeTask = ({ task, autofocus, onBlur }: { task: ITask; autofocus?: boolea
   }
 
   return (
-    <div className={`homePage-taskItem ${selectedTask} ${doneTask} `} ref={taskRef}>
-      <div className={`homePage-taskItem-task ${selectedTask} ${(task.completed || task.deleted) && 'inactive'}`}>
-        <TaskButton setDoneTask={setDoneTask} doneTask={doneTask} status={task.completed ? 'completed' : ''} />
-        <form className='task-form' onSubmit={handleSubmit}>
-          <input
-            ref={inputRef}
-            className={`task-title ${selectedTask}`}
-            value={taskContent}
-            size={taskContent.length - 3}
-            onClick={() => setSelectedTask('selected')}
-            onChange={handleChange}
-            tabIndex={-1}
-            onBlur={() => onBlur?.()}
-            autoFocus={autofocus}
-          ></input>
-        </form>
-        <DeleteButton icon={task.deleted ? 'restore_from_trash' : 'delete'} />
-      </div>
-      <div className={`homePage-taskItem-background ${selectedTask} ${doneTask}`}></div>
+    <div
+      className={`homePage-taskItem-task ${selectedTask} ${doneTask} ${!doneEffect ? 'special' : ''} ${
+        (task.completed || task.deleted) && 'inactive'
+      }`}
+      ref={taskRef}
+    >
+      <TaskButton setDoneTask={setDoneTask} doneTask={doneTask} status={task.completed ? 'completed' : ''} />
+      <form className='task-form' onSubmit={handleSubmit}>
+        <input
+          ref={inputRef}
+          className={`task-title ${selectedTask}`}
+          value={taskContent}
+          size={taskContent.length - 3}
+          onClick={() => setSelectedTask('selected')}
+          onChange={handleChange}
+          tabIndex={-1}
+          onBlur={() => onBlur?.()}
+          autoFocus={autofocus}
+        ></input>
+      </form>
+      <DeleteButton icon={task.deleted ? 'restore_from_trash' : 'delete'} doneTask={doneTask} />
     </div>
   )
 }

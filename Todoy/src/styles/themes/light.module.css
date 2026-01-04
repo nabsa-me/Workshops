@@ -11,6 +11,7 @@
   --color-background-avatar: var(--blue-213-80-500);
 
   --color-background-done-gradient: linear-gradient(155deg, var(--cyan-178-80-700) -100%, var(--cyan-178-80-600) 15%, var(--blue-213-80-500) 150%);
+  --color-background-superDone-gradient: linear-gradient(155deg, #a867a4 0%, #e4465e 15%, #ff8e00 30%, #fee815 45%, #e0ee88 60%, #bdca24 75%, #45bbca 100% );
 
   --color-scrollbar: var(--gray-500);
 
@@ -24,8 +25,10 @@
   --color-text-token: var(--gray-700);
 
   --color-background-accent: var(--cyan-178-80-700);
-  --color-background-accent-mid: var(--cyan-178-80-600);
+  --color-background-accent-mid: var(--cyan-178-80-500);
   --color-background-accent-light: var(--cyan-178-80-500);
+  --color-background-accent-strong: var(--cyan-178-100-600);
+
 
   --color-danger: var(--red-351-60-500)
 

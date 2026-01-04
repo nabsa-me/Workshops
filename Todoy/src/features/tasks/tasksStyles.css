@@ -1,117 +1,119 @@
-.homePage-taskItem {
-  position: relative;
-  height: 34px;
-  z-index: 0;
-  transform-origin: top;
-  &:hover {
-    & .homePage-taskItem-background {
-      background-color: var(--color-background-enphasis);
-      border-top: 1px solid var(--color-line);
-      border-bottom: 1px solid var(--color-line);
-      &.selected {
-      border-color: var(--color-line-accent);
-      background-color: transparent;
-      }
-    }
-    & .task-title {
-      border: 1px solid var(--color-line);
-      &.selected {
-        border-color: transparent;
-      }
-    }
-  }
-  &:first-child .homePage-taskItem-task {
-    border-top: 1px solid var(--color-line);
-    height: 33.5px;
-    &.selected {
-      border-color: var(--color-line-accent);
-    }
-  }
-  &:first-child .homePage-taskItem-background {
-    height: calc(100% - 0.5px);
-  }
-  &.selected {
-    z-index: 1;
-  }
-  &.done {
-    animation: taskDone 0.75s ease-in-out forwards;
-  }
+#root {
+  --border-height: 1px;
+  --task-height: 34px;
 }
 
 .homePage-taskItem-task {
+  transition: none;
+  position: relative;
+  box-sizing: border-box;
   display: flex;
   gap: 8px;
-  height: 100%;
+  height: var(--task-height);
+  min-height: var(--task-height);
+  max-height: var(--task-height);
   align-items: center;
-  border-bottom: 1px solid var(--color-line);
-  width: calc(100% - 8px - 24px - 24px);
-  margin-left: 24px;
-  position: relative;
-  &.selected {
-    border-color: var(--color-line-accent);
+  width: calc(100%);
+  padding-left: 24px;
+  overflow: visible;
+  background-size: 0%;
+  background-repeat: no-repeat;
+  &:first-child {
+    margin-top: calc(var(--border-height));
   }
   & .task-button:last-child {
     margin-left: auto;
+    padding-right: 32px;
   }
-}
-
-.homePage-taskItem-background {
-  background-color: transparent;
-  border-top: 1px solid transparent;
-  border-bottom: 1px solid transparent;
-  position: absolute;
-  top: 0;
-  z-index: -1;
-  height: calc(100% - 0.5px);
-  width: calc(100%);
-  &.selected {
-    background-color: transparent;
-    border-color: var(--color-line-accent);
-  }
-  &::before{
+  &::before, 
+  &::after {
     content: '';
     position: absolute;
     inset: 0;
-    background: var(--color-background-done-gradient);
-    transform: scaleX(0);
-    transform-origin: left top;
+    left: 24px;
+    width: calc(100% - 24px - 24px);
+    height: var(--border-height);
+    transition: none;
+    z-index: 0;
+    background-color: var(--color-line);
   }
-  &.done{
-    &::before{
-    animation: taskDoneBackground 0.75s ease-in-out;
+  &::before{
+    top: calc((0px - var(--border-height) / 2));
   }
+  &::after{
+    top: calc((var(--task-height) - var(--border-height) / 2));
   }
-}
-
-@keyframes taskDoneBackground {
-  0% {
-    transform: scaleX(0);
+  &:hover {
+    background-color: var(--color-background-enphasis);
+    &::after,
+    &::before {
+      transition: none;
+      width: 100%;
+      left: 0;
+    }
+    & .task-title {
+    border: 1px solid var(--color-line);
+    }
   }
-  35% {
-    transform: scaleX(1);
+  &.selected {
+    &::after,
+    &::before {
+      background-color: var(--color-line-accent);
+      width: 100%;
+      left: 0;
+      z-index: 5;
+    }
+    &:hover {
+      background-color: transparent;
+    }
   }
-  100% {
-    transform: scaleX(1);
+  &.done {
+    background-size: 100%;
+    transition: background-size 0.3s ease-in-out;
+    background-image: var(--color-background-done-gradient);
+    animation: taskDone 0.75s forwards;
+    &.special{
+      background-image: var(--color-background-superDone-gradient);
+    }
+    &::after,
+    &::before {
+      transition: none;
+      background-color: var(--color-line);
+      width: 100%;
+      left: 0;
+    }
+    &::after {
+      transform: translateY(-34px);
+      transition: all 0.3s ease-out 0.55s;
+    }
+    &.selected::after,
+    &.selected::before {
+      background-color: var(--color-line-accent);
+    }
   }
 }
 
 @keyframes taskDone {
   0% {
-    height: 34px;
-    transform: scaleY(1) translateY(0px);
-
+    z-index: 5;
   }
-  80% {
-    height: 34px;
-    transform: scaleY(1) translateY(0px);
+  75% {
+    height: var(--task-height);
+    min-height: var(--task-height);
+    max-height: var(--task-height);
     opacity: 1;
-
+    z-index: 5;
+  }
+  95% {
+    opacity: 0;
   }
   100% {
+    z-index: 5;
     height: 0px;
-    transform: scaleY(0) translateY(34px);
-    display: none;
+    max-height: 0px;
+    min-height: 0px;
     opacity: 0;
+    display: none;
   }
 }
 

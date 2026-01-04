@@ -19,7 +19,7 @@ const Homepage = () => {
         </div>
         <div className='homePage-topBar-report'>
           <div className='homePage-topBar-report-tasks'>
-            <span className='material-symbols-rounded'>check</span>
+            <span className='material-symbols-rounded bold'>check</span>
             <p>N</p>
             <p>tasks completed</p>
           </div>
