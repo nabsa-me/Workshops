@@ -2,9 +2,10 @@ import { useState } from 'react'
 import Homepage from '../../pages/homepage/Homepage'
 import DesktopNavBar from './DesktopNavBar'
 import DesktopSideBar from './DesktopSideBar'
+import { shownOrHiddenType } from './desktopTypes'
 
 const DesktopLayout = () => {
-  const [sideBarHidden, setSideBarHidden] = useState<'' | 'hidden'>('')
+  const [sideBarHidden, setSideBarHidden] = useState<shownOrHiddenType>('')
 
   return (
     <div className='desktop-appRoot-fullPage'>

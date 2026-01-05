@@ -1,10 +1,6 @@
-const DesktopNavBar = ({
-  setSideBarHidden,
-  sideBarHidden
-}: {
-  setSideBarHidden: (hidden: 'hidden' | '') => void
-  sideBarHidden: 'hidden' | ''
-}) => {
+import { IDesktopNavBarProps } from './desktopTypes'
+
+const DesktopNavBar = ({ setSideBarHidden, sideBarHidden }: IDesktopNavBarProps) => {
   return <div className='desktop-navBar' onClick={() => setSideBarHidden(sideBarHidden ? '' : 'hidden')}></div>
 }
 

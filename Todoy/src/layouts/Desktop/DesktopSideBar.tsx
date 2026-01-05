@@ -1,8 +1,9 @@
 import { useState } from 'react'
 import SideBarNavigationCard from '../../shared/components/navigationCards/SideBarNavigationCard'
+import { IDesktopSideBarProps, shownOrHiddenType } from './desktopTypes'
 
-const DesktopSideBar = ({ sideBarHidden }: { sideBarHidden: 'hidden' | '' }) => {
-  const [scrollbarHidden, setScrollbarHidden] = useState<'hidden' | ''>('hidden')
+const DesktopSideBar = ({ sideBarHidden }: IDesktopSideBarProps) => {
+  const [scrollbarHidden, setScrollbarHidden] = useState<shownOrHiddenType>('hidden')
 
   return (
     <div
