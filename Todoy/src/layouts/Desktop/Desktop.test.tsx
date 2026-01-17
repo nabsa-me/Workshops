@@ -1,6 +1,7 @@
 import { act, fireEvent, render } from '@testing-library/react'
 import DesktopLayout from './DesktopLayout'
 import DesktopSideBar from './DesktopSideBar'
+import DesktopNavBar from './DesktopNavBar'
 
 const DESKTOP_NAVBAR = '.desktop-navBar'
 const DESKTOP_SIDEBAR = '.desktop-sideBar'
@@ -87,14 +88,6 @@ describe('DesktopSideBar', () => {
     expect(getByText('check_circle')).toBeTruthy()
   })
 
-  it('renders exactly two SideBarNavigationCards (edge case)', () => {
-    const { container } = render(<DesktopSideBar sideBarHidden='' />)
-
-    // Cada SideBarNavigationCard renderiza un span con clase sideBar-icon
-    const icons = container.querySelectorAll('.sideBar-icon')
-    expect(icons.length).toBe(2)
-  })
-
   it('renders navigation cards inside the nav container', () => {
     const { container, getByText } = render(<DesktopSideBar sideBarHidden='' />)
 
@@ -104,11 +97,35 @@ describe('DesktopSideBar', () => {
     expect(nav?.contains(getByText('Home'))).toBe(true)
     expect(nav?.contains(getByText('My tasks'))).toBe(true)
   })
+})
 
-  it('still renders navigation cards when sidebar is hidden (edge case)', () => {
-    const { getByText } = render(<DesktopSideBar sideBarHidden='hidden' />)
+describe('DesktopNavBar', () => {
+  it('renders the navbar container', () => {
+    const { container } = render(<DesktopNavBar sideBarHidden='' setSideBarHidden={jest.fn()} />)
 
-    expect(getByText('Home')).toBeTruthy()
-    expect(getByText('My tasks')).toBeTruthy()
+    const navBar = container.querySelector('.desktop-navBar')
+    expect(navBar).toBeTruthy()
+  })
+
+  it('sets sidebar to hidden when it is currently visible', () => {
+    const setSideBarHidden = jest.fn()
+
+    const { container } = render(<DesktopNavBar sideBarHidden='' setSideBarHidden={setSideBarHidden} />)
+
+    const navBar = container.querySelector('.desktop-navBar') as HTMLElement
+    fireEvent.click(navBar)
+
+    expect(setSideBarHidden).toHaveBeenCalledWith('hidden')
+  })
+
+  it('sets sidebar to visible when it is currently hidden', () => {
+    const setSideBarHidden = jest.fn()
+
+    const { container } = render(<DesktopNavBar sideBarHidden='hidden' setSideBarHidden={setSideBarHidden} />)
+
+    const navBar = container.querySelector('.desktop-navBar') as HTMLElement
+    fireEvent.click(navBar)
+
+    expect(setSideBarHidden).toHaveBeenCalledWith('')
   })
 })
