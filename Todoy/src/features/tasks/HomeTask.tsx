@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect, useContext } from 'react'
-import { DeleteButton, TaskButton } from '../../shared/components/buttons/taskButtons'
+import { DeleteButton, TaskButton } from '../../shared/components/buttons/buttons'
 import { ITask } from './tasksTypes'
 import { AppContext } from '../../shared/context/appContext'
 

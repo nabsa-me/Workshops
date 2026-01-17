@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react'
-import { CreateTaskButton } from '../../shared/components/buttons/buttons'
+// import { CreateTaskButton } from '../../shared/components/buttons/buttons'
 import TabsNavigation from '../../shared/components/navigationCards/TabsNavigation'
 import HomeTask from '../../features/tasks/HomeTask'
 import { ITask } from '../../features/tasks/tasksTypes'
 import { IHomeActiveTasksViewProps, WIDGET_TASK_TABS } from '../pagesTypes'
+import { CreateTaskButton } from '../../shared/components/buttons/buttons'
 
 const tasks: ITask[] = [
   { id: 1, title: 'Buy milk', completed: false, deleted: false },
