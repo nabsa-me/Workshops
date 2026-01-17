@@ -72,4 +72,43 @@ describe('DesktopSideBar', () => {
     act(() => fireEvent.mouseLeave(scrollableSideBar!))
     expect(scrollableSideBar).toHaveClass('hidden')
   })
+
+  it('renders the navigation cards with correct labels', () => {
+    const { getByText } = render(<DesktopSideBar sideBarHidden='' />)
+
+    expect(getByText('Home')).toBeTruthy()
+    expect(getByText('My tasks')).toBeTruthy()
+  })
+
+  it('renders the correct icons passed to SideBarNavigationCard', () => {
+    const { getByText } = render(<DesktopSideBar sideBarHidden='' />)
+
+    expect(getByText('home')).toBeTruthy()
+    expect(getByText('check_circle')).toBeTruthy()
+  })
+
+  it('renders exactly two SideBarNavigationCards (edge case)', () => {
+    const { container } = render(<DesktopSideBar sideBarHidden='' />)
+
+    // Cada SideBarNavigationCard renderiza un span con clase sideBar-icon
+    const icons = container.querySelectorAll('.sideBar-icon')
+    expect(icons.length).toBe(2)
+  })
+
+  it('renders navigation cards inside the nav container', () => {
+    const { container, getByText } = render(<DesktopSideBar sideBarHidden='' />)
+
+    const nav = container.querySelector('nav.desktop-sideBar-body-topLinks')
+    expect(nav).toBeTruthy()
+
+    expect(nav?.contains(getByText('Home'))).toBe(true)
+    expect(nav?.contains(getByText('My tasks'))).toBe(true)
+  })
+
+  it('still renders navigation cards when sidebar is hidden (edge case)', () => {
+    const { getByText } = render(<DesktopSideBar sideBarHidden='hidden' />)
+
+    expect(getByText('Home')).toBeTruthy()
+    expect(getByText('My tasks')).toBeTruthy()
+  })
 })

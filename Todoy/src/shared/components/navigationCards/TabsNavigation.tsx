@@ -1,14 +1,6 @@
-import { Dispatch, SetStateAction } from 'react'
+import { ITabsCard, ITabsNavigation } from './navigationCardsTypes'
 
-const TabsNavigation = ({
-  setActiveTab,
-  activeTab,
-  tabsList
-}: {
-  setActiveTab: Dispatch<SetStateAction<string>>
-  activeTab: string
-  tabsList: string[]
-}) => {
+const TabsNavigation = ({ setActiveTab, activeTab, tabsList }: ITabsNavigation) => {
   return (
     <div className='tabsList'>
       {tabsList.map((tab: string) => (
@@ -18,15 +10,7 @@ const TabsNavigation = ({
   )
 }
 
-const TabNavigationCard = ({
-  setActiveTab,
-  activeTab,
-  title
-}: {
-  setActiveTab: Dispatch<SetStateAction<string>>
-  activeTab: string
-  title: string
-}) => {
+const TabNavigationCard = ({ setActiveTab, activeTab, title }: ITabsCard) => {
   return (
     <span
       className={`tabNavigationCard ${activeTab === title ? 'active' : ''}`}
