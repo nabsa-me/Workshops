@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import { AppContext } from '../../context/appContext'
+import { AppContext } from '../../../app/context/appContext'
 import { IDeleteButtonProps, ITaskButtonProps } from './buttonsTypes'
 import { FilledIconButton, Icon, IconButton } from '../icons/icons'
 

@@ -1,5 +1,5 @@
 import { createContext } from 'react'
-import { useDoneEffect } from '../hooks/useDoneEffect'
+import { useDoneEffect } from '../../shared/hooks/useDoneEffect'
 
 type AppContextType = {
   doneEffect: number

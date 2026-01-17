@@ -1,6 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react'
 import { TaskButton, DeleteButton, CreateTaskButton } from './buttons'
-import { AppContext } from '../../context/appContext'
+import { AppContext } from '../../../app/context/appContext'
 import React from 'react'
 import { buttonStatusType } from './buttonsTypes'
 

@@ -1,6 +1,6 @@
 import { render, fireEvent } from '@testing-library/react'
 import HomeTask from './HomeTask'
-import { AppContext } from '../../shared/context/appContext'
+import { AppContext } from '../../app/context/appContext'
 import React from 'react'
 
 const baseTask = {

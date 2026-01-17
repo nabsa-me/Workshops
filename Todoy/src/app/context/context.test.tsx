@@ -6,7 +6,7 @@ jest.mock('../hooks/useDoneEffect', () => ({
   useDoneEffect: jest.fn()
 }))
 
-import { useDoneEffect } from '../hooks/useDoneEffect'
+import { useDoneEffect } from '../../shared/hooks/useDoneEffect'
 
 describe('AppContext', () => {
   it('provides default context values without AppProvider', () => {
