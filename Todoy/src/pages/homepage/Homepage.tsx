@@ -1,3 +1,4 @@
+import { Icon } from '../../shared/components/icons/icons'
 import { TasksWidget } from './TasksWidget'
 
 const Homepage = () => {
@@ -18,7 +19,7 @@ const Homepage = () => {
         </div>
         <div className='homePage-topBar-report'>
           <div className='homePage-topBar-report-tasks'>
-            <span className='material-symbols-rounded bold'>check</span>
+            <Icon icon='check' type='bold' />
             <p>N</p>
             <p>tasks completed</p>
           </div>

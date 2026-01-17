@@ -1,6 +1,7 @@
 import { useContext } from 'react'
 import { AppContext } from '../../context/appContext'
 import { IDeleteButtonProps, ITaskButtonProps } from './buttonsTypes'
+import { FilledIconButton, Icon, IconButton } from '../icons/icons'
 
 export const TaskButton = ({ setDoneTask, doneTask, status }: ITaskButtonProps) => {
   const { doneEffect, setDoneEffect } = useContext(AppContext)
@@ -12,12 +13,8 @@ export const TaskButton = ({ setDoneTask, doneTask, status }: ITaskButtonProps) 
 
   return (
     <div className={`task-button ${doneTask} ${status}`} onClick={() => handleClick()}>
-      <span className='material-symbols-rounded task-button' role='button'>
-        check_circle
-      </span>
-      <span className='material-symbols-rounded task-button-background' role='button'>
-        check_circle
-      </span>
+      <IconButton icon='check_circle' className='task-button' type='thin' />
+      <FilledIconButton icon='check_circle' className='task-button-background' />
     </div>
   )
 }
@@ -25,9 +22,7 @@ export const TaskButton = ({ setDoneTask, doneTask, status }: ITaskButtonProps) 
 export const DeleteButton = ({ icon, doneTask }: IDeleteButtonProps) => {
   return (
     <div className={`task-button ${doneTask}`}>
-      <span className={`material-symbols-rounded task-${icon}-button`} role='button'>
-        {icon}
-      </span>
+      <IconButton icon={icon} className={`task-${icon}-button`} type='thin' />
     </div>
   )
 }
@@ -35,9 +30,7 @@ export const DeleteButton = ({ icon, doneTask }: IDeleteButtonProps) => {
 export const CreateTaskButton = ({ handleClick }: { handleClick: () => void }) => {
   return (
     <div className='createTaskButton' role='button' onClick={() => handleClick()}>
-      <span className='material-symbols-rounded add-task-button bold' role='button'>
-        add
-      </span>
+      <Icon icon='add' className='add-task-button' type='bold' />
       <p>Create task</p>
     </div>
   )

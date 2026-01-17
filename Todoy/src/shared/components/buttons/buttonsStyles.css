@@ -54,11 +54,6 @@
 .task-button >.material-symbols-rounded {
   font-size: 23px;
   position: relative;
-  font-variation-settings:
-  'FILL' 0,
-  'wght' 275,
-  'GRAD' 0,
-  'opsz' 0;
 }
 
 .material-symbols-rounded.task-button-background {
@@ -68,11 +63,6 @@
   top: 3px;
   opacity: 0;
   color: var(--color-background-accent-light);
-  font-variation-settings:
-  'FILL' 1,
-  'wght' 300,
-  'GRAD' 0,
-  'opsz' 0;
 }
 
 .createTaskButton {

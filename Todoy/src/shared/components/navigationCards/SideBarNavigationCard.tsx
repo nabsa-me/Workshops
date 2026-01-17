@@ -1,7 +1,9 @@
+import { Icon } from '../icons/icons'
+
 const SideBarNavigationCard = ({ label, icon }: { label: string; icon: string }) => {
   return (
     <div className='sideBar-navigationCard'>
-      <span className='material-symbols-rounded sideBar-icon'>{icon}</span>
+      <Icon icon={icon} className='sideBar-icon' />
       <p>{label}</p>
     </div>
   )
