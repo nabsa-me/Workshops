@@ -4,3 +4,9 @@ export interface ITask {
   completed: boolean
   deleted: boolean
 }
+
+export interface IHomeTaskProps {
+  task: ITask
+  autofocus?: boolean
+  onBlur?: () => void
+}
