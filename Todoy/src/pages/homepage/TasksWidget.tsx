@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 import { CreateTaskButton } from '../../shared/components/buttons/buttons'
 import TabsNavigation from '../../shared/components/navigationCards/TabsNavigation'
-import HomeTask from '../../features/tasks/components/HomeTask'
+import HomeTask from '../../features/tasks/HomeTask'
 import { ITask } from '../../features/tasks/tasksTypes'
-import { WIDGET_TASK_TABS } from '../pagesTypes'
+import { IHomeActiveTasksViewProps, WIDGET_TASK_TABS } from '../pagesTypes'
 
 const tasks: ITask[] = [
   { id: 1, title: 'Buy milk', completed: false, deleted: false },
@@ -59,17 +59,7 @@ export const TasksWidget = () => {
   )
 }
 
-const HomeActiveTasksView = ({
-  widgetTasks,
-  handleClick,
-  focused,
-  setFocusedTaskId
-}: {
-  widgetTasks: ITask[]
-  handleClick: () => void
-  focused?: number | null
-  setFocusedTaskId?: (id: number | null) => void
-}) => {
+const HomeActiveTasksView = ({ widgetTasks, handleClick, focused, setFocusedTaskId }: IHomeActiveTasksViewProps) => {
   const handleOnBlur = () => setFocusedTaskId?.(null)
 
   return (
@@ -78,7 +68,7 @@ const HomeActiveTasksView = ({
         <CreateTaskButton handleClick={() => handleClick()} />
       </div>
       <div className='task-widget-taskList active-tab'>
-        {widgetTasks.map((task) => (
+        {widgetTasks?.map((task) => (
           <HomeTask task={task} key={task.id} autofocus={task.id === focused} onBlur={handleOnBlur} />
         ))}
       </div>
@@ -90,7 +80,7 @@ const HomeTasksView = ({ widgetTasks }: { widgetTasks: ITask[] }) => {
   return (
     <div className='task-widget-tasksContainer'>
       <div className='task-widget-taskList'>
-        {widgetTasks.map((task: ITask) => (
+        {widgetTasks?.map((task: ITask) => (
           <HomeTask task={task} key={task.id} />
         ))}
       </div>

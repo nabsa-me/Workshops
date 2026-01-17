@@ -1,15 +1,15 @@
 import { useState, useRef, useEffect, useContext } from 'react'
-import { DeleteButton, TaskButton } from '../../../shared/components/buttons/taskButtons'
-import { ITask } from '../tasksTypes'
-import { AppContext } from '../../../shared/context/appContext'
+import { DeleteButton, TaskButton } from '../../shared/components/buttons/taskButtons'
+import { ITask } from './tasksTypes'
+import { AppContext } from '../../shared/context/appContext'
 
 const HomeTask = ({ task, autofocus, onBlur }: { task: ITask; autofocus?: boolean; onBlur?: () => void }) => {
   const [selectedTask, setSelectedTask] = useState<'selected' | ''>('')
   const [taskContent, setTaskContent] = useState<string>(task.title)
   const [doneTask, setDoneTask] = useState<'done' | ''>('')
-
   const taskRef = useRef<HTMLDivElement | null>(null)
   const inputRef = useRef<HTMLInputElement | null>(null)
+  const { doneEffect } = useContext(AppContext)
 
   useEffect(() => {
     if (autofocus) {
@@ -27,9 +27,6 @@ const HomeTask = ({ task, autofocus, onBlur }: { task: ITask; autofocus?: boolea
     return () => document.removeEventListener('mouseup', handleClickOutside)
   }, [])
 
-  const context = useContext(AppContext)
-  const { doneEffect } = context
-
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTaskContent(event.target.value)
   }
@@ -46,6 +43,7 @@ const HomeTask = ({ task, autofocus, onBlur }: { task: ITask; autofocus?: boolea
         (task.completed || task.deleted) && 'inactive'
       }`}
       ref={taskRef}
+      role={'listitem'}
     >
       <TaskButton setDoneTask={setDoneTask} doneTask={doneTask} status={task.completed ? 'completed' : ''} />
       <form className='task-form' onSubmit={handleSubmit}>

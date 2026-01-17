@@ -1,15 +1,14 @@
 import { TasksWidget } from './TasksWidget'
 
-const date = new Date().toLocaleDateString('en-US', {
-  weekday: 'long',
-  month: 'long',
-  day: 'numeric'
-})
-
-const dayPeriod = new Date().toLocaleTimeString('en-US', { dayPeriod: 'long' })
-const periodArray = dayPeriod.split(' ')
-
 const Homepage = () => {
+  const date = new Date().toLocaleDateString('en-US', {
+    weekday: 'long',
+    month: 'long',
+    day: 'numeric'
+  })
+
+  const dayPeriod = new Date().toLocaleTimeString('en-US', { dayPeriod: 'long' })
+  const periodArray = dayPeriod.split(' ')
   return (
     <main className='homePage-wrapper'>
       <div className='homePage-topBar'>

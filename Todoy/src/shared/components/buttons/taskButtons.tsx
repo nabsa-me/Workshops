@@ -10,8 +10,7 @@ export const TaskButton = ({
   doneTask: 'done' | ''
   status: 'completed' | ''
 }) => {
-  const context = useContext(AppContext)
-  const { doneEffect, setDoneEffect } = context
+  const { doneEffect, setDoneEffect } = useContext(AppContext)
 
   const handleClick = () => {
     setDoneTask(doneTask === 'done' ? '' : 'done')

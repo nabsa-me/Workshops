@@ -52,7 +52,7 @@
       left: 0;
     }
     & .task-title {
-    border: 1px solid var(--color-line);
+      border: 1px solid var(--color-line);
     }
   }
   &.selected {
@@ -127,6 +127,7 @@
   display: block;
   text-overflow: ellipsis; 
   width: 100%;
+  transition: none;
   &:hover {
     border: 1px solid var(--color-line-hover) !important;
   }
