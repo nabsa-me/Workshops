@@ -2,11 +2,11 @@ import React, { useContext } from 'react'
 import { render } from '@testing-library/react'
 import { AppContext, AppProvider } from './appContext'
 
-jest.mock('../hooks/useCountDown', () => ({
-  useCountDown: jest.fn()
+jest.mock('../hooks/useDoneEffect', () => ({
+  useDoneEffect: jest.fn()
 }))
 
-import { useCountDown } from '../hooks/useCountDown'
+import { useDoneEffect } from '../hooks/useDoneEffect'
 
 describe('AppContext', () => {
   it('provides default context values without AppProvider', () => {
@@ -23,10 +23,10 @@ describe('AppContext', () => {
     expect(getByText('0')).toBeInTheDocument()
   })
 
-  it('AppProvider provides values from useCountDown', () => {
+  it('AppProvider provides values from useDoneEffect', () => {
     const mockSetDoneEffect = jest.fn()
 
-    ;(useCountDown as jest.Mock).mockReturnValue({
+    ;(useDoneEffect as jest.Mock).mockReturnValue({
       doneEffect: 5,
       setDoneEffect: mockSetDoneEffect
     })
@@ -54,7 +54,7 @@ describe('AppContext', () => {
   })
 
   it('AppProvider renders correctly with null children', () => {
-    ;(useCountDown as jest.Mock).mockReturnValue({
+    ;(useDoneEffect as jest.Mock).mockReturnValue({
       doneEffect: 0,
       setDoneEffect: jest.fn()
     })
@@ -63,7 +63,7 @@ describe('AppContext', () => {
   })
 
   it('AppProvider renders correctly with undefined children', () => {
-    ;(useCountDown as jest.Mock).mockReturnValue({
+    ;(useDoneEffect as jest.Mock).mockReturnValue({
       doneEffect: 0,
       setDoneEffect: jest.fn()
     })

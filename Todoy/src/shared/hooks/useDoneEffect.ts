@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-export const useCountDown = () => {
+export const useDoneEffect = () => {
   const [doneEffect, setDoneEffect] = useState<number>(Math.floor(Math.random() * 21))
 
   useEffect(() => {

@@ -1,5 +1,5 @@
 import { createContext } from 'react'
-import { useCountDown } from '../hooks/useCountDown'
+import { useDoneEffect } from '../hooks/useDoneEffect'
 
 type AppContextType = {
   doneEffect: number
@@ -12,7 +12,7 @@ export const AppContext = createContext<AppContextType>({
 })
 
 export const AppProvider = ({ children }: { children: React.ReactNode }) => {
-  const { doneEffect, setDoneEffect } = useCountDown()
+  const { doneEffect, setDoneEffect } = useDoneEffect()
 
   return <AppContext.Provider value={{ doneEffect, setDoneEffect }}>{children}</AppContext.Provider>
 }
