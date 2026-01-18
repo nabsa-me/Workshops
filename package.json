@@ -34,5 +34,8 @@
     "cz-customizable": {
       "config": "./.cz-config.js"
     }
+  },
+  "dependencies": {
+    "zustand": "^5.0.10"
   }
 }

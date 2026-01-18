@@ -28,7 +28,6 @@ export const TasksWidget = () => {
     createTask({ title: '', id: newTaskId })
     setFocusedTaskId(newTaskId)
   }
-  console.log(tasks)
 
   return (
     <div className='widget-container full'>
