@@ -1,4 +1,5 @@
-import { useMemo, useState } from 'react'
+// TasksWidget.tsx
+import { useMemo, useState, useEffect } from 'react'
 import TabsNavigation from '../../shared/components/navigationCards/TabsNavigation'
 import HomeTask from '../../features/tasks/HomeTask'
 import { ITask } from '../../features/tasks/tasksTypes'
@@ -22,9 +23,17 @@ export const TasksWidget = () => {
     [tasks]
   )
 
-  const handleClick = () => {
-    const newTaskId = Date.now()
+  useEffect(() => setFocusedTaskId(null), [activeTab])
 
+  const handleClick = () => {
+    const emptyTask = !tasks[0].title ? tasks[0] : null
+
+    if (emptyTask) {
+      setFocusedTaskId(emptyTask.id)
+      return
+    }
+
+    const newTaskId = Date.now()
     createTask({ title: '', id: newTaskId })
     setFocusedTaskId(newTaskId)
   }
@@ -39,7 +48,12 @@ export const TasksWidget = () => {
         </div>
       </div>
       {activeTab === 'Active' ? (
-        <HomeActiveTasksView widgetTasks={widgetTasks.Active} handleClick={handleClick} focused={focusedTaskId} />
+        <HomeActiveTasksView
+          widgetTasks={widgetTasks.Active}
+          handleClick={handleClick}
+          focused={focusedTaskId}
+          setFocusedTaskId={setFocusedTaskId}
+        />
       ) : (
         <HomeTasksView widgetTasks={widgetTasks[activeTab as keyof typeof widgetTasks]} />
       )}
@@ -48,16 +62,16 @@ export const TasksWidget = () => {
 }
 
 const HomeActiveTasksView = ({ widgetTasks, handleClick, focused, setFocusedTaskId }: IHomeActiveTasksViewProps) => {
-  const handleOnBlur = () => setFocusedTaskId?.(null)
+  const handleOnBlur = () => setFocusedTaskId!(null)
 
   return (
     <div className='task-widget-tasksContainer'>
       <div className='task-widget-tasksContainer-topBar'>
-        <CreateTaskButton handleClick={() => handleClick()} />
+        <CreateTaskButton handleClick={handleClick} />
       </div>
       <div className='task-widget-taskList active-tab'>
-        {widgetTasks?.map((task) => (
-          <HomeTask task={task} key={task.id} autofocus={task.id === focused} onBlur={handleOnBlur} />
+        {widgetTasks.map((task) => (
+          <HomeTask key={task.id} task={task} autofocus={task.id === focused} onBlur={handleOnBlur} />
         ))}
       </div>
     </div>
@@ -68,7 +82,7 @@ const HomeTasksView = ({ widgetTasks }: { widgetTasks: ITask[] }) => {
   return (
     <div className='task-widget-tasksContainer'>
       <div className='task-widget-taskList'>
-        {widgetTasks?.map((task: ITask) => (
+        {widgetTasks.map((task) => (
           <HomeTask task={task} key={task.id} />
         ))}
       </div>

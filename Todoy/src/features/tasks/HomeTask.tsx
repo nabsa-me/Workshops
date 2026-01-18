@@ -1,3 +1,4 @@
+// HomeTask.tsx
 import { useState, useRef, useEffect, useContext } from 'react'
 import { DeleteButton, TaskButton } from '../../shared/components/buttons/buttons'
 import { IHomeTaskProps } from './tasksTypes'
@@ -15,6 +16,8 @@ const HomeTask = ({ task, autofocus, onBlur }: IHomeTaskProps) => {
     if (autofocus) {
       inputRef.current?.focus()
       setSelectedTask('selected')
+    } else {
+      setSelectedTask('')
     }
   }, [autofocus])
 
@@ -43,7 +46,7 @@ const HomeTask = ({ task, autofocus, onBlur }: IHomeTaskProps) => {
         (task.completed || task.deleted) && 'inactive'
       }`}
       ref={taskRef}
-      role={'listitem'}
+      role='listitem'
     >
       <TaskButton setDoneTask={setDoneTask} doneTask={doneTask} status={task.completed ? 'completed' : ''} />
       <form className='task-form' onSubmit={handleSubmit}>
@@ -51,13 +54,13 @@ const HomeTask = ({ task, autofocus, onBlur }: IHomeTaskProps) => {
           ref={inputRef}
           className={`task-title ${selectedTask}`}
           value={taskContent}
-          size={taskContent.length - 3}
+          size={Math.max(taskContent.length - 3, 1)}
           onClick={() => setSelectedTask('selected')}
           onChange={handleChange}
           tabIndex={-1}
-          onBlur={() => onBlur?.()}
+          onBlur={onBlur}
           autoFocus={autofocus}
-        ></input>
+        />
       </form>
       <DeleteButton icon={task.deleted ? 'restore_from_trash' : 'delete'} doneTask={doneTask} />
     </div>
