@@ -1,4 +1,5 @@
 import { Icon } from '../../shared/components/icons/icons'
+import { useTasks } from '../../shared/hooks/useTasks'
 import { TasksWidget } from './TasksWidget'
 
 const Homepage = () => {
@@ -7,6 +8,7 @@ const Homepage = () => {
     month: 'long',
     day: 'numeric'
   })
+  const completedTasks = useTasks().completedTasks
 
   const dayPeriod = new Date().toLocaleTimeString('en-US', { dayPeriod: 'long' })
   const periodArray = dayPeriod.split(' ')
@@ -20,7 +22,7 @@ const Homepage = () => {
         <div className='homePage-topBar-report'>
           <div className='homePage-topBar-report-tasks'>
             <Icon icon='check' type='bold' />
-            <p>N</p>
+            <p>{completedTasks.length}</p>
             <p>tasks completed</p>
           </div>
         </div>

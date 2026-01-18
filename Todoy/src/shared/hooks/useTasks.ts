@@ -1,6 +1,7 @@
-import { useEffect } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { useTasksStore } from '../../app/store'
 import { useShallow } from 'zustand/react/shallow'
+import { ITask } from '../../features/tasks/tasksTypes'
 
 export const useTasks = () => {
   const { tasks, loadTasks, createTask, updateTask, deleteTask, isLoading } = useTasksStore(
@@ -14,9 +15,17 @@ export const useTasks = () => {
     }))
   )
 
-  useEffect(() => {
-    loadTasks()
-  }, [loadTasks])
+  const [completedTasks, setCompletedTasks] = useState<ITask[]>([])
 
-  return { tasks, createTask, updateTask, deleteTask, isLoading }
+  const loadTasksMemo = useCallback(loadTasks, [loadTasks])
+
+  useEffect(() => {
+    loadTasksMemo()
+  }, [loadTasksMemo])
+
+  useEffect(() => {
+    setCompletedTasks(tasks.filter((task) => task.completed))
+  }, [tasks])
+
+  return { tasks, createTask, updateTask, deleteTask, isLoading, completedTasks }
 }
