@@ -1,16 +1,14 @@
-// TasksWidget.tsx
 import { useMemo, useState, useEffect } from 'react'
 import TabsNavigation from '../../shared/components/navigationCards/TabsNavigation'
 import HomeTask from '../../features/tasks/HomeTask'
-import { ITask } from '../../features/tasks/tasksTypes'
-import { IHomeActiveTasksViewProps, WIDGET_TASK_TABS } from '../pagesTypes'
+import { IHomeActiveTasksViewProps, IHomeTasksView, WIDGET_TASK_TABS } from '../pagesTypes'
 import { CreateTaskButton } from '../../shared/components/buttons/buttons'
 import { useTasks } from '../../shared/hooks/useTasks'
 
 const tabsList = WIDGET_TASK_TABS
 
 export const TasksWidget = () => {
-  const { tasks, createTask } = useTasks()
+  const { tasks, createTask, updateTask } = useTasks()
   const [activeTab, setActiveTab] = useState<string>('Active')
   const [focusedTaskId, setFocusedTaskId] = useState<number | null>(null)
 
@@ -26,10 +24,8 @@ export const TasksWidget = () => {
   useEffect(() => setFocusedTaskId(null), [activeTab])
 
   const handleClick = () => {
-    const emptyTask = !tasks[0].title ? tasks[0] : null
-
-    if (emptyTask) {
-      setFocusedTaskId(emptyTask.id)
+    if (!tasks[0].title) {
+      setFocusedTaskId(tasks[0].id)
       return
     }
 
@@ -53,15 +49,22 @@ export const TasksWidget = () => {
           handleClick={handleClick}
           focused={focusedTaskId}
           setFocusedTaskId={setFocusedTaskId}
+          updateTask={updateTask}
         />
       ) : (
-        <HomeTasksView widgetTasks={widgetTasks[activeTab as keyof typeof widgetTasks]} />
+        <HomeTasksView widgetTasks={widgetTasks[activeTab as keyof typeof widgetTasks]} updateTask={updateTask} />
       )}
     </div>
   )
 }
 
-const HomeActiveTasksView = ({ widgetTasks, handleClick, focused, setFocusedTaskId }: IHomeActiveTasksViewProps) => {
+const HomeActiveTasksView = ({
+  widgetTasks,
+  handleClick,
+  focused,
+  setFocusedTaskId,
+  updateTask
+}: IHomeActiveTasksViewProps) => {
   const handleOnBlur = () => setFocusedTaskId!(null)
 
   return (
@@ -71,19 +74,25 @@ const HomeActiveTasksView = ({ widgetTasks, handleClick, focused, setFocusedTask
       </div>
       <div className='task-widget-taskList active-tab'>
         {widgetTasks.map((task) => (
-          <HomeTask key={task.id} task={task} autofocus={task.id === focused} onBlur={handleOnBlur} />
+          <HomeTask
+            key={task.id}
+            task={task}
+            autofocus={task.id === focused}
+            onBlur={handleOnBlur}
+            updateTask={updateTask}
+          />
         ))}
       </div>
     </div>
   )
 }
 
-const HomeTasksView = ({ widgetTasks }: { widgetTasks: ITask[] }) => {
+const HomeTasksView = ({ widgetTasks, updateTask }: IHomeTasksView) => {
   return (
     <div className='task-widget-tasksContainer'>
       <div className='task-widget-taskList'>
         {widgetTasks.map((task) => (
-          <HomeTask task={task} key={task.id} />
+          <HomeTask key={task.id} task={task} updateTask={updateTask} />
         ))}
       </div>
     </div>

@@ -9,4 +9,5 @@ export interface IHomeTaskProps {
   task: ITask
   autofocus?: boolean
   onBlur?: () => void
+  updateTask: (id: number, changes: Partial<ITask>) => void
 }

@@ -6,3 +6,4 @@ routeTree.gen.ts
 **/dist/**
 **/coverage/**
 **/*.mjs
+.template

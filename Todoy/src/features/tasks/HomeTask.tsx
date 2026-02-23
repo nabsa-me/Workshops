@@ -1,10 +1,9 @@
-// HomeTask.tsx
 import { useState, useRef, useEffect, useContext } from 'react'
 import { DeleteButton, TaskButton } from '../../shared/components/buttons/buttons'
 import { IHomeTaskProps } from './tasksTypes'
 import { AppContext } from '../../app/context/appContext'
 
-const HomeTask = ({ task, autofocus, onBlur }: IHomeTaskProps) => {
+const HomeTask = ({ task, autofocus, onBlur, updateTask }: IHomeTaskProps) => {
   const [selectedTask, setSelectedTask] = useState<'selected' | ''>('')
   const [taskContent, setTaskContent] = useState<string>(task.title)
   const [doneTask, setDoneTask] = useState<'done' | ''>('')
@@ -23,7 +22,10 @@ const HomeTask = ({ task, autofocus, onBlur }: IHomeTaskProps) => {
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (taskRef.current && !taskRef.current.contains(event.target as Node)) setSelectedTask('')
+      if (taskRef.current && !taskRef.current.contains(event.target as Node)) {
+        setSelectedTask('')
+        handleUpdate()
+      }
     }
 
     document.addEventListener('mouseup', handleClickOutside)
@@ -34,10 +36,23 @@ const HomeTask = ({ task, autofocus, onBlur }: IHomeTaskProps) => {
     setTaskContent(event.target.value)
   }
 
+  const handleUpdate = () => {
+    if (taskContent.trim() !== task.title) {
+      updateTask(task.id, { title: taskContent })
+    }
+  }
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     setSelectedTask('')
     inputRef.current?.blur()
+    handleUpdate()
+  }
+
+  const handleBlur = () => {
+    setSelectedTask('')
+    handleUpdate()
+    onBlur?.()
   }
 
   return (
@@ -58,7 +73,7 @@ const HomeTask = ({ task, autofocus, onBlur }: IHomeTaskProps) => {
           onClick={() => setSelectedTask('selected')}
           onChange={handleChange}
           tabIndex={-1}
-          onBlur={onBlur}
+          onBlur={handleBlur}
           autoFocus={autofocus}
         />
       </form>

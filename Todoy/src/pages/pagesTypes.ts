@@ -8,4 +8,10 @@ export interface IHomeActiveTasksViewProps {
   handleClick: () => void
   focused?: number | null
   setFocusedTaskId?: (id: number | null) => void
+  updateTask: (id: number, changes: Partial<ITask>) => void
+}
+
+export interface IHomeTasksView {
+  widgetTasks: ITask[]
+  updateTask: (id: number, changes: Partial<ITask>) => void
 }

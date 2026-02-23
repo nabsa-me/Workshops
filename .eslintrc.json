@@ -49,22 +49,6 @@
     ],
     "semi": ["error", "never"],
     "no-multiple-empty-lines": ["warn", { "max": 1, "maxEOF": 0 }],
-    "padding-line-between-statements": [
-      "warn",
-      {
-        "blankLine": "always",
-        "prev": ["function", "class"],
-        "next": ["function", "class"]
-      },
-      { "blankLine": "always", "prev": ["function", "class"], "next": "*" },
-      {
-        "blankLine": "never",
-        "prev": ["const", "let", "var"],
-        "next": ["const", "let", "var"]
-      },
-      { "blankLine": "always", "prev": "*", "next": "function" },
-      { "blankLine": "always", "prev": "function", "next": "*" }
-    ],
     "lines-between-class-members": ["warn", "always", { "exceptAfterSingleLine": true }]
   },
   "overrides": [
