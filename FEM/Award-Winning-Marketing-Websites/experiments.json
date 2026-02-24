@@ -1,0 +1,46 @@
+[
+  {
+    "url": "/1-gsap-basics",
+    "name": "1 Gsap Basics"
+  },
+  {
+    "url": "/2-css-version",
+    "name": "2 Css Version"
+  },
+  {
+    "url": "/3-timelines",
+    "name": "3 Timelines"
+  },
+  {
+    "url": "/4-scroll-trigger",
+    "name": "4 Scroll Trigger"
+  },
+  {
+    "url": "/5-follow-scroll",
+    "name": "5 Follow Scroll"
+  },
+  {
+    "url": "/6-variables",
+    "name": "6 Variables"
+  },
+  {
+    "url": "/7-custom-cursor",
+    "name": "7 Custom Cursor"
+  },
+  {
+    "url": "/8-image-sequence",
+    "name": "8 Image Sequence"
+  },
+  {
+    "url": "/9-reduced-motion",
+    "name": "9 Reduced Motion"
+  },
+  {
+    "url": "/10-device-profiling",
+    "name": "10 Device Profiling"
+  },
+  {
+    "url": "/11-animating-3d-scenes",
+    "name": "11 Animating 3d Scenes"
+  }
+]

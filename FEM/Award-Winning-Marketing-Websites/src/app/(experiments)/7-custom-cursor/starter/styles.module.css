@@ -1,0 +1,19 @@
+.cursor {
+  top: 0;
+  left: 0;
+  --w: 50px;
+  --h: 50px;
+  --x: 0px;
+  --y: 0px;
+  transform: translate3D(calc(var(--x) - 50%), calc(var(--y) - 50%), 0);
+  transform-origin: center;
+  
+  width: var(--w);
+  height: var(--h);
+
+  transition: width 0.2s, height 0.2s;
+
+  position: fixed;
+  border: solid 2px currentcolor;
+  pointer-events: none;
+}
