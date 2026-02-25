@@ -1,11 +1,10 @@
-import { useContext } from 'react'
-import { AppContext } from '../../../app/context/appContext'
 import { IDeleteButtonProps, ITaskButtonProps } from './buttonsTypes'
 import { FilledIconButton, Icon, IconButton } from '../icons/icons'
 import { useTasks } from '../../hooks/useTasks'
+import { useHooks } from '../../hooks/useHooks'
 
 export const TaskButton = ({ setDoneTask, doneTask, status, task }: ITaskButtonProps) => {
-  const { doneEffect, setDoneEffect } = useContext(AppContext)
+  const { doneEffect, setDoneEffect } = useHooks()
   const { updateTask } = useTasks()
 
   const handleClick = () => {

@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
+import { useHooks } from './useHooks'
 
 export const useDoneEffect = () => {
-  const [doneEffect, setDoneEffect] = useState<number>(Math.floor(Math.random() * 21))
+  const { doneEffect, setDoneEffect } = useHooks()
 
   useEffect(() => {
     if (doneEffect < 0) setDoneEffect(Math.floor(Math.random() * 21))

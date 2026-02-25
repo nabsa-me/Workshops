@@ -1,2 +1,2 @@
 export { useTasksStore } from './tasksStore'
-export { useThemeStore } from './hooksStore'
+export { useThemeStore, useDoneEffectStore } from './hooksStore'

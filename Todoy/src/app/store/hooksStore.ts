@@ -1,21 +1,21 @@
 import { create } from 'zustand'
 
-interface ThemeState {
+export interface IThemeState {
   theme: 'light' | 'dark'
-  setTheme: (theme: 'light' | 'dark') => void
+  setThemeSelector: (theme: 'light' | 'dark') => void
 }
 
-export const useThemeStore = create<ThemeState>((set) => ({
+export const useThemeStore = create<IThemeState>((set) => ({
   theme: 'light',
-  setTheme: (theme) => set({ theme })
+  setThemeSelector: (theme) => set({ theme })
 }))
 
 interface DoneEffectState {
   doneEffect: number
-  setDoneEffect: (doneEffect: number) => void
+  setDoneEffectSelector: (doneEffect: number) => void
 }
 
 export const useDoneEffectStore = create<DoneEffectState>((set) => ({
   doneEffect: 0,
-  setDoneEffect: (doneEffect) => set({ doneEffect })
+  setDoneEffectSelector: (doneEffect) => set({ doneEffect })
 }))
