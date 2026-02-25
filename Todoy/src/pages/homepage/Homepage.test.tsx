@@ -106,11 +106,12 @@ describe('TasksWidget', () => {
     expect(document.querySelector('.homePage-taskItem-task')).toHaveClass('inactive')
   })
 
-  it('creates new task and focuses it in Active tab', () => {
+  it('creates new task and focuses it in Active tab', async () => {
+    const user = userEvent.setup()
     render(<TasksWidget />)
 
     const createButton = screen.getByRole('button', { name: /Create task/i })
-    fireEvent.click(createButton)
+    await user.click(createButton)
 
     const textElements = screen.queryAllByRole('textbox')
     expect(textElements[0]).toHaveValue('')

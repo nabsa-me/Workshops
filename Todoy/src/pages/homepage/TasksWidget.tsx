@@ -25,7 +25,7 @@ export const TasksWidget = () => {
   useEffect(() => setFocusedTaskId(null), [activeTab])
 
   const handleClick = () => {
-    if (!tasks[0].title) {
+    if (tasks[0] && !tasks[0].title) {
       setFocusedTaskId(tasks[0].id)
       return
     }
