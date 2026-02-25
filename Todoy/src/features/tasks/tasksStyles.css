@@ -91,6 +91,24 @@
       background-color: var(--color-line-accent);
     }
   }
+  &.undone {
+  animation: taskUndone 0.35s forwards;
+  &::after,
+  &::before {
+    transition: none;
+    background-color: var(--color-line);
+    width: 100%;
+    left: 0;
+  }
+  &::after {
+    transform: translateY(-34px);
+    transition: all 0s ease-out 0.35s;
+  }
+  &.selected::after,
+  &.selected::before {
+    background-color: var(--color-line-accent);
+  }
+}
 }
 
 @keyframes taskDone {
@@ -105,6 +123,27 @@
     z-index: 5;
   }
   95% {
+    opacity: 0;
+  }
+  100% {
+    z-index: 5;
+    height: 0px;
+    max-height: 0px;
+    min-height: 0px;
+    opacity: 0;
+    display: none;
+  }
+}
+
+@keyframes taskUndone {
+  0% {
+    height: var(--task-height);
+    min-height: var(--task-height);
+    max-height: var(--task-height);
+    opacity: 1;
+    z-index: 5;
+  }
+  50% {
     opacity: 0;
   }
   100% {

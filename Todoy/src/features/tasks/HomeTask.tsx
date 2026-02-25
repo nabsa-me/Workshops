@@ -1,12 +1,12 @@
 import { useState, useRef, useEffect, useContext } from 'react'
 import { DeleteButton, TaskButton } from '../../shared/components/buttons/buttons'
-import { IHomeTaskProps } from './tasksTypes'
+import { doneTaskType, IHomeTaskProps } from './tasksTypes'
 import { AppContext } from '../../app/context/appContext'
 import { useTasks } from '../../shared/hooks/useTasks'
 
 const HomeTask = ({ task, autofocus, onBlur }: IHomeTaskProps) => {
   const [selectedTask, setSelectedTask] = useState<'selected' | ''>('')
-  const [doneTask, setDoneTask] = useState<'done' | ''>('')
+  const [doneTask, setDoneTask] = useState<doneTaskType>('')
   const taskRef = useRef<HTMLDivElement | null>(null)
   const inputRef = useRef<HTMLInputElement | null>(null)
   const { doneEffect } = useContext(AppContext)

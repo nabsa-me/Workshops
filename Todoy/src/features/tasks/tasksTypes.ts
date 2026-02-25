@@ -10,3 +10,5 @@ export interface IHomeTaskProps {
   autofocus?: boolean
   onBlur?: () => void
 }
+
+export type doneTaskType = 'done' | 'undone' | ''

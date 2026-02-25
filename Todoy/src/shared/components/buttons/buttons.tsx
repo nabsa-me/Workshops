@@ -9,8 +9,13 @@ export const TaskButton = ({ setDoneTask, doneTask, status, task }: ITaskButtonP
   const { updateTask } = useTasks()
 
   const handleClick = () => {
+    if (task.completed) {
+      setDoneTask(doneTask === 'undone' ? '' : 'undone')
+      setTimeout(() => updateTask(task.id, { completed: !task.completed }), 350)
+      return
+    }
     setDoneTask(doneTask === 'done' ? '' : 'done')
-    setTimeout(() => updateTask(task.id, { completed: true }), 750)
+    setTimeout(() => updateTask(task.id, { completed: !task.completed }), 750)
     setDoneEffect(doneEffect - 1)
   }
 
