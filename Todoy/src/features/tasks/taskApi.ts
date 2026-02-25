@@ -9,3 +9,7 @@ export const getTasks = async (): Promise<ITask[]> => {
 export const updateTask = async (id: number, updates: updateTaskSelectorUpdateType): Promise<void> => {
   console.log('backend update', id, updates)
 }
+
+export const createTask = async (task: ITask): Promise<void> => {
+  console.log('backend create', task)
+}

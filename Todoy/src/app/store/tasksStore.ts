@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import { ITask } from '../../features/tasks/tasksTypes'
-import { getTasks, updateTask } from '../../features/tasks/taskApi'
+import { createTask, getTasks, updateTask } from '../../features/tasks/taskApi'
 
 export type updateTaskSelectorUpdateType = Partial<Pick<ITask, 'title' | 'completed' | 'deleted'>>
 export interface ITaskState {
@@ -30,18 +30,23 @@ export const useTasksStore = create<ITaskState>((set) => ({
     }
   },
 
-  createTaskSelector: ({ title, id }) =>
-    set((state) => ({
-      tasks: [
-        {
-          id,
-          title,
-          completed: false,
-          deleted: false
-        },
-        ...state.tasks
-      ]
-    })),
+  createTaskSelector: async ({ title, id }) => {
+    try {
+      const newTask = {
+        id,
+        title,
+        completed: false,
+        deleted: false
+      }
+
+      await createTask(newTask)
+      set((state) => ({
+        tasks: [newTask, ...state.tasks]
+      }))
+    } catch (err) {
+      set({ error: err })
+    }
+  },
 
   updateTaskSelector: async (id, updates) => {
     try {
