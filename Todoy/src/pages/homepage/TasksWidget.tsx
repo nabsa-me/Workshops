@@ -8,9 +8,10 @@ import { useTasks } from '../../shared/hooks/useTasks'
 const tabsList = WIDGET_TASK_TABS
 
 export const TasksWidget = () => {
-  const { tasks, createTask, updateTask } = useTasks()
   const [activeTab, setActiveTab] = useState<string>('Active')
   const [focusedTaskId, setFocusedTaskId] = useState<number | null>(null)
+
+  const { tasks, createTask } = useTasks()
 
   const widgetTasks = useMemo(
     () => ({
@@ -49,22 +50,15 @@ export const TasksWidget = () => {
           handleClick={handleClick}
           focused={focusedTaskId}
           setFocusedTaskId={setFocusedTaskId}
-          updateTask={updateTask}
         />
       ) : (
-        <HomeTasksView widgetTasks={widgetTasks[activeTab as keyof typeof widgetTasks]} updateTask={updateTask} />
+        <HomeTasksView widgetTasks={widgetTasks[activeTab as keyof typeof widgetTasks]} />
       )}
     </div>
   )
 }
 
-const HomeActiveTasksView = ({
-  widgetTasks,
-  handleClick,
-  focused,
-  setFocusedTaskId,
-  updateTask
-}: IHomeActiveTasksViewProps) => {
+const HomeActiveTasksView = ({ widgetTasks, handleClick, focused, setFocusedTaskId }: IHomeActiveTasksViewProps) => {
   const handleOnBlur = () => setFocusedTaskId!(null)
 
   return (
@@ -74,25 +68,19 @@ const HomeActiveTasksView = ({
       </div>
       <div className='task-widget-taskList active-tab'>
         {widgetTasks.map((task) => (
-          <HomeTask
-            key={task.id}
-            task={task}
-            autofocus={task.id === focused}
-            onBlur={handleOnBlur}
-            updateTask={updateTask}
-          />
+          <HomeTask key={task.id} task={task} autofocus={task.id === focused} onBlur={handleOnBlur} />
         ))}
       </div>
     </div>
   )
 }
 
-const HomeTasksView = ({ widgetTasks, updateTask }: IHomeTasksView) => {
+const HomeTasksView = ({ widgetTasks }: IHomeTasksView) => {
   return (
     <div className='task-widget-tasksContainer'>
       <div className='task-widget-taskList'>
         {widgetTasks.map((task) => (
-          <HomeTask key={task.id} task={task} updateTask={updateTask} />
+          <HomeTask key={task.id} task={task} />
         ))}
       </div>
     </div>

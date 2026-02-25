@@ -7,3 +7,5 @@ routeTree.gen.ts
 **/coverage/**
 **/*.mjs
 .template
+.next
+*.d.ts

@@ -8,10 +8,12 @@ const Homepage = () => {
     month: 'long',
     day: 'numeric'
   })
+
   const completedTasks = useTasks().completedTasks
 
   const dayPeriod = new Date().toLocaleTimeString('en-US', { dayPeriod: 'long' })
   const periodArray = dayPeriod.split(' ')
+
   return (
     <main className='homePage-wrapper'>
       <div className='homePage-topBar'>

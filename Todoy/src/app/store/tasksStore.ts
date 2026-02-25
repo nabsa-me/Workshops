@@ -1,14 +1,15 @@
 import { create } from 'zustand'
 import { ITask } from '../../features/tasks/tasksTypes'
-import { getTasks } from '../../features/tasks/taskApi'
+import { getTasks, updateTask } from '../../features/tasks/taskApi'
 
+export type updateTaskSelectorUpdateType = Partial<Pick<ITask, 'title' | 'completed' | 'deleted'>>
 export interface ITaskState {
   tasks: ITask[]
   isLoading: boolean
   error: any
   loadTasksSelector: () => Promise<void>
   createTaskSelector: ({ title, id }: { title: string; id: number }) => void
-  updateTaskSelector: (id: number, updates: Partial<Pick<ITask, 'title' | 'completed' | 'deleted'>>) => void
+  updateTaskSelector: (id: number, updates: updateTaskSelectorUpdateType) => void
   deleteTaskSelector: (id: number) => void
 }
 
@@ -18,6 +19,9 @@ export const useTasksStore = create<ITaskState>((set) => ({
   error: null,
 
   loadTasksSelector: async () => {
+    const { tasks } = useTasksStore.getState()
+    if (tasks.length > 0) return
+
     try {
       const tasks = await getTasks()
       set({ tasks, isLoading: false })
@@ -39,10 +43,16 @@ export const useTasksStore = create<ITaskState>((set) => ({
       ]
     })),
 
-  updateTaskSelector: (id, updates) =>
-    set((state) => ({
-      tasks: state.tasks.map((task) => (task.id === id ? { ...task, ...updates } : task))
-    })),
+  updateTaskSelector: async (id, updates) => {
+    try {
+      await updateTask(id, updates)
+      set((state) => ({
+        tasks: state.tasks.map((task) => (task.id === id ? { ...task, ...updates } : task))
+      }))
+    } catch (err) {
+      set({ error: err })
+    }
+  },
 
   deleteTaskSelector: (id) =>
     set((state) => ({

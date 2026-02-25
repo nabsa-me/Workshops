@@ -97,7 +97,7 @@
   0% {
     z-index: 5;
   }
-  75% {
+  73% {
     height: var(--task-height);
     min-height: var(--task-height);
     max-height: var(--task-height);

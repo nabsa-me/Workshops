@@ -2,14 +2,15 @@ import { useState, useRef, useEffect, useContext } from 'react'
 import { DeleteButton, TaskButton } from '../../shared/components/buttons/buttons'
 import { IHomeTaskProps } from './tasksTypes'
 import { AppContext } from '../../app/context/appContext'
+import { useTasks } from '../../shared/hooks/useTasks'
 
-const HomeTask = ({ task, autofocus, onBlur, updateTask }: IHomeTaskProps) => {
+const HomeTask = ({ task, autofocus, onBlur }: IHomeTaskProps) => {
   const [selectedTask, setSelectedTask] = useState<'selected' | ''>('')
-  const [taskContent, setTaskContent] = useState<string>(task.title)
   const [doneTask, setDoneTask] = useState<'done' | ''>('')
   const taskRef = useRef<HTMLDivElement | null>(null)
   const inputRef = useRef<HTMLInputElement | null>(null)
   const { doneEffect } = useContext(AppContext)
+  const { updateTask } = useTasks()
 
   useEffect(() => {
     if (autofocus) {
@@ -24,23 +25,16 @@ const HomeTask = ({ task, autofocus, onBlur, updateTask }: IHomeTaskProps) => {
     const handleClickOutside = (event: MouseEvent) => {
       if (taskRef.current && !taskRef.current.contains(event.target as Node)) {
         setSelectedTask('')
-        handleUpdate()
       }
     }
-
     document.addEventListener('mouseup', handleClickOutside)
     return () => document.removeEventListener('mouseup', handleClickOutside)
   }, [])
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setTaskContent(event.target.value)
-  }
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) =>
+    updateTask(task.id, { title: event.target.value })
 
-  const handleUpdate = () => {
-    if (taskContent.trim() !== task.title) {
-      updateTask(task.id, { title: taskContent })
-    }
-  }
+  const handleUpdate = () => updateTask(task.id, { title: task.title.trim() })
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -63,13 +57,18 @@ const HomeTask = ({ task, autofocus, onBlur, updateTask }: IHomeTaskProps) => {
       ref={taskRef}
       role='listitem'
     >
-      <TaskButton setDoneTask={setDoneTask} doneTask={doneTask} status={task.completed ? 'completed' : ''} />
+      <TaskButton
+        setDoneTask={setDoneTask}
+        doneTask={doneTask}
+        status={task.completed ? 'completed' : ''}
+        task={task}
+      />
       <form className='task-form' onSubmit={handleSubmit}>
         <input
           ref={inputRef}
           className={`task-title ${selectedTask}`}
-          value={taskContent}
-          size={Math.max(taskContent.length - 3, 1)}
+          value={task.title}
+          size={Math.max(task.title.length - 3, 1)}
           onClick={() => setSelectedTask('selected')}
           onChange={handleChange}
           tabIndex={-1}

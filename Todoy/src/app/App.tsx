@@ -1,6 +1,6 @@
 import { JSX } from 'react'
 import useTheme from '../shared/hooks/useTheme'
-import DesktopLayout from '../layouts/desktop/DesktopLayout'
+import DesktopLayout from '../layouts/Desktop/DesktopLayout'
 import { AppProvider } from './context/appContext'
 
 const App = (): JSX.Element => {
