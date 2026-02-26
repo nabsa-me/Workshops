@@ -4,11 +4,12 @@ import DesktopLayout from '../layouts/Desktop/DesktopLayout'
 import { useTasks } from '../shared/hooks/useTasks'
 
 const App = (): JSX.Element => {
-  useTheme()
-
   const { loadTasks } = useTasks()
+  const { setTheme } = useTheme()
+
   useEffect(() => {
     loadTasks()
+    setTheme('light')
   }, [])
 
   return (
