@@ -1,33 +1,29 @@
 import { render, screen, fireEvent } from '@testing-library/react'
 import { TaskButton, DeleteButton, CreateTaskButton } from './buttons'
-import { AppContext } from '../../../app/context/appContext'
-import React from 'react'
-import { buttonStatusType } from './buttonsTypes'
+import { useDoneEffectStore } from '../../../app/store'
+
+const tasks = [
+  { id: 1, title: 'Buy Milk', completed: false, deleted: false },
+  { id: 2, title: 'Go Gym', completed: true, deleted: false },
+  { id: 3, title: 'Read Book', completed: false, deleted: true }
+]
+
+const setDoneTask = jest.fn()
 
 describe('TaskButton', () => {
-  const renderWithContext = ({
-    doneTask = '',
-    status = '',
-    doneEffect = 5
-  }: {
-    doneTask?: '' | 'done'
-    status?: buttonStatusType
-    doneEffect?: number
-  }) => {
-    const setDoneTask = jest.fn()
-    const setDoneEffect = jest.fn()
-
-    render(
-      <AppContext.Provider value={{ doneEffect, setDoneEffect }}>
-        <TaskButton doneTask={doneTask} status={status} setDoneTask={setDoneTask} />
-      </AppContext.Provider>
-    )
-
-    return { setDoneTask, setDoneEffect }
-  }
+  beforeEach(() => {
+    useDoneEffectStore.setState({
+      doneEffect: 0,
+      setDoneEffectSelector: jest.fn((doneEffect) => {
+        useDoneEffectStore.setState(() => ({
+          doneEffect: doneEffect
+        }))
+      })
+    })
+  })
 
   it('renders correctly with default props', () => {
-    renderWithContext({})
+    render(<TaskButton doneTask='' status='' setDoneTask={setDoneTask} task={tasks[0]} />)
 
     const buttons = screen.getAllByRole('button')
     expect(buttons).toHaveLength(2)
@@ -35,7 +31,7 @@ describe('TaskButton', () => {
   })
 
   it('applies done and status classes correctly', () => {
-    renderWithContext({ doneTask: 'done', status: 'completed' })
+    render(<TaskButton doneTask='done' status='completed' setDoneTask={setDoneTask} task={tasks[0]} />)
 
     const container = screen.getAllByRole('button')[0].parentElement
     expect(container).toHaveClass('done')
@@ -43,27 +39,27 @@ describe('TaskButton', () => {
   })
 
   it('sets doneTask to "done" when clicked and was empty', () => {
-    const { setDoneTask, setDoneEffect } = renderWithContext({
-      doneTask: '',
+    useDoneEffectStore.setState({
       doneEffect: 10
     })
 
-    fireEvent.click(screen.getAllByRole('button')[0])
+    render(<TaskButton doneTask='' status='completed' setDoneTask={setDoneTask} task={tasks[0]} />)
 
+    fireEvent.click(screen.getAllByRole('button')[0])
     expect(setDoneTask).toHaveBeenCalledWith('done')
-    expect(setDoneEffect).toHaveBeenCalledWith(9)
+    expect(useDoneEffectStore.getState().setDoneEffectSelector).toHaveBeenCalledWith(9)
   })
 
   it('sets doneTask to empty when clicked and was "done"', () => {
-    const { setDoneTask, setDoneEffect } = renderWithContext({
-      doneTask: 'done',
+    useDoneEffectStore.setState({
       doneEffect: 3
     })
 
-    fireEvent.click(screen.getAllByRole('button')[0])
+    render(<TaskButton doneTask='done' status='completed' setDoneTask={setDoneTask} task={tasks[0]} />)
 
+    fireEvent.click(screen.getAllByRole('button')[0])
     expect(setDoneTask).toHaveBeenCalledWith('')
-    expect(setDoneEffect).toHaveBeenCalledWith(2)
+    expect(useDoneEffectStore.getState().setDoneEffectSelector).toHaveBeenCalledWith(2)
   })
 })
 
@@ -106,7 +102,6 @@ describe('CreateTaskButton', () => {
     render(<CreateTaskButton handleClick={handleClick} />)
 
     fireEvent.click(screen.getAllByRole('button')[0])
-
     expect(handleClick).toHaveBeenCalledTimes(1)
   })
 })
