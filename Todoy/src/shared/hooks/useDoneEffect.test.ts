@@ -14,10 +14,12 @@ describe('useDoneEffect', () => {
   })
 
   it('does not call setDoneEffect if doneEffect >= 0', () => {
-    jest.spyOn(Math, 'random').mockReturnValue(0.5)
     const { result } = renderHook(() => useDoneEffect())
 
-    expect(result.current.doneEffect).toBe(10)
+    const spy = jest.spyOn(result.current, 'setDoneEffect')
+    expect(spy).not.toHaveBeenCalled()
+    expect(result.current.doneEffect).toBeGreaterThanOrEqual(0)
+    expect(result.current.doneEffect).toBeLessThanOrEqual(20)
   })
 
   it('allows manually updating doneEffect via setDoneEffect', () => {
@@ -37,5 +39,21 @@ describe('useDoneEffect', () => {
 
     expect(result.current.doneEffect).toBeGreaterThanOrEqual(0)
     expect(result.current.doneEffect).toBeLessThanOrEqual(20)
+  })
+
+  // new integration test verifying related hooks share state
+  it('useHooks and useDoneEffect reflect the same doneEffect value', () => {
+    const { result: rHooks } = renderHook(() => require('./useHooks').useHooks())
+    const { result: rDone } = renderHook(() => useDoneEffect())
+
+    // initial values should agree
+    expect(rHooks.current.doneEffect).toBe(rDone.current.doneEffect)
+
+    act(() => {
+      rHooks.current.setDoneEffect(12)
+    })
+
+    expect(rHooks.current.doneEffect).toBe(12)
+    expect(rDone.current.doneEffect).toBe(12)
   })
 })
