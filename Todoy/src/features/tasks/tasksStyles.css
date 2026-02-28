@@ -18,6 +18,7 @@
   overflow: visible;
   background-size: 0%;
   background-repeat: no-repeat;
+  /* z-index: 0; */
   &:first-child {
     margin-top: calc(var(--border-height));
   }
@@ -61,7 +62,6 @@
       background-color: var(--color-line-accent);
       width: 100%;
       left: 0;
-      z-index: 5;
     }
     &:hover {
       background-color: transparent;
@@ -109,6 +109,10 @@
     background-color: var(--color-line-accent);
   }
 }
+}
+
+.homePage-taskItem-task.selected {
+  z-index: 10;
 }
 
 @keyframes taskDone {
