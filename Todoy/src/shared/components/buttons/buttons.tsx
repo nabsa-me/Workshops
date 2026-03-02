@@ -40,9 +40,15 @@ export const TaskButton = ({ setDoneTask, doneTask, status, task }: ITaskButtonP
 
 export const DeleteButton = ({ icon, doneTask, task, setDoneTask }: IDeleteButtonProps) => {
   const { doneEffect, setDoneEffect } = useDoneEffect()
-  const { deleteTask } = useTasks()
+  const { deleteTask, cleanTask } = useTasks()
 
   const handleClick = () => {
+    if (task.title.trim() === '' && !task.deleted) {
+      setDoneTask(doneTask === 'undone' ? '' : 'undone')
+      setTimeout(() => cleanTask(task.id), 350)
+      return
+    }
+
     setDoneTask(doneTask === 'undone' ? '' : 'undone')
     setTimeout(() => deleteTask(task.id), 750)
     setDoneEffect(doneEffect - 1)
