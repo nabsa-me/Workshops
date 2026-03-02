@@ -8,7 +8,7 @@ export interface ITaskState {
   isLoading: boolean
   error: any
   loadTasksSelector: () => Promise<void>
-  createTaskSelector: ({ title, id }: { title: string; id: number }) => void
+  createTaskSelector: ({ title, id, index }: { title: string; id: number; index?: number }) => void
   updateTaskSelector: (id: number, updates: updateTaskSelectorUpdateType) => void
   completeTaskSelector: (id: number) => void
   deleteTaskSelector: (id: number) => void
@@ -32,7 +32,7 @@ export const useTasksStore = create<ITaskState>((set) => ({
     }
   },
 
-  createTaskSelector: async ({ title, id }) => {
+  createTaskSelector: async ({ title, id, index }) => {
     try {
       const newTask = {
         id,
@@ -42,9 +42,18 @@ export const useTasksStore = create<ITaskState>((set) => ({
       }
 
       await createTask(newTask)
-      set((state) => ({
-        tasks: [newTask, ...state.tasks]
-      }))
+      if (index !== undefined) {
+        set((state) => {
+          const safeIndex = Math.max(0, Math.min(index, state.tasks.length))
+          return {
+            tasks: [...state.tasks.slice(0, safeIndex), newTask, ...state.tasks.slice(safeIndex)]
+          }
+        })
+      } else {
+        set((state) => ({
+          tasks: [newTask, ...state.tasks]
+        }))
+      }
     } catch (err) {
       set({ error: err })
     }

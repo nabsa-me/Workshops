@@ -9,6 +9,7 @@ export interface IHomeTaskProps {
   task: ITask
   autofocus?: boolean
   onBlur?: () => void
+  handleTaskSubmit?: (task: ITask) => void
 }
 
 export type doneTaskType = 'done' | 'undone' | ''

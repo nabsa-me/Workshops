@@ -4,6 +4,7 @@ import HomeTask from '../../features/tasks/HomeTask'
 import { IHomeActiveTasksViewProps, IHomeTasksView, WIDGET_TASK_TABS } from '../pagesTypes'
 import { CreateTaskButton } from '../../shared/components/buttons/buttons'
 import { useTasks } from '../../shared/hooks/useTasks'
+import { ITask } from '../../features/tasks/tasksTypes'
 
 const tabsList = WIDGET_TASK_TABS
 
@@ -60,6 +61,25 @@ export const TasksWidget = () => {
 
 const HomeActiveTasksView = ({ widgetTasks, handleClick, focused, setFocusedTaskId }: IHomeActiveTasksViewProps) => {
   const handleOnBlur = () => setFocusedTaskId!(null)
+  const { createTask, tasks } = useTasks()
+
+  const handleTaskSubmit = (task: ITask) => {
+    const taskIndex = tasks.findIndex((t) => t.id === task.id)
+
+    if (task.title.trim() === '') {
+      setFocusedTaskId(task.id)
+      return
+    }
+
+    if (tasks[taskIndex + 1]?.title.trim() === '') {
+      setFocusedTaskId(tasks[taskIndex + 1].id)
+      return
+    }
+
+    const newTaskId = Date.now()
+    createTask({ title: '', id: newTaskId, index: taskIndex + 1 })
+    setFocusedTaskId(newTaskId)
+  }
 
   return (
     <div className='task-widget-tasksContainer'>
@@ -68,7 +88,13 @@ const HomeActiveTasksView = ({ widgetTasks, handleClick, focused, setFocusedTask
       </div>
       <div className='task-widget-taskList active-tab'>
         {widgetTasks.map((task) => (
-          <HomeTask key={task.id} task={task} autofocus={task.id === focused} onBlur={handleOnBlur} />
+          <HomeTask
+            key={task.id}
+            task={task}
+            autofocus={task.id === focused}
+            onBlur={handleOnBlur}
+            handleTaskSubmit={handleTaskSubmit}
+          />
         ))}
       </div>
     </div>

@@ -4,7 +4,7 @@ import { doneTaskType, IHomeTaskProps } from './tasksTypes'
 import { useTasks } from '../../shared/hooks/useTasks'
 import { useHooks } from '../../shared/hooks/useHooks'
 
-const HomeTask = ({ task, autofocus, onBlur }: IHomeTaskProps) => {
+const HomeTask = ({ task, autofocus, onBlur, handleTaskSubmit }: IHomeTaskProps) => {
   const [selectedTask, setSelectedTask] = useState<'selected' | ''>('')
   const [doneTask, setDoneTask] = useState<doneTaskType>('')
   const taskRef = useRef<HTMLDivElement | null>(null)
@@ -40,7 +40,13 @@ const HomeTask = ({ task, autofocus, onBlur }: IHomeTaskProps) => {
     event.preventDefault()
     setSelectedTask('')
     inputRef.current?.blur()
-    handleUpdate()
+
+    if (handleTaskSubmit) handleTaskSubmit(task)
+
+    if (task?.title.trim() === '') {
+      setSelectedTask(autofocus ? 'selected' : '')
+      return
+    }
   }
 
   const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
