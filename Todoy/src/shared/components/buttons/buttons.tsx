@@ -5,15 +5,21 @@ import { useDoneEffect } from '../../hooks/useDoneEffect'
 
 export const TaskButton = ({ setDoneTask, doneTask, status, task }: ITaskButtonProps) => {
   const { doneEffect, setDoneEffect } = useDoneEffect()
-  const { completeTask } = useTasks()
+  const { completeTask, cleanTask } = useTasks()
 
   const handleClick = () => {
     if (task.completed) {
       setDoneTask(doneTask === 'undone' ? '' : 'undone')
       setTimeout(() => completeTask(task.id), 350)
-
       return
     }
+
+    if (task.title.trim() === '') {
+      setDoneTask(doneTask === 'undone' ? '' : 'undone')
+      setTimeout(() => cleanTask(task.id), 350)
+      return
+    }
+
     setDoneTask(doneTask === 'done' ? '' : 'done')
     setTimeout(() => completeTask(task.id), 750)
     setDoneEffect(doneEffect - 1)

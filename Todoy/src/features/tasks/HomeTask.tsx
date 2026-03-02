@@ -43,9 +43,9 @@ const HomeTask = ({ task, autofocus, onBlur }: IHomeTaskProps) => {
     handleUpdate()
   }
 
-  const handleBlur = () => {
+  const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
     setSelectedTask('')
-    handleUpdate()
+    if (event?.target.value.trim() !== '') handleUpdate()
     onBlur?.()
   }
 
@@ -72,7 +72,7 @@ const HomeTask = ({ task, autofocus, onBlur }: IHomeTaskProps) => {
           onClick={() => setSelectedTask('selected')}
           onChange={handleChange}
           tabIndex={-1}
-          onBlur={handleBlur}
+          onBlur={(event) => handleBlur(event)}
           autoFocus={autofocus}
         />
       </form>

@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import { ITask } from '../../features/tasks/tasksTypes'
-import { completeTask, createTask, deleteTask, getTasks, updateTask } from '../../features/tasks/taskApi'
+import { cleanTask, completeTask, createTask, deleteTask, getTasks, updateTask } from '../../features/tasks/taskApi'
 
 export type updateTaskSelectorUpdateType = Partial<Pick<ITask, 'title' | 'completed' | 'deleted'>>
 export interface ITaskState {
@@ -12,6 +12,7 @@ export interface ITaskState {
   updateTaskSelector: (id: number, updates: updateTaskSelectorUpdateType) => void
   completeTaskSelector: (id: number) => void
   deleteTaskSelector: (id: number) => void
+  cleanTaskSelector: (id: number) => void
 }
 
 export const useTasksStore = create<ITaskState>((set) => ({
@@ -76,6 +77,17 @@ export const useTasksStore = create<ITaskState>((set) => ({
       await deleteTask(id)
       set((state) => ({
         tasks: state.tasks.map((task) => (task.id === id ? { ...task, deleted: !task.deleted } : task))
+      }))
+    } catch (err) {
+      set({ error: err })
+    }
+  },
+
+  cleanTaskSelector: async (id) => {
+    try {
+      await cleanTask(id)
+      set((state) => ({
+        tasks: state.tasks.filter((task) => task.id !== id)
       }))
     } catch (err) {
       set({ error: err })
