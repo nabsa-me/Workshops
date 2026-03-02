@@ -36,15 +36,17 @@ const HomeTask = ({ task, autofocus, onBlur, onFocus, handleTaskSubmit }: IHomeT
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    setSelectedTask('')
-    inputRef.current?.blur()
-
-    if (handleTaskSubmit) handleTaskSubmit(task)
 
     if (task?.title.trim() === '') {
-      setSelectedTask(autofocus ? 'selected' : '')
+      onFocus?.()
+      setSelectedTask('selected')
+      if (handleTaskSubmit) handleTaskSubmit(task)
       return
     }
+
+    setSelectedTask('')
+    inputRef.current?.blur()
+    if (handleTaskSubmit) handleTaskSubmit(task)
   }
 
   const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {

@@ -67,7 +67,8 @@ const HomeActiveTasksView = ({ widgetTasks, handleClick, focused, setFocusedTask
     const taskIndex = tasks.findIndex((t) => t.id === task.id)
 
     if (task.title.trim() === '') {
-      setFocusedTaskId(task.id)
+      const currentId = task.id
+      setFocusedTaskId(currentId)
       return
     }
 
@@ -75,8 +76,7 @@ const HomeActiveTasksView = ({ widgetTasks, handleClick, focused, setFocusedTask
 
     if (nextTask && nextTask.title.trim() === '') {
       const nextId = nextTask.id
-      setFocusedTaskId(null)
-      setTimeout(() => setFocusedTaskId(nextId), 0)
+      setFocusedTaskId(nextId)
       return
     }
 

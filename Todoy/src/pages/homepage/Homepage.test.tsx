@@ -150,36 +150,49 @@ describe('TasksWidget', () => {
   it('continually moves focus to existing empty task after submitting previous one', async () => {
     const user = userEvent.setup()
 
-    // make Date.now return increasing values so new tasks have distinct ids
     let now = 1000
     jest.spyOn(global.Date, 'now').mockImplementation(() => now++)
 
     render(<TasksWidget />)
 
-    // create first blank task
     await user.click(screen.getByRole('button', { name: /create task/i }))
     let inputs = await screen.findAllByRole('textbox')
     expect(inputs[0]).toHaveFocus()
 
-    // type a title and submit
     await user.type(inputs[0], 'Hello{enter}')
 
-    // second (empty) task should appear and be focused
     inputs = await screen.findAllByRole('textbox')
     expect(inputs).toHaveLength(2)
     expect(inputs[1]).toHaveFocus()
 
-    // submit again while blank – focus remains on second
     await user.type(inputs[1], '{enter}')
     expect(inputs[1]).toHaveFocus()
 
-    // click the first task to move focus back
     await user.click(inputs[0])
     expect(inputs[0]).toHaveFocus()
 
-    // submit first task again; the empty neighbor should regain focus
     await user.type(inputs[0], '{enter}')
     inputs = await screen.findAllByRole('textbox')
     expect(inputs[1]).toHaveFocus()
+  })
+
+  it('blank task keeps focus and cursor after submitting again', async () => {
+    const user = userEvent.setup()
+    jest.spyOn(global.Date, 'now').mockImplementation(() => 5555)
+
+    render(<TasksWidget />)
+
+    // add initial blank
+    await user.click(screen.getByRole('button', { name: /create task/i }))
+    const inputs = await screen.findAllByRole('textbox')
+    expect(inputs[0]).toHaveFocus()
+
+    // submit while empty -> should remain focused and editable
+    await user.type(inputs[0], '{enter}')
+    expect(inputs[0]).toHaveFocus()
+
+    // type some text afterwards
+    await user.type(inputs[0], 'fillme')
+    expect(inputs[0]).toHaveValue('fillme')
   })
 })
