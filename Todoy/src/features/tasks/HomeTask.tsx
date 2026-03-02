@@ -68,7 +68,7 @@ const HomeTask = ({ task, autofocus, onBlur }: IHomeTaskProps) => {
           ref={inputRef}
           className={`task-title ${selectedTask}`}
           value={task.title}
-          size={Math.max(task.title.length - 3, 1)}
+          size={Math.max(task.title.length, 1)}
           onClick={() => setSelectedTask('selected')}
           onChange={handleChange}
           tabIndex={-1}
@@ -76,7 +76,12 @@ const HomeTask = ({ task, autofocus, onBlur }: IHomeTaskProps) => {
           autoFocus={autofocus}
         />
       </form>
-      <DeleteButton icon={task.deleted ? 'restore_from_trash' : 'delete'} doneTask={doneTask} />
+      <DeleteButton
+        icon={task.deleted ? 'restore_from_trash' : 'delete'}
+        doneTask={doneTask}
+        task={task}
+        setDoneTask={setDoneTask}
+      />
     </div>
   )
 }

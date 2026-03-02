@@ -13,4 +13,6 @@ export interface ITaskButtonProps {
 export interface IDeleteButtonProps {
   icon: 'restore_from_trash' | 'delete'
   doneTask: doneTaskType
+  task: ITask
+  setDoneTask: Dispatch<SetStateAction<doneTaskType>>
 }

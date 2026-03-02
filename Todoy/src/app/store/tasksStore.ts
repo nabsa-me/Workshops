@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import { ITask } from '../../features/tasks/tasksTypes'
-import { createTask, getTasks, updateTask } from '../../features/tasks/taskApi'
+import { completeTask, createTask, deleteTask, getTasks, updateTask } from '../../features/tasks/taskApi'
 
 export type updateTaskSelectorUpdateType = Partial<Pick<ITask, 'title' | 'completed' | 'deleted'>>
 export interface ITaskState {
@@ -10,6 +10,7 @@ export interface ITaskState {
   loadTasksSelector: () => Promise<void>
   createTaskSelector: ({ title, id }: { title: string; id: number }) => void
   updateTaskSelector: (id: number, updates: updateTaskSelectorUpdateType) => void
+  completeTaskSelector: (id: number) => void
   deleteTaskSelector: (id: number) => void
 }
 
@@ -59,8 +60,25 @@ export const useTasksStore = create<ITaskState>((set) => ({
     }
   },
 
-  deleteTaskSelector: (id) =>
-    set((state) => ({
-      tasks: state.tasks.filter((task) => task.id !== id)
-    }))
+  completeTaskSelector: async (id) => {
+    try {
+      await completeTask(id)
+      set((state) => ({
+        tasks: state.tasks.map((task) => (task.id === id ? { ...task, completed: !task.completed } : task))
+      }))
+    } catch (err) {
+      set({ error: err })
+    }
+  },
+
+  deleteTaskSelector: async (id) => {
+    try {
+      await deleteTask(id)
+      set((state) => ({
+        tasks: state.tasks.map((task) => (task.id === id ? { ...task, deleted: !task.deleted } : task))
+      }))
+    } catch (err) {
+      set({ error: err })
+    }
+  }
 }))

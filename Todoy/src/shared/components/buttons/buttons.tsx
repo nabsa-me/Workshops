@@ -5,16 +5,17 @@ import { useDoneEffect } from '../../hooks/useDoneEffect'
 
 export const TaskButton = ({ setDoneTask, doneTask, status, task }: ITaskButtonProps) => {
   const { doneEffect, setDoneEffect } = useDoneEffect()
-  const { updateTask } = useTasks()
+  const { completeTask } = useTasks()
 
   const handleClick = () => {
     if (task.completed) {
       setDoneTask(doneTask === 'undone' ? '' : 'undone')
-      setTimeout(() => updateTask(task.id, { completed: !task.completed }), 350)
+      setTimeout(() => completeTask(task.id), 350)
+
       return
     }
     setDoneTask(doneTask === 'done' ? '' : 'done')
-    setTimeout(() => updateTask(task.id, { completed: !task.completed }), 750)
+    setTimeout(() => completeTask(task.id), 750)
     setDoneEffect(doneEffect - 1)
   }
 
@@ -26,9 +27,18 @@ export const TaskButton = ({ setDoneTask, doneTask, status, task }: ITaskButtonP
   )
 }
 
-export const DeleteButton = ({ icon, doneTask }: IDeleteButtonProps) => {
+export const DeleteButton = ({ icon, doneTask, task, setDoneTask }: IDeleteButtonProps) => {
+  const { doneEffect, setDoneEffect } = useDoneEffect()
+  const { deleteTask } = useTasks()
+
+  const handleClick = () => {
+    setDoneTask(doneTask === 'undone' ? '' : 'undone')
+    setTimeout(() => deleteTask(task.id), 750)
+    setDoneEffect(doneEffect - 1)
+  }
+
   return (
-    <div className={`task-button ${doneTask}`}>
+    <div className={`task-button ${doneTask}`} onClick={handleClick}>
       <IconButton icon={icon} className={`task-${icon}-button`} type='thin' />
     </div>
   )
