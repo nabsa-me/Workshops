@@ -4,7 +4,7 @@ import { doneTaskType, IHomeTaskProps } from './tasksTypes'
 import { useTasks } from '../../shared/hooks/useTasks'
 import { useHooks } from '../../shared/hooks/useHooks'
 
-const HomeTask = ({ task, autofocus, onBlur, handleTaskSubmit }: IHomeTaskProps) => {
+const HomeTask = ({ task, autofocus, onBlur, onFocus, handleTaskSubmit }: IHomeTaskProps) => {
   const [selectedTask, setSelectedTask] = useState<'selected' | ''>('')
   const [doneTask, setDoneTask] = useState<doneTaskType>('')
   const taskRef = useRef<HTMLDivElement | null>(null)
@@ -34,8 +34,6 @@ const HomeTask = ({ task, autofocus, onBlur, handleTaskSubmit }: IHomeTaskProps)
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) =>
     updateTask(task.id, { title: event.target.value })
 
-  const handleUpdate = () => updateTask(task.id, { title: task.title.trim() })
-
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     setSelectedTask('')
@@ -51,7 +49,7 @@ const HomeTask = ({ task, autofocus, onBlur, handleTaskSubmit }: IHomeTaskProps)
 
   const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
     setSelectedTask('')
-    if (event?.target.value.trim() !== '') handleUpdate()
+    if (event?.target.value.trim() !== '') updateTask(task.id, { title: task.title.trim() })
     onBlur?.()
   }
 
@@ -75,7 +73,14 @@ const HomeTask = ({ task, autofocus, onBlur, handleTaskSubmit }: IHomeTaskProps)
           className={`task-title ${selectedTask}`}
           value={task.title}
           size={Math.max(task.title.length, 1)}
-          onClick={() => setSelectedTask('selected')}
+          onClick={() => {
+            setSelectedTask('selected')
+            onFocus?.()
+          }}
+          onFocus={() => {
+            setSelectedTask('selected')
+            onFocus?.()
+          }}
           onChange={handleChange}
           tabIndex={-1}
           onBlur={(event) => handleBlur(event)}

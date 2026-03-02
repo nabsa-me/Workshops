@@ -9,6 +9,7 @@ export interface IHomeTaskProps {
   task: ITask
   autofocus?: boolean
   onBlur?: () => void
+  onFocus?: () => void
   handleTaskSubmit?: (task: ITask) => void
 }
 
