@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import Homepage from './Homepage'
 import { TasksWidget } from './TasksWidget'
@@ -150,30 +150,44 @@ describe('TasksWidget', () => {
   it('continually moves focus to existing empty task after submitting previous one', async () => {
     const user = userEvent.setup()
 
+    // start with an empty list so our assumptions hold
+    useTasksStore.setState({ tasks: [], isLoading: false, error: null })
+
     let now = 1000
     jest.spyOn(global.Date, 'now').mockImplementation(() => now++)
 
     render(<TasksWidget />)
 
+    // create first blank and ensure it has focus
     await user.click(screen.getByRole('button', { name: /create task/i }))
-    let inputs = await screen.findAllByRole('textbox')
-    expect(inputs[0]).toHaveFocus()
+    await waitFor(() => {
+      const all = screen.getAllByRole('textbox')
+      expect(all).toHaveLength(1)
+      expect(all[0]).toHaveFocus()
+    })
 
-    await user.type(inputs[0], 'Hello{enter}')
+    // type title + enter and wait for the second empty input to appear and gain focus
+    await user.type(screen.getAllByRole('textbox')[0], 'Hello{enter}')
+    await waitFor(() => {
+      const all = screen.getAllByRole('textbox')
+      expect(all).toHaveLength(2)
+      expect(all[1]).toHaveFocus()
+    })
 
-    inputs = await screen.findAllByRole('textbox')
-    expect(inputs).toHaveLength(2)
-    expect(inputs[1]).toHaveFocus()
+    // hitting enter on the empty task should keep focus there
+    await user.type(screen.getAllByRole('textbox')[1], '{enter}')
+    await waitFor(() => {
+      const all = screen.getAllByRole('textbox')
+      expect(all[1]).toHaveFocus()
+    })
 
-    await user.type(inputs[1], '{enter}')
-    expect(inputs[1]).toHaveFocus()
+    // click the first task to switch focus back
+    await user.click(screen.getAllByRole('textbox')[0])
+    await waitFor(() => expect(screen.getAllByRole('textbox')[0]).toHaveFocus())
 
-    await user.click(inputs[0])
-    expect(inputs[0]).toHaveFocus()
-
-    await user.type(inputs[0], '{enter}')
-    inputs = await screen.findAllByRole('textbox')
-    expect(inputs[1]).toHaveFocus()
+    // submit the first task again and verify focus returns to second
+    await user.type(screen.getAllByRole('textbox')[0], '{enter}')
+    await waitFor(() => expect(screen.getAllByRole('textbox')[1]).toHaveFocus())
   })
 
   it('blank task keeps focus and cursor after submitting again', async () => {
