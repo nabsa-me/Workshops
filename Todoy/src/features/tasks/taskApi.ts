@@ -7,21 +7,21 @@ export const getTasks = async (): Promise<ITask[]> => {
 }
 
 export const createTask = async (task: ITask): Promise<void> => {
-  // console.log('backend create', task)
+  console.log('backend create', task)
 }
 
 export const updateTask = async (id: number, updates: updateTaskSelectorUpdateType): Promise<void> => {
-  // console.log('backend update', id, updates)
+  console.log('backend update', id, updates)
 }
 
 export const completeTask = async (id: number): Promise<void> => {
-  // console.log('backend complete', id)
+  console.log('backend complete', id)
 }
 
 export const deleteTask = async (id: number): Promise<void> => {
-  // console.log('backend delete', id)
+  console.log('backend delete', id)
 }
 
 export const cleanTask = async (id: number): Promise<void> => {
-  // console.log('backend clean', id)
+  console.log('backend clean', id)
 }
