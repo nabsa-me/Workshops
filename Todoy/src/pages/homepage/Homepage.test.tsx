@@ -59,6 +59,53 @@ describe('Homepage', () => {
   })
 })
 
+describe('Homepage component behavior', () => {
+  beforeEach(() => {
+    jest.useFakeTimers()
+  })
+
+  afterEach(() => {
+    jest.runOnlyPendingTimers()
+    jest.useRealTimers()
+  })
+
+  it('displays correct completed task count from store', async () => {
+    useTasksStore.setState({
+      tasks: [
+        { id: 1, title: 'Done 1', completed: true, deleted: false },
+        { id: 2, title: 'Done 2', completed: true, deleted: false },
+        { id: 3, title: 'Active', completed: false, deleted: false }
+      ],
+      isLoading: false,
+      error: null
+    })
+    render(<Homepage />)
+    expect(screen.getByText('2')).toBeInTheDocument()
+  })
+
+  it('displays 0 completed tasks when none are completed', async () => {
+    useTasksStore.setState({
+      tasks: [{ id: 1, title: 'Active', completed: false, deleted: false }],
+      isLoading: false,
+      error: null
+    })
+    render(<Homepage />)
+    expect(screen.getByText('0')).toBeInTheDocument()
+  })
+
+  it('displays correct date in expected format', async () => {
+    jest.setSystemTime(new Date('2024-03-15T10:00:00'))
+    render(<Homepage />)
+    expect(await screen.findByText(/Friday, March 15/)).toBeInTheDocument()
+  })
+
+  it('renders Icon component for check mark', async () => {
+    render(<Homepage />)
+    const iconSpan = document.querySelector('.material-symbols-rounded.check')
+    expect(iconSpan).toBeInTheDocument()
+  })
+})
+
 describe('TasksWidget', () => {
   beforeEach(() => {
     jest.spyOn(global.Date, 'now').mockImplementation(() => 123456789)
@@ -208,5 +255,148 @@ describe('TasksWidget', () => {
     // type some text afterwards
     await user.type(inputs[0], 'fillme')
     expect(inputs[0]).toHaveValue('fillme')
+  })
+
+  it('renders empty Active view when no active tasks exist', async () => {
+    useTasksStore.setState({
+      tasks: [
+        { id: 1, title: 'Completed', completed: true, deleted: false },
+        { id: 2, title: 'Deleted', completed: false, deleted: true }
+      ],
+      isLoading: false,
+      error: null
+    })
+    render(<TasksWidget />)
+    const taskItems = screen.queryAllByRole('listitem')
+    expect(taskItems).toHaveLength(0)
+  })
+
+  it('filters and displays only active tasks in Active tab', async () => {
+    userEvent.setup()
+    useTasksStore.setState({
+      tasks: [
+        { id: 1, title: 'Active 1', completed: false, deleted: false },
+        { id: 2, title: 'Completed', completed: true, deleted: false },
+        { id: 3, title: 'Active 2', completed: false, deleted: false },
+        { id: 4, title: 'Deleted', completed: false, deleted: true }
+      ],
+      isLoading: false,
+      error: null
+    })
+    render(<TasksWidget />)
+    expect(screen.getByDisplayValue('Active 1')).toBeInTheDocument()
+    expect(screen.getByDisplayValue('Active 2')).toBeInTheDocument()
+    expect(screen.queryByDisplayValue('Completed')).not.toBeInTheDocument()
+    expect(screen.queryByDisplayValue('Deleted')).not.toBeInTheDocument()
+  })
+
+  it('filters and displays only completed tasks in Completed tab', async () => {
+    const user = userEvent.setup()
+    useTasksStore.setState({
+      tasks: [
+        { id: 1, title: 'Active', completed: false, deleted: false },
+        { id: 2, title: 'Completed 1', completed: true, deleted: false },
+        { id: 3, title: 'Completed 2', completed: true, deleted: false },
+        { id: 4, title: 'Deleted', completed: false, deleted: true }
+      ],
+      isLoading: false,
+      error: null
+    })
+    render(<TasksWidget />)
+    await user.click(screen.getByText('Completed'))
+    expect(screen.getByDisplayValue('Completed 1')).toBeInTheDocument()
+    expect(screen.getByDisplayValue('Completed 2')).toBeInTheDocument()
+    expect(screen.queryByDisplayValue('Active')).not.toBeInTheDocument()
+    expect(screen.queryByDisplayValue('Deleted')).not.toBeInTheDocument()
+  })
+
+  it('filters and displays only deleted tasks in Deleted tab', async () => {
+    const user = userEvent.setup()
+    useTasksStore.setState({
+      tasks: [
+        { id: 1, title: 'Active', completed: false, deleted: false },
+        { id: 2, title: 'Completed', completed: true, deleted: false },
+        { id: 3, title: 'Deleted 1', completed: false, deleted: true },
+        { id: 4, title: 'Deleted 2', completed: true, deleted: true }
+      ],
+      isLoading: false,
+      error: null
+    })
+    render(<TasksWidget />)
+    await user.click(screen.getByText('Deleted'))
+    expect(screen.getByDisplayValue('Deleted 1')).toBeInTheDocument()
+    expect(screen.getByDisplayValue('Deleted 2')).toBeInTheDocument()
+    expect(screen.queryByDisplayValue('Active')).not.toBeInTheDocument()
+    expect(screen.queryByDisplayValue('Completed')).not.toBeInTheDocument()
+  })
+
+  it('does not show create button in non-Active tabs', async () => {
+    const user = userEvent.setup()
+    render(<TasksWidget />)
+    expect(screen.getByRole('button', { name: /create task/i })).toBeInTheDocument()
+    await user.click(screen.getByText('Completed'))
+    expect(screen.queryByRole('button', { name: /create task/i })).not.toBeInTheDocument()
+  })
+
+  it('creates first blank task if first task already empty on click', async () => {
+    const user = userEvent.setup()
+    useTasksStore.setState({
+      tasks: [{ id: 99, title: '', completed: false, deleted: false }],
+      isLoading: false,
+      error: null,
+      createTaskSelector: jest.fn()
+    })
+    render(<TasksWidget />)
+    await user.click(screen.getByRole('button', { name: /create task/i }))
+    // should focus first empty task, not create a new one
+    const inputs = screen.getAllByRole('textbox')
+    expect(inputs).toHaveLength(1)
+  })
+
+  it('properly switches views when Active tab has mixed state', async () => {
+    const user = userEvent.setup()
+    useTasksStore.setState({
+      tasks: [
+        { id: 1, title: 'A1', completed: false, deleted: false },
+        { id: 2, title: 'C1', completed: true, deleted: false }
+      ],
+      isLoading: false,
+      error: null
+    })
+    render(<TasksWidget />)
+    expect(screen.getByDisplayValue('A1')).toBeInTheDocument()
+    expect(screen.queryByDisplayValue('C1')).not.toBeInTheDocument()
+    await user.click(screen.getByText('Completed'))
+    expect(screen.queryByDisplayValue('A1')).not.toBeInTheDocument()
+    expect(screen.getByDisplayValue('C1')).toBeInTheDocument()
+  })
+
+  it('maintains correct ActiveTasksView despite swapping between tabs multiple times', async () => {
+    const user = userEvent.setup()
+    useTasksStore.setState({
+      tasks: [
+        { id: 1, title: 'Active', completed: false, deleted: false },
+        { id: 2, title: 'Completed', completed: true, deleted: false }
+      ],
+      isLoading: false,
+      error: null
+    })
+    render(<TasksWidget />)
+    const activeTab = screen.getByText('Active')
+    const completedTab = screen.getByText('Completed')
+
+    // Verify Active shows only active
+    expect(screen.getByDisplayValue('Active')).toBeInTheDocument()
+    expect(screen.queryByDisplayValue('Completed')).not.toBeInTheDocument()
+
+    // Switch to Completed
+    await user.click(completedTab)
+    expect(screen.queryByDisplayValue('Active')).not.toBeInTheDocument()
+    expect(screen.getByDisplayValue('Completed')).toBeInTheDocument()
+
+    // Switch back to Active
+    await user.click(activeTab)
+    expect(screen.getByDisplayValue('Active')).toBeInTheDocument()
+    expect(screen.queryByDisplayValue('Completed')).not.toBeInTheDocument()
   })
 })
