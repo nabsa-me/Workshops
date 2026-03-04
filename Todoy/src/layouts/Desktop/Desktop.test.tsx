@@ -81,6 +81,36 @@ describe('DesktopSideBar', () => {
     expect(getByText('My tasks')).toBeTruthy()
   })
 
+  it('renders correctly when sideBarHidden prop is set to hidden', () => {
+    render(<DesktopSideBar sideBarHidden='hidden' />)
+
+    const sideBar = document.querySelector(DESKTOP_SIDEBAR)
+    const body = document.querySelector('.desktop-sideBar-body')
+    expect(sideBar).toHaveClass('hidden')
+    expect(body).toHaveClass('hidden')
+  })
+
+  it('renders navigation cards even when sidebar is hidden', () => {
+    const { getByText } = render(<DesktopSideBar sideBarHidden='hidden' />)
+    expect(getByText('Home')).toBeTruthy()
+    expect(getByText('My tasks')).toBeTruthy()
+  })
+
+  it('scrollBar shows and hides on mouse events even when sidebar is hidden', () => {
+    render(<DesktopSideBar sideBarHidden='hidden' />)
+
+    const container = document.querySelector(DESKTOP_SIDEBAR)
+    const scrollableSideBar = document.querySelector('.desktop-sideBar-body-scrollable')
+
+    expect(scrollableSideBar).toHaveClass('hidden')
+
+    act(() => fireEvent.mouseEnter(container!))
+    expect(scrollableSideBar).not.toHaveClass('hidden')
+
+    act(() => fireEvent.mouseLeave(container!))
+    expect(scrollableSideBar).toHaveClass('hidden')
+  })
+
   it('renders the correct icons passed to SideBarNavigationCard', () => {
     const { getByText } = render(<DesktopSideBar sideBarHidden='' />)
 
