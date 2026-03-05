@@ -1,4 +1,4 @@
-type IconType = 'bold' | 'filled' | 'thin'
+type IconType = 'bold' | 'filled' | 'thin' | ''
 type IconRole = 'button'
 
 export interface IIconProps {

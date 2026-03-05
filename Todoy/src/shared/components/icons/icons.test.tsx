@@ -22,6 +22,19 @@ describe('Icon', () => {
     expect(el).toHaveClass('thin')
     expect(el).toHaveAttribute('role', 'button')
   })
+
+  it('renders with minimal props (defaults)', () => {
+    const { getByText } = render(<Icon icon='home' />)
+    const el = getByText('home')
+
+    expect(el).toBeInTheDocument()
+    // className undefined results in just base plus icon, type undefined is empty string
+    expect(el.className).toMatch(/material-symbols-rounded/)
+    expect(el.className).toMatch(/home/)
+    // should not include "undefined" or extra spaces (two spaces allowed)
+    expect(el.className).not.toContain('undefined')
+    expect(el).not.toHaveAttribute('role')
+  })
 })
 
 describe('IconButton', () => {
@@ -42,6 +55,18 @@ describe('IconButton', () => {
     expect(el).toHaveClass('bold')
     expect(el).toHaveAttribute('role', 'button')
   })
+
+  it('applies defaults when optional props omitted', () => {
+    const { getByText } = render(<IconButton icon='star' />)
+    const el = getByText('star')
+
+    expect(el).toBeInTheDocument()
+    expect(el).toHaveClass('material-symbols-rounded')
+    expect(el).toHaveClass('star')
+    // no type or className -> no extra class segments except blanks
+    expect(el.className).not.toContain('undefined')
+    expect(el).toHaveAttribute('role', 'button')
+  })
 })
 
 describe('FilledIconButton', () => {
@@ -60,5 +85,13 @@ describe('FilledIconButton', () => {
     expect(el).toHaveClass('check')
     expect(el).toHaveClass('filled')
     expect(el).toHaveAttribute('role', 'button')
+  })
+
+  it('renders without className prop', () => {
+    const { getByText } = render(<FilledIconButton icon='close' />)
+    const el = getByText('close')
+    expect(el).toBeInTheDocument()
+    expect(el).toHaveClass('filled')
+    expect(el.className).not.toContain('undefined')
   })
 })

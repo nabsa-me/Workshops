@@ -1,6 +1,6 @@
 import { IIconButtonProps, IIconFilledProps, IIconProps } from './iconsTypes'
 
-export const Icon = ({ icon, type, className, role }: IIconProps) => {
+export const Icon = ({ icon, type = '', className = '', role }: IIconProps) => {
   return (
     <span className={`material-symbols-rounded ${className} ${icon} ${type}`} role={role}>
       {icon}
