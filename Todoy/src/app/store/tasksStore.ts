@@ -7,18 +7,21 @@ export interface ITaskState {
   tasks: ITask[]
   isLoading: boolean
   error: any
+  filterText: string
   loadTasksSelector: () => Promise<void>
   createTaskSelector: ({ title, id, index }: { title: string; id: number; index?: number }) => void
   updateTaskSelector: (id: number, updates: updateTaskSelectorUpdateType) => void
   completeTaskSelector: (id: number) => void
   deleteTaskSelector: (id: number) => void
   cleanTaskSelector: (id: number) => void
+  filterTaskSelector: (text: string) => void
 }
 
 export const useTasksStore = create<ITaskState>((set) => ({
   tasks: [],
   isLoading: true,
   error: null,
+  filterText: '',
 
   loadTasksSelector: async () => {
     const { tasks } = useTasksStore.getState()
@@ -101,5 +104,9 @@ export const useTasksStore = create<ITaskState>((set) => ({
     } catch (err) {
       set({ error: err })
     }
+  },
+
+  filterTaskSelector: async (text) => {
+    set(() => ({ filterText: text }))
   }
 }))

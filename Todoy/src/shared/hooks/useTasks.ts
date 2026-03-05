@@ -2,7 +2,18 @@ import { useTasksStore } from '../../app/store'
 import { useShallow } from 'zustand/react/shallow'
 
 export const useTasks = () => {
-  const { tasks, loadTasks, createTask, updateTask, deleteTask, isLoading, completeTask, cleanTask } = useTasksStore(
+  const {
+    tasks,
+    loadTasks,
+    createTask,
+    updateTask,
+    deleteTask,
+    isLoading,
+    completeTask,
+    cleanTask,
+    filter,
+    filterText
+  } = useTasksStore(
     useShallow((state) => ({
       tasks: state.tasks,
       loadTasks: state.loadTasksSelector,
@@ -11,11 +22,25 @@ export const useTasks = () => {
       completeTask: state.completeTaskSelector,
       deleteTask: state.deleteTaskSelector,
       cleanTask: state.cleanTaskSelector,
-      isLoading: state.isLoading
+      isLoading: state.isLoading,
+      filter: state.filterTaskSelector,
+      filterText: state.filterText
     }))
   )
 
   const completedTasks = tasks?.filter((task) => task.completed)
 
-  return { tasks, createTask, updateTask, deleteTask, isLoading, completedTasks, loadTasks, completeTask, cleanTask }
+  return {
+    tasks,
+    createTask,
+    updateTask,
+    deleteTask,
+    isLoading,
+    completedTasks,
+    loadTasks,
+    completeTask,
+    cleanTask,
+    filter,
+    filterText
+  }
 }

@@ -61,7 +61,11 @@ export const TasksWidget = () => {
 
 const HomeActiveTasksView = ({ widgetTasks, handleClick, focused, setFocusedTaskId }: IHomeActiveTasksViewProps) => {
   const handleOnBlur = () => setFocusedTaskId!(null)
-  const { createTask, tasks } = useTasks()
+  const { createTask, tasks, filterText } = useTasks()
+
+  const tasksToRender: ITask[] = filterText?.length
+    ? widgetTasks.filter((task) => task.title.toLowerCase().includes(filterText.toLowerCase()))
+    : widgetTasks
 
   const handleTaskSubmit = (task: ITask) => {
     const taskIndex = tasks.findIndex((t) => t.id === task.id)
@@ -91,7 +95,7 @@ const HomeActiveTasksView = ({ widgetTasks, handleClick, focused, setFocusedTask
         <CreateTaskButton handleClick={handleClick} />
       </div>
       <div className='task-widget-taskList active-tab'>
-        {widgetTasks.map((task) => (
+        {tasksToRender.map((task) => (
           <HomeTask
             key={task.id}
             task={task}
@@ -107,10 +111,16 @@ const HomeActiveTasksView = ({ widgetTasks, handleClick, focused, setFocusedTask
 }
 
 const HomeTasksView = ({ widgetTasks }: IHomeTasksView) => {
+  const { filterText } = useTasks()
+
+  const tasksToRender: ITask[] = filterText?.length
+    ? widgetTasks.filter((task) => task.title.toLowerCase().includes(filterText.toLowerCase()))
+    : widgetTasks
+
   return (
     <div className='task-widget-tasksContainer'>
       <div className='task-widget-taskList'>
-        {widgetTasks.map((task) => (
+        {tasksToRender.map((task) => (
           <HomeTask key={task.id} task={task} />
         ))}
       </div>
