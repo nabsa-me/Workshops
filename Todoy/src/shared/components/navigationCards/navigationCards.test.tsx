@@ -46,6 +46,33 @@ describe('TabNavigationCard', () => {
     expect(setActiveTab).toHaveBeenCalledTimes(1)
     expect(setActiveTab).toHaveBeenCalledWith('Completed')
   })
+
+  it('still calls setActiveTab when clicking the already-active tab', () => {
+    const setActiveTab = jest.fn()
+    render(<TabsNavigation activeTab='Active' setActiveTab={setActiveTab} tabsList={tabsList} />)
+
+    fireEvent.click(screen.getByText('Active'))
+    expect(setActiveTab).toHaveBeenCalledWith('Active')
+  })
+
+  it('renders no tabs when tabsList is empty', () => {
+    const setActiveTab = jest.fn()
+    render(<TabsNavigation activeTab='' setActiveTab={setActiveTab} tabsList={[]} />)
+
+    expect(screen.queryAllByRole('tab')).toHaveLength(0)
+  })
+
+  it('renders tabs but no active class when activeTab is not in list', () => {
+    const setActiveTab = jest.fn()
+    render(<TabsNavigation activeTab='Unknown' setActiveTab={setActiveTab} tabsList={tabsList} />)
+
+    const tabs = screen.getAllByRole('tab')
+    tabs.forEach((tab) => {
+      expect(tab).not.toHaveClass('active')
+      const decoration = tab.querySelector('.tabNavigationCard-decoration')
+      expect(decoration).not.toHaveClass('active')
+    })
+  })
 })
 
 describe('TabsNavigation', () => {
@@ -104,5 +131,16 @@ describe('SideBarNavigationCard', () => {
 
     expect(screen.getByText('person')).toBeInTheDocument()
     expect(screen.getByText('Profile')).toBeInTheDocument()
+  })
+
+  it('handles empty label or icon gracefully', () => {
+    render(<SideBarNavigationCard label='' icon='' />)
+    // component should render with empty text but still have structure
+    const container = document.querySelector('.sideBar-navigationCard')
+    expect(container).toBeTruthy()
+    const icon = container?.querySelector('.sideBar-icon')
+    expect(icon).toBeTruthy()
+    const paragraph = container?.querySelector('p')
+    expect(paragraph).toBeTruthy()
   })
 })
