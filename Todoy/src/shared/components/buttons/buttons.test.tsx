@@ -15,13 +15,11 @@ describe('TaskButton', () => {
     jest.clearAllMocks()
     jest.useFakeTimers()
 
-    // reset doneEffect store and provide setter spy
+    // reset doneEffect store and provide setter spy to simulate real behaviour
     useDoneEffectStore.setState({
       doneEffect: 0,
       setDoneEffectSelector: jest.fn((doneEffect) => {
-        useDoneEffectStore.setState(() => ({
-          doneEffect
-        }))
+        useDoneEffectStore.setState(() => ({ doneEffect }))
       })
     })
 
@@ -46,6 +44,18 @@ describe('TaskButton', () => {
     expect(buttons[0]).toHaveTextContent('check_circle')
   })
 
+  it('corrects a negative doneEffect value when the hook mounts', () => {
+    // start with a corrupted negative value
+    useDoneEffectStore.setState({ doneEffect: -3 })
+    jest.spyOn(Math, 'random').mockReturnValue(0.5)
+
+    render(<TaskButton doneTask='' status='' setDoneTask={setDoneTask} task={tasks[0]} />)
+
+    // effect runs on mount and sets to [0,20]
+    expect(useDoneEffectStore.getState().doneEffect).toBeGreaterThanOrEqual(0)
+    expect(useDoneEffectStore.getState().doneEffect).toBeLessThanOrEqual(20)
+  })
+
   it('applies done and status classes correctly', () => {
     render(<TaskButton doneTask='done' status='completed' setDoneTask={setDoneTask} task={tasks[0]} />)
 
@@ -67,6 +77,20 @@ describe('TaskButton', () => {
     expect(useTasksStore.getState().completeTaskSelector).not.toHaveBeenCalled()
     jest.advanceTimersByTime(750)
     expect(useTasksStore.getState().completeTaskSelector).toHaveBeenCalledWith(tasks[0].id)
+  })
+
+  it('decrements and then fixes a previously negative doneEffect when clicked', () => {
+    // start with negative and let mount effect set a value
+    jest.spyOn(Math, 'random').mockReturnValue(0.5) // initial correction -> 10
+    useDoneEffectStore.setState({ doneEffect: -1 })
+
+    render(<TaskButton doneTask='' status='' setDoneTask={setDoneTask} task={tasks[0]} />)
+    const initial = useDoneEffectStore.getState().doneEffect
+    expect(initial).toBe(10)
+
+    fireEvent.click(screen.getAllByRole('button')[0])
+    // after click we expect decrement from 10
+    expect(useDoneEffectStore.getState().setDoneEffectSelector).toHaveBeenCalledWith(9)
   })
 
   it('toggles back when doneTask already set', () => {
@@ -155,6 +179,16 @@ describe('DeleteButton', () => {
     })
   })
 
+  it('corrects negative doneEffect on mount', () => {
+    useDoneEffectStore.setState({ doneEffect: -5 })
+    jest.spyOn(Math, 'random').mockReturnValue(0.2)
+
+    render(<DeleteButton icon='delete' doneTask='' task={tasks[0]} setDoneTask={setDoneTask} />)
+
+    expect(useDoneEffectStore.getState().doneEffect).toBeGreaterThanOrEqual(0)
+    expect(useDoneEffectStore.getState().doneEffect).toBeLessThanOrEqual(20)
+  })
+
   afterEach(() => {
     jest.runOnlyPendingTimers()
     jest.useRealTimers()
@@ -195,6 +229,18 @@ describe('DeleteButton', () => {
 
     jest.advanceTimersByTime(750)
     expect(useTasksStore.getState().deleteTaskSelector).toHaveBeenCalledWith(tasks[0].id)
+  })
+
+  it('decrements from a corrected negative doneEffect when clicked', () => {
+    jest.spyOn(Math, 'random').mockReturnValue(0.25) // initial fix -> 5
+    useDoneEffectStore.setState({ doneEffect: -2 })
+
+    render(<DeleteButton icon='delete' doneTask='' task={tasks[0]} setDoneTask={setDoneTask} />)
+    const start = useDoneEffectStore.getState().doneEffect
+    expect(start).toBe(5)
+
+    fireEvent.click(screen.getByRole('button'))
+    expect(useDoneEffectStore.getState().setDoneEffectSelector).toHaveBeenCalledWith(4)
   })
 
   it('deletes non-blank task and toggles back when already undone', () => {
