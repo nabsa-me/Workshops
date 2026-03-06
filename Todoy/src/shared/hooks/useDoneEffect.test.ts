@@ -1,10 +1,12 @@
-import { renderHook, act } from '@testing-library/react'
+import { renderHook, act, waitFor } from '@testing-library/react'
 import { useDoneEffect } from './useDoneEffect'
 import { useDoneEffectStore } from '../../app/store'
 
 // helper to reset the zustand store to a known value
 const resetStore = (value: number) => {
-  useDoneEffectStore.setState({ doneEffect: value })
+  act(() => {
+    useDoneEffectStore.setState({ doneEffect: value })
+  })
 }
 
 describe('useDoneEffect', () => {
@@ -46,21 +48,28 @@ describe('useDoneEffect', () => {
     expect(result.current.doneEffect).toBeLessThanOrEqual(20)
   })
 
-  it('generates boundary values when random is stubbed', () => {
+  it('generates boundary values when random is stubbed', async () => {
     // low boundary
     resetStore(-1)
-    jest.spyOn(Math, 'random').mockReturnValue(0) // lowest
-    const { result: low } = renderHook(() => useDoneEffect())
-    expect(low.current.doneEffect).toBe(0)
+    const lowSpy = jest.spyOn(Math, 'random').mockReturnValue(0)
+    const { result: low, unmount: unmountLow } = renderHook(() => useDoneEffect())
+    await waitFor(() => {
+      expect(low.current.doneEffect).toBe(0)
+    })
+    unmountLow()
+    lowSpy.mockRestore()
 
-    // high boundary in a fresh hook instance
+    // high boundary
     resetStore(-1)
-    jest.spyOn(Math, 'random').mockReturnValue(0.9999)
+    const highSpy = jest.spyOn(Math, 'random').mockReturnValue(0.9999)
     const { result: high } = renderHook(() => useDoneEffect())
-    expect(high.current.doneEffect).toBe(20)
+    await waitFor(() => {
+      expect(high.current.doneEffect).toBe(20)
+    })
+    highSpy.mockRestore()
   })
 
-  it('allows manual updates and does not overwrite a non‑negative value', () => {
+  it('allows manual updates and does not overwrite a non negative value', () => {
     const { result } = renderHook(() => useDoneEffect())
 
     act(() => result.current.setDoneEffect(15))
