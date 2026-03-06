@@ -1,0 +1,32 @@
+{
+  "name": "@pulse/dashboard",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src/",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.3",
+    "react-dom": "^18.3",
+    "react-router-dom": "^6.26",
+    "@pulse/analytics": "workspace:*",
+    "@pulse/shared": "workspace:*",
+    "@pulse/ui": "workspace:*",
+    "@pulse/users": "workspace:*",
+    "@pulse/mocks": "workspace:*"
+  },
+  "devDependencies": {
+    "vite": "^5.4",
+    "@vitejs/plugin-react": "^4.3",
+    "tailwindcss": "^4.0",
+    "@tailwindcss/vite": "^4.0",
+    "typescript": "^5.5",
+    "@types/react": "^18",
+    "@types/react-dom": "^18"
+  }
+}

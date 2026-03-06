@@ -1,0 +1,32 @@
+{
+  "name": "pulse-workshop",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "pnpm --filter @pulse/dashboard dev",
+    "build": "npx turbo run build",
+    "typecheck": "turbo run typecheck",
+    "lint": "turbo run lint",
+    "postinstall": "msw init apps/dashboard/public --save"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.45",
+    "eslint": "^9.0",
+    "eslint-import-resolver-typescript": "^3.6",
+    "eslint-plugin-boundaries": "^4.0",
+    "msw": "^2.4",
+    "turbo": "^2.8.14",
+    "typescript": "^5.5",
+    "typescript-eslint": "^8.0"
+  },
+  "packageManager": "pnpm@9.0.0",
+  "engines": {
+    "node": ">=20",
+    "pnpm": ">=9"
+  },
+  "msw": {
+    "workerDirectory": [
+      "apps/dashboard/public"
+    ]
+  }
+}

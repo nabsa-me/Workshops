@@ -1,0 +1,111 @@
+import type { User } from "@pulse/shared";
+
+export const currentUser: User = {
+  id: "usr_01",
+  name: "Grace Hopper",
+  email: "grace@pulse.dev",
+  role: "admin",
+  createdAt: "2024-01-15T10:00:00Z",
+};
+
+export const usersData: User[] = [
+  currentUser,
+  {
+    id: "usr_02",
+    name: "Alan Turing",
+    email: "alan@pulse.dev",
+    role: "member",
+    createdAt: "2024-02-01T09:00:00Z",
+  },
+  {
+    id: "usr_03",
+    name: "Ada Lovelace",
+    email: "ada@pulse.dev",
+    role: "admin",
+    createdAt: "2024-02-10T14:30:00Z",
+  },
+  {
+    id: "usr_04",
+    name: "Linus Torvalds",
+    email: "linus@pulse.dev",
+    role: "member",
+    createdAt: "2024-03-05T11:00:00Z",
+  },
+  {
+    id: "usr_05",
+    name: "Margaret Hamilton",
+    email: "margaret@pulse.dev",
+    role: "viewer",
+    createdAt: "2024-03-12T08:45:00Z",
+  },
+  {
+    id: "usr_06",
+    name: "Hedy Lamarr",
+    email: "hedy@pulse.dev",
+    role: "member",
+    createdAt: "2024-04-01T16:00:00Z",
+  },
+  {
+    id: "usr_07",
+    name: "Tim Berners-Lee",
+    email: "tim@pulse.dev",
+    role: "viewer",
+    createdAt: "2024-04-15T10:30:00Z",
+  },
+  {
+    id: "usr_08",
+    name: "Katherine Johnson",
+    email: "katherine@pulse.dev",
+    role: "member",
+    createdAt: "2024-05-02T13:00:00Z",
+  },
+  {
+    id: "usr_09",
+    name: "Dennis Ritchie",
+    email: "dennis@pulse.dev",
+    role: "member",
+    createdAt: "2024-05-20T09:15:00Z",
+  },
+  {
+    id: "usr_10",
+    name: "Barbara Liskov",
+    email: "barbara@pulse.dev",
+    role: "viewer",
+    createdAt: "2024-06-01T11:45:00Z",
+  },
+  {
+    id: "usr_11",
+    name: "Vint Cerf",
+    email: "vint@pulse.dev",
+    role: "member",
+    createdAt: "2024-06-15T14:00:00Z",
+  },
+  {
+    id: "usr_12",
+    name: "Frances Allen",
+    email: "frances@pulse.dev",
+    role: "viewer",
+    createdAt: "2024-07-01T10:00:00Z",
+  },
+  {
+    id: "usr_13",
+    name: "Ken Thompson",
+    email: "ken@pulse.dev",
+    role: "member",
+    createdAt: "2024-07-20T08:30:00Z",
+  },
+  {
+    id: "usr_14",
+    name: "Radia Perlman",
+    email: "radia@pulse.dev",
+    role: "member",
+    createdAt: "2024-08-05T15:00:00Z",
+  },
+  {
+    id: "usr_15",
+    name: "Brendan Eich",
+    email: "brendan@pulse.dev",
+    role: "viewer",
+    createdAt: "2024-08-22T12:00:00Z",
+  },
+];
