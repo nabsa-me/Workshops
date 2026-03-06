@@ -2,9 +2,32 @@ import { act, fireEvent, render } from '@testing-library/react'
 import DesktopLayout from './DesktopLayout'
 import DesktopSideBar from './DesktopSideBar'
 import DesktopNavBar from './DesktopNavBar'
+import { useTasks } from '../../shared/hooks/useTasks'
+
+jest.mock('../../shared/hooks/useTasks', () => ({
+  useTasks: jest.fn()
+}))
 
 const DESKTOP_NAVBAR = '.desktop-navBar'
 const DESKTOP_SIDEBAR = '.desktop-sideBar'
+
+const mockFilter = jest.fn()
+beforeEach(() => {
+  ;(useTasks as jest.Mock).mockReturnValue({
+    filter: mockFilter,
+    completedTasks: [],
+    tasks: [],
+    loadTasks: jest.fn(),
+    createTask: jest.fn(),
+    updateTask: jest.fn(),
+    deleteTask: jest.fn(),
+    isLoading: false,
+    completeTask: jest.fn(),
+    cleanTask: jest.fn(),
+    filterText: ''
+  })
+  mockFilter.mockClear()
+})
 
 describe('DesktopLayout', () => {
   it('renders layout structure', () => {
@@ -177,5 +200,91 @@ describe('DesktopNavBar', () => {
 
     expect(menuOpen).toHaveClass('hidden')
     expect(menu).not.toHaveClass('hidden')
+  })
+
+  it('renders the search bar container', () => {
+    const { container } = render(<DesktopNavBar sideBarHidden='' setSideBarHidden={jest.fn()} />)
+
+    const searchBar = container.querySelector('.search-bar-container')
+    expect(searchBar).toBeInTheDocument()
+  })
+
+  it('renders the search icon', () => {
+    const { container } = render(<DesktopNavBar sideBarHidden='' setSideBarHidden={jest.fn()} />)
+
+    const searchIcon = container.querySelector('.search-bar-icon')
+    expect(searchIcon).toBeInTheDocument()
+  })
+
+  it('renders the search input with correct placeholder', () => {
+    const { container } = render(<DesktopNavBar sideBarHidden='' setSideBarHidden={jest.fn()} />)
+
+    const input = container.querySelector('.search-bar-input') as HTMLInputElement
+    expect(input).toBeInTheDocument()
+    expect(input.placeholder).toBe('Search')
+  })
+
+  it('renders the search form', () => {
+    const { container } = render(<DesktopNavBar sideBarHidden='' setSideBarHidden={jest.fn()} />)
+
+    const form = container.querySelector('.search-bar-form')
+    expect(form).toBeInTheDocument()
+  })
+
+  it('calls filter on input change', () => {
+    const { container } = render(<DesktopNavBar sideBarHidden='' setSideBarHidden={jest.fn()} />)
+
+    const input = container.querySelector('.search-bar-input') as HTMLInputElement
+    fireEvent.change(input, { target: { value: 'test' } })
+
+    expect(mockFilter).toHaveBeenCalledWith('test')
+  })
+
+  it('prevents form submission on submit', () => {
+    const { container } = render(<DesktopNavBar sideBarHidden='' setSideBarHidden={jest.fn()} />)
+
+    const form = container.querySelector('.search-bar-form') as HTMLFormElement
+    const mockPreventDefault = jest.fn()
+    fireEvent.submit(form, { preventDefault: mockPreventDefault })
+
+    expect(mockPreventDefault).not.toHaveBeenCalled()
+  })
+
+  it('handles empty string input change', () => {
+    const { container } = render(<DesktopNavBar sideBarHidden='' setSideBarHidden={jest.fn()} />)
+
+    const input = container.querySelector('.search-bar-input') as HTMLInputElement
+    fireEvent.change(input, { target: { value: '' } })
+
+    expect(mockFilter).not.toHaveBeenCalled()
+  })
+
+  it('handles input with spaces', () => {
+    const { container } = render(<DesktopNavBar sideBarHidden='' setSideBarHidden={jest.fn()} />)
+
+    const input = container.querySelector('.search-bar-input') as HTMLInputElement
+    fireEvent.change(input, { target: { value: '  test  ' } })
+
+    expect(mockFilter).toHaveBeenCalledWith('  test  ')
+  })
+
+  it('handles input with special characters', () => {
+    const { container } = render(<DesktopNavBar sideBarHidden='' setSideBarHidden={jest.fn()} />)
+
+    const input = container.querySelector('.search-bar-input') as HTMLInputElement
+    fireEvent.change(input, { target: { value: 'test@#$%^&*()' } })
+
+    expect(mockFilter).toHaveBeenCalledWith('test@#$%^&*()')
+  })
+
+  it('handles multiple input changes', () => {
+    const { container } = render(<DesktopNavBar sideBarHidden='' setSideBarHidden={jest.fn()} />)
+
+    const input = container.querySelector('.search-bar-input') as HTMLInputElement
+    fireEvent.change(input, { target: { value: 'first' } })
+    fireEvent.change(input, { target: { value: 'second' } })
+
+    expect(mockFilter).toHaveBeenCalledWith('first')
+    expect(mockFilter).toHaveBeenCalledWith('second')
   })
 })

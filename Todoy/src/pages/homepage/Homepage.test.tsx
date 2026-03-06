@@ -399,4 +399,160 @@ describe('TasksWidget', () => {
     expect(screen.getByDisplayValue('Active')).toBeInTheDocument()
     expect(screen.queryByDisplayValue('Completed')).not.toBeInTheDocument()
   })
+
+  it('filters tasks in Active tab based on filterText', async () => {
+    useTasksStore.setState({
+      tasks: [
+        { id: 1, title: 'Buy Milk', completed: false, deleted: false },
+        { id: 2, title: 'Buy Bread', completed: false, deleted: false },
+        { id: 3, title: 'Walk Dog', completed: false, deleted: false }
+      ],
+      filterText: 'Buy',
+      isLoading: false,
+      error: null
+    })
+    render(<TasksWidget />)
+    expect(screen.getByDisplayValue('Buy Milk')).toBeInTheDocument()
+    expect(screen.getByDisplayValue('Buy Bread')).toBeInTheDocument()
+    expect(screen.queryByDisplayValue('Walk Dog')).not.toBeInTheDocument()
+  })
+
+  it('filters tasks in Completed tab based on filterText', async () => {
+    const user = userEvent.setup()
+    useTasksStore.setState({
+      tasks: [
+        { id: 1, title: 'Completed Milk', completed: true, deleted: false },
+        { id: 2, title: 'Completed Bread', completed: true, deleted: false },
+        { id: 3, title: 'Walk Dog', completed: true, deleted: false }
+      ],
+      filterText: 'Completed',
+      isLoading: false,
+      error: null
+    })
+    render(<TasksWidget />)
+    await user.click(screen.getByText('Completed'))
+    expect(screen.getByDisplayValue('Completed Milk')).toBeInTheDocument()
+    expect(screen.getByDisplayValue('Completed Bread')).toBeInTheDocument()
+    expect(screen.queryByDisplayValue('Walk Dog')).not.toBeInTheDocument()
+  })
+
+  it('filters tasks in Deleted tab based on filterText', async () => {
+    const user = userEvent.setup()
+    useTasksStore.setState({
+      tasks: [
+        { id: 1, title: 'Deleted Milk', completed: false, deleted: true },
+        { id: 2, title: 'Deleted Bread', completed: false, deleted: true },
+        { id: 3, title: 'Walk Dog', completed: false, deleted: true }
+      ],
+      filterText: 'Deleted',
+      isLoading: false,
+      error: null
+    })
+    render(<TasksWidget />)
+    await user.click(screen.getByText('Deleted'))
+    expect(screen.getByDisplayValue('Deleted Milk')).toBeInTheDocument()
+    expect(screen.getByDisplayValue('Deleted Bread')).toBeInTheDocument()
+    expect(screen.queryByDisplayValue('Walk Dog')).not.toBeInTheDocument()
+  })
+
+  it('filters tasks case-insensitively', async () => {
+    useTasksStore.setState({
+      tasks: [
+        { id: 1, title: 'Buy Milk', completed: false, deleted: false },
+        { id: 2, title: 'buy bread', completed: false, deleted: false }
+      ],
+      filterText: 'BUY',
+      isLoading: false,
+      error: null
+    })
+    render(<TasksWidget />)
+    expect(screen.getByDisplayValue('Buy Milk')).toBeInTheDocument()
+    expect(screen.getByDisplayValue('buy bread')).toBeInTheDocument()
+  })
+
+  it('shows no tasks when filterText does not match any', async () => {
+    useTasksStore.setState({
+      tasks: [{ id: 1, title: 'Buy Milk', completed: false, deleted: false }],
+      filterText: 'xyz',
+      isLoading: false,
+      error: null
+    })
+    render(<TasksWidget />)
+    expect(screen.queryByDisplayValue('Buy Milk')).not.toBeInTheDocument()
+  })
+
+  it('shows all tasks when filterText is empty', async () => {
+    useTasksStore.setState({
+      tasks: [
+        { id: 1, title: 'Buy Milk', completed: false, deleted: false },
+        { id: 2, title: 'Walk Dog', completed: false, deleted: false }
+      ],
+      filterText: '',
+      isLoading: false,
+      error: null
+    })
+    render(<TasksWidget />)
+    expect(screen.getByDisplayValue('Buy Milk')).toBeInTheDocument()
+    expect(screen.getByDisplayValue('Walk Dog')).toBeInTheDocument()
+  })
+
+  it('shows all tasks when filterText is undefined', async () => {
+    useTasksStore.setState({
+      tasks: [
+        { id: 1, title: 'Buy Milk', completed: false, deleted: false },
+        { id: 2, title: 'Walk Dog', completed: false, deleted: false }
+      ],
+      filterText: undefined,
+      isLoading: false,
+      error: null
+    })
+    render(<TasksWidget />)
+    expect(screen.getByDisplayValue('Buy Milk')).toBeInTheDocument()
+    expect(screen.getByDisplayValue('Walk Dog')).toBeInTheDocument()
+  })
+
+  it('filters tasks with special characters', async () => {
+    useTasksStore.setState({
+      tasks: [
+        { id: 1, title: 'Task@#$%', completed: false, deleted: false },
+        { id: 2, title: 'Normal Task', completed: false, deleted: false }
+      ],
+      filterText: '@#$%',
+      isLoading: false,
+      error: null
+    })
+    render(<TasksWidget />)
+    expect(screen.getByDisplayValue('Task@#$%')).toBeInTheDocument()
+    expect(screen.queryByDisplayValue('Normal Task')).not.toBeInTheDocument()
+  })
+
+  it('filters tasks with spaces in filterText', async () => {
+    useTasksStore.setState({
+      tasks: [
+        { id: 1, title: 'Buy Milk and Bread', completed: false, deleted: false },
+        { id: 2, title: 'Walk Dog', completed: false, deleted: false }
+      ],
+      filterText: 'Buy Milk',
+      isLoading: false,
+      error: null
+    })
+    render(<TasksWidget />)
+    expect(screen.getByDisplayValue('Buy Milk and Bread')).toBeInTheDocument()
+    expect(screen.queryByDisplayValue('Walk Dog')).not.toBeInTheDocument()
+  })
+
+  it('filters partial matches', async () => {
+    useTasksStore.setState({
+      tasks: [
+        { id: 1, title: 'Buy Milk', completed: false, deleted: false },
+        { id: 2, title: 'Sell Milk', completed: false, deleted: false }
+      ],
+      filterText: 'Mil',
+      isLoading: false,
+      error: null
+    })
+    render(<TasksWidget />)
+    expect(screen.getByDisplayValue('Buy Milk')).toBeInTheDocument()
+    expect(screen.getByDisplayValue('Sell Milk')).toBeInTheDocument()
+  })
 })
