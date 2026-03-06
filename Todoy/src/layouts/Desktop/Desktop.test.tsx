@@ -32,15 +32,15 @@ describe('DesktopLayout', () => {
   it('clicking navbar toggle hides and shows sidebar', () => {
     render(<DesktopLayout />)
 
-    const navBar = document.querySelector(DESKTOP_NAVBAR)
+    const burgerButton = document.querySelector('.burger-button-container')
     const sideBar = document.querySelector(DESKTOP_SIDEBAR)
 
     expect(sideBar).not.toHaveClass('hidden')
 
-    act(() => fireEvent.click(navBar!))
+    act(() => fireEvent.click(burgerButton!))
     expect(sideBar).toHaveClass('hidden')
 
-    fireEvent.click(navBar!)
+    fireEvent.click(burgerButton!)
     expect(sideBar).not.toHaveClass('hidden')
   })
 })
@@ -142,8 +142,8 @@ describe('DesktopNavBar', () => {
 
     const { container } = render(<DesktopNavBar sideBarHidden='' setSideBarHidden={setSideBarHidden} />)
 
-    const navBar = container.querySelector('.desktop-navBar') as HTMLElement
-    fireEvent.click(navBar)
+    const burgerButton = container.querySelector('.burger-button-container') as HTMLElement
+    fireEvent.click(burgerButton)
 
     expect(setSideBarHidden).toHaveBeenCalledWith('hidden')
   })
@@ -153,9 +153,29 @@ describe('DesktopNavBar', () => {
 
     const { container } = render(<DesktopNavBar sideBarHidden='hidden' setSideBarHidden={setSideBarHidden} />)
 
-    const navBar = container.querySelector('.desktop-navBar') as HTMLElement
-    fireEvent.click(navBar)
+    const burgerButton = container.querySelector('.burger-button-container') as HTMLElement
+    fireEvent.click(burgerButton)
 
     expect(setSideBarHidden).toHaveBeenCalledWith('')
+  })
+
+  it('shows correct burger button icons when sidebar is visible', () => {
+    const { container } = render(<DesktopNavBar sideBarHidden='' setSideBarHidden={jest.fn()} />)
+
+    const menuOpen = container.querySelector('.burger-button-open')
+    const menu = container.querySelector('.burger-button')
+
+    expect(menuOpen).not.toHaveClass('hidden')
+    expect(menu).toHaveClass('hidden')
+  })
+
+  it('shows correct burger button icons when sidebar is hidden', () => {
+    const { container } = render(<DesktopNavBar sideBarHidden='hidden' setSideBarHidden={jest.fn()} />)
+
+    const menuOpen = container.querySelector('.burger-button-open')
+    const menu = container.querySelector('.burger-button')
+
+    expect(menuOpen).toHaveClass('hidden')
+    expect(menu).not.toHaveClass('hidden')
   })
 })
