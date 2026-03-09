@@ -29,7 +29,7 @@ jobs:
       
       - name: Install packages
         working-directory: ./
-        run: 'npm ci && cd ./AWS && npm ci'
+        run: 'npm ci && cd ./Todoy-Server && npm ci'
 
       - name: Deploy CDK stack
         working-directory: ./Todoy-Server/cdk
