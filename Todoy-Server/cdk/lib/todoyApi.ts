@@ -10,6 +10,7 @@ import {
   Stage,
   UsagePlan
 } from 'aws-cdk-lib/aws-apigateway'
+import { ServicePrincipal } from 'aws-cdk-lib/aws-iam'
 import { Function } from 'aws-cdk-lib/aws-lambda'
 
 interface ITodoyApiStackProps extends StackProps {
@@ -54,6 +55,11 @@ export class TodoyApiStack extends Stack {
     apiUsagePlan.addApiKey(apiKey)
 
     const tasksLambdaFunction = Function.fromFunctionArn(this, 'TasksLambdaFunction', props.tasksLambdaArn)
+    tasksLambdaFunction.addPermission('AllowApiGatewayInvoke', {
+      principal: new ServicePrincipal('apigateway.amazonaws.com'),
+      action: 'lambda:InvokeFunction',
+      sourceArn: `${api.arnForExecuteApi()}/*/*/*`
+    })
     const tasksLambdaIntegration = new LambdaIntegration(tasksLambdaFunction)
 
     const tasksApi = api.root.addResource('tasks')
