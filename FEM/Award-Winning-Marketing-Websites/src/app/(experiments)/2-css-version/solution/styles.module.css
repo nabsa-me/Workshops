@@ -1,0 +1,17 @@
+.letter {
+  display: inline-block;
+  animation: reveal-letter 0.4s cubic-bezier(0, 0.55, 0.45, 1);
+  animation-delay: calc(var(--index) * 0.03s);
+  animation-fill-mode: both;
+}
+
+@keyframes reveal-letter {
+  0% {
+    opacity: 0;
+    transform: translateY(200px)
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0%)
+  }
+}

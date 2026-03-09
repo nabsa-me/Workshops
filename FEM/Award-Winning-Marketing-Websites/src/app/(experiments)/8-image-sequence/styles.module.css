@@ -1,0 +1,11 @@
+.section {
+  h1, h2, h3 {
+    font-family: var(--font-audiowide);
+  }
+}
+
+.ruler {
+  background-image: linear-gradient(#444 1px, transparent 2px);
+  background-size: calc(var(--spacing) * 12) calc(var(--spacing) * 12);
+  background-position: top left;
+}

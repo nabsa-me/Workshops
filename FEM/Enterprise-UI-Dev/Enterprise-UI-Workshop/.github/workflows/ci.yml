@@ -1,0 +1,9 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+# TODO: Add CI jobs (typecheck, lint, test, build)

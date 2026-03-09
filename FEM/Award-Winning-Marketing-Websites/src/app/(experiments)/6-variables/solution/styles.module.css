@@ -1,0 +1,14 @@
+.title {
+  --weight: calc((1 - var(--distance)) * 800 + 100);
+  --space: calc((1 - var(--distance)) * 0.3em);
+  
+  font-variation-settings: 'wght' var(--weight);
+  letter-spacing: var(--space);
+}
+
+.grid {
+  background: black;
+  background-image: linear-gradient(rgba(255, 255, 255, .08) .1em, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, .08) 1px, transparent .1em);
+  background-size: 3em 3em;
+  background-position: center center;
+}
