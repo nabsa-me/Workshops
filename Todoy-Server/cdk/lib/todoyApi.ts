@@ -65,7 +65,7 @@ export class TodoyApiStack extends Stack {
       sourceArn: `${api.arnForExecuteApi()}/*/*/*`
     })
 
-    const tasksLambdaIntegration = new LambdaIntegration(tasksLambdaFunction)
+    const tasksLambdaIntegration = new LambdaIntegration(tasksLambdaFunction, { proxy: true })
 
     const tasksApi = api.root.addResource('tasks')
     tasksApi.addMethod('GET', tasksLambdaIntegration, { apiKeyRequired: true })
