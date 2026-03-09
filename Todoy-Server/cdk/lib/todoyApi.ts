@@ -3,11 +3,9 @@ import {
   ApiKey,
   ApiKeySourceType,
   Cors,
-  // Deployment,
   EndpointType,
   LambdaIntegration,
   RestApi,
-  // Stage,
   UsagePlan
 } from 'aws-cdk-lib/aws-apigateway'
 import { ServicePrincipal } from 'aws-cdk-lib/aws-iam'
@@ -38,13 +36,6 @@ export class TodoyApiStack extends Stack {
         stageName: stage
       }
     })
-
-    // const apiDeployment = new Deployment(this, `${baseId}-APIDeployment-${stage}`, { api })
-
-    // const apiStage = new Stage(this, `${baseId}-APIStage-${stage}`, {
-    //   deployment: apiDeployment,
-    //   stageName: stage
-    // })
 
     const apiKey = new ApiKey(this, `${baseId}-APIKey-${stage}`, {
       apiKeyName: `${baseId}-APIKey-${stage}`
