@@ -3,11 +3,11 @@ import {
   ApiKey,
   ApiKeySourceType,
   Cors,
-  Deployment,
+  // Deployment,
   EndpointType,
   LambdaIntegration,
   RestApi,
-  Stage,
+  // Stage,
   UsagePlan
 } from 'aws-cdk-lib/aws-apigateway'
 import { ServicePrincipal } from 'aws-cdk-lib/aws-iam'
@@ -32,16 +32,19 @@ export class TodoyApiStack extends Stack {
       endpointConfiguration: { types: [EndpointType.EDGE] },
       defaultCorsPreflightOptions: { allowOrigins: Cors.ALL_ORIGINS, allowMethods: Cors.ALL_METHODS },
       apiKeySourceType: ApiKeySourceType.HEADER,
-      cloudWatchRole: true,
-      deploy: false
+      cloudWatchRole: false,
+      deploy: true,
+      deployOptions: {
+        stageName: stage
+      }
     })
 
-    const apiDeployment = new Deployment(this, `${baseId}-APIDeployment-${stage}`, { api })
+    // const apiDeployment = new Deployment(this, `${baseId}-APIDeployment-${stage}`, { api })
 
-    const apiStage = new Stage(this, `${baseId}-APIStage-${stage}`, {
-      deployment: apiDeployment,
-      stageName: stage
-    })
+    // const apiStage = new Stage(this, `${baseId}-APIStage-${stage}`, {
+    //   deployment: apiDeployment,
+    //   stageName: stage
+    // })
 
     const apiKey = new ApiKey(this, `${baseId}-APIKey-${stage}`, {
       apiKeyName: `${baseId}-APIKey-${stage}`
@@ -49,7 +52,7 @@ export class TodoyApiStack extends Stack {
 
     const apiUsagePlan = new UsagePlan(this, `${baseId}-APIUsagePlan-${stage}`, {
       name: `${baseId}-APIUsagePlan-${stage}`,
-      apiStages: [{ api, stage: apiStage }]
+      apiStages: [{ api, stage: api.deploymentStage }]
     })
 
     apiUsagePlan.addApiKey(apiKey)
