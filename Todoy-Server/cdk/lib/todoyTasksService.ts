@@ -1,5 +1,5 @@
 import { App, Stack, StackProps } from 'aws-cdk-lib'
-import { Alias, Architecture, IFunction, Runtime } from 'aws-cdk-lib/aws-lambda'
+import { Architecture, CfnAlias, IFunction, Runtime } from 'aws-cdk-lib/aws-lambda'
 import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs'
 import path from 'path'
 
@@ -26,15 +26,13 @@ export class TodoyTasksStack extends Stack {
       environment: { env: environment || 'dev' }
     })
 
-    let version
-    if (stage === 'stage') {
-      version = lambda.currentVersion
+    const aliasVersion = stage === 'stage' ? lambda.currentVersion.version : '$LATEST'
 
-      new Alias(this, `${baseId}-Alias-${stage}`, {
-        aliasName: 'stage',
-        version
-      })
-    }
+    new CfnAlias(this, `${baseId}-Alias-${stage}`, {
+      name: stage!,
+      functionName: lambda.functionName,
+      functionVersion: aliasVersion
+    })
 
     this.apiLambda = lambda
   }
