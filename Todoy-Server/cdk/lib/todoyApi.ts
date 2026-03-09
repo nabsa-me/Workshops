@@ -32,7 +32,7 @@ export class TodoyApiStack extends Stack {
       endpointConfiguration: { types: [EndpointType.EDGE] },
       defaultCorsPreflightOptions: { allowOrigins: Cors.ALL_ORIGINS, allowMethods: Cors.ALL_METHODS },
       apiKeySourceType: ApiKeySourceType.HEADER,
-      cloudWatchRole: false,
+      cloudWatchRole: true,
       deploy: false
     })
 

@@ -9,5 +9,6 @@ export const handler = async (event: Record<string, any>, context: any) => {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ message: 'Well Done' })
   }
+
   return response
 }
