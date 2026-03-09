@@ -15,5 +15,5 @@ new TodoyApiStack(app, `Todoy-Api-Stack-${process.env.ENV}`, {
   description: 'Stack for the creation of Todoy Api, Domain, Authorizers and Base Routes',
   stackName: `Todoy-Api-Stack-${process.env.ENV}`,
   baseId: 'Todoy-API',
-  apiLambda: TodoyTasks.apiLambda
+  tasksLambdaArn: TodoyTasks.apiLambdaArn
 })

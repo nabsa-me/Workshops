@@ -10,11 +10,11 @@ import {
   Stage,
   UsagePlan
 } from 'aws-cdk-lib/aws-apigateway'
-import { IFunction } from 'aws-cdk-lib/aws-lambda'
+import { Function } from 'aws-cdk-lib/aws-lambda'
 
 interface ITodoyApiStackProps extends StackProps {
   baseId: string
-  apiLambda: IFunction
+  tasksLambdaArn: string
 }
 
 export class TodoyApiStack extends Stack {
@@ -53,7 +53,8 @@ export class TodoyApiStack extends Stack {
 
     apiUsagePlan.addApiKey(apiKey)
 
-    const tasksLambdaIntegration = new LambdaIntegration(props.apiLambda)
+    const tasksLambdaFunction = Function.fromFunctionArn(this, 'TasksLambdaFunction', props.tasksLambdaArn)
+    const tasksLambdaIntegration = new LambdaIntegration(tasksLambdaFunction)
 
     const tasksApi = api.root.addResource('tasks')
     tasksApi.addMethod('GET', tasksLambdaIntegration, { apiKeyRequired: true })

@@ -1,5 +1,5 @@
 import { App, Stack, StackProps } from 'aws-cdk-lib'
-import { Architecture, CfnAlias, IFunction, Runtime } from 'aws-cdk-lib/aws-lambda'
+import { Architecture, CfnAlias, Runtime } from 'aws-cdk-lib/aws-lambda'
 import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs'
 import path from 'path'
 
@@ -8,7 +8,7 @@ interface ITodoyStackProps extends StackProps {
 }
 
 export class TodoyTasksStack extends Stack {
-  public readonly apiLambda: IFunction
+  public readonly apiLambdaArn: string
 
   constructor(scope: App, id: string, props: ITodoyStackProps) {
     super(scope, id, props)
@@ -34,6 +34,6 @@ export class TodoyTasksStack extends Stack {
       functionVersion: aliasVersion
     })
 
-    this.apiLambda = lambda
+    this.apiLambdaArn = `${lambda.functionArn}:${stage}`
   }
 }

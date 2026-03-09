@@ -1,5 +1,6 @@
-export const handler = async (event: Record<string, any>) => {
-  console.log(event)
+export const handler = async (event: Record<string, any>, context: any) => {
+  console.log('EVENT', event)
+  console.log('CONTEXT', context)
 
   console.log('HELLO WORLD')
 
