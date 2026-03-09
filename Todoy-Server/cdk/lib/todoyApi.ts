@@ -26,7 +26,7 @@ export class TodoyApiStack extends Stack {
     const environment = process.env.ENV
 
     const api = new RestApi(this, `${baseId}-API-${environment}`, {
-      restApiName: `${baseId}-RestApi`,
+      restApiName: `${baseId}-RestApi-${environment}`,
       description: 'Todoy Rest Api Service',
       endpointConfiguration: { types: [EndpointType.EDGE] },
       defaultCorsPreflightOptions: { allowOrigins: Cors.ALL_ORIGINS, allowMethods: Cors.ALL_METHODS },
