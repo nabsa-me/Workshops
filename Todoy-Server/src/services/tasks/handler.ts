@@ -42,6 +42,6 @@ export const handler = async (event: Record<string, any>, context: any) => {
 
     return lambdaResponseHandler(result, processEvent)
   } catch (error: any) {
-    throw new Error(`FATAL ERROR AT at ${String(processEvent.functionName).toUpperCase()}`, error)
+    throw Error(`FATAL ERROR AT at ${String(processEvent.functionName).toUpperCase()}`, error)
   }
 }
