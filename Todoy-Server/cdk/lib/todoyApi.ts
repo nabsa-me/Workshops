@@ -63,5 +63,8 @@ export class TodoyApiStack extends Stack {
 
     const tasksApi = api.root.addResource('tasks')
     tasksApi.addMethod('GET', tasksLambdaIntegration, { apiKeyRequired: true })
+    tasksApi.addMethod('PATCH', tasksLambdaIntegration, { apiKeyRequired: true })
+    tasksApi.addMethod('POST', tasksLambdaIntegration, { apiKeyRequired: true })
+    tasksApi.addMethod('DELETE', tasksLambdaIntegration, { apiKeyRequired: true })
   }
 }
