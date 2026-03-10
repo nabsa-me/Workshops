@@ -5,6 +5,7 @@ export const getProcessEvent = ({ event, context }: { context: any; event: any }
     httpMethod: event.httpMethod,
     queryStringParameters: event.queryStringParameters,
     multiValueQueryStringParameters: event.multiValueQueryStringParameters,
+    pathParameters: event.pathParameters,
     requestContext: { stage: event.requestContext.stage },
     body: event.body,
     functionName: context.functionName

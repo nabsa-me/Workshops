@@ -1,5 +1,6 @@
-import { getProcessEvent } from './helpers/eventManager'
-import { lambdaResponseHandler } from './helpers/responseManager'
+import { getProcessEvent } from '../../helpers/eventManager'
+import { lambdaResponseHandler } from '../../helpers/responseManager'
+import { getTasks, updateTask, createTask, deleteTask } from './methods/tasksMethods'
 
 export const handler = async (event: Record<string, any>, context: any) => {
   const processEvent = getProcessEvent({ event, context })
@@ -11,23 +12,23 @@ export const handler = async (event: Record<string, any>, context: any) => {
   try {
     switch (httpMethod) {
       case 'GET':
-        console.log('GET TASKS')
-        result = { message: 'GET TASKS', event: processEvent, code: 200 }
+        const getTasksResponse = await getTasks(event.queryStringParameters)
+        result = { message: 'GET TASKS', code: 200, response: getTasksResponse }
         break
 
       case 'PATCH':
-        console.log('PATCH TASKS')
-        result = { message: 'PATCH TASKS', event: processEvent, code: 200 }
+        await updateTask(event.body)
+        result = { message: 'PATCH TASKS', code: 200 }
         break
 
       case 'POST':
-        console.log('POST TASKS')
-        result = { message: 'POST TASKS', event: processEvent, code: 200 }
+        await createTask(event.body)
+        result = { message: 'POST TASKS', code: 200 }
         break
 
       case 'DELETE':
-        console.log('DELETE TASKS')
-        result = { message: 'DELETE TASKS', event: processEvent, code: 200 }
+        await deleteTask(event.pathParameters)
+        result = { message: 'DELETE TASKS', code: 200 }
         break
 
       default:
@@ -35,12 +36,11 @@ export const handler = async (event: Record<string, any>, context: any) => {
           message: `Method ${String(httpMethod).toUpperCase()} not supported at ${String(
             processEvent.functionName
           ).toUpperCase()}`,
-          event: processEvent,
           code: 404
         }
     }
 
-    return lambdaResponseHandler(result)
+    return lambdaResponseHandler(result, processEvent)
   } catch (error: any) {
     throw new Error(`FATAL ERROR AT at ${String(processEvent.functionName).toUpperCase()}`, error)
   }
