@@ -2,7 +2,13 @@ import { App, CustomResource, Duration, RemovalPolicy, SecretValue, Stack, Stack
 import { Effect, PolicyStatement } from 'aws-cdk-lib/aws-iam'
 import { Architecture, Runtime } from 'aws-cdk-lib/aws-lambda'
 import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs'
-import { AuroraCapacityUnit, Credentials, DatabaseClusterEngine, ServerlessCluster } from 'aws-cdk-lib/aws-rds'
+import {
+  AuroraCapacityUnit,
+  AuroraPostgresEngineVersion,
+  Credentials,
+  DatabaseClusterEngine,
+  ServerlessCluster
+} from 'aws-cdk-lib/aws-rds'
 import { Provider } from 'aws-cdk-lib/custom-resources'
 import path from 'path'
 
@@ -23,7 +29,7 @@ export class TodoyDBStack extends Stack {
 
     const auroraCluster = new ServerlessCluster(this, `${baseId}-AuroraCluster-${environment}`, {
       clusterIdentifier: `${baseId}-AuroraCluster-${environment}`,
-      engine: DatabaseClusterEngine.AURORA_POSTGRESQL,
+      engine: DatabaseClusterEngine.auroraPostgres({ version: AuroraPostgresEngineVersion.VER_13_23 }),
       defaultDatabaseName: `${baseId}-${environment}`,
       enableDataApi: false,
       credentials: Credentials.fromPassword(dbUser, SecretValue.unsafePlainText(dbPassword)),
