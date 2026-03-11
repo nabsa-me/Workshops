@@ -1,12 +1,9 @@
-import { App, Stack, StackProps } from 'aws-cdk-lib'
+import { App, Stack } from 'aws-cdk-lib'
 import { Architecture, CfnAlias, Runtime } from 'aws-cdk-lib/aws-lambda'
 import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs'
 import { Table, BillingMode, AttributeType } from 'aws-cdk-lib/aws-dynamodb'
 import path from 'path'
-
-interface ITodoyStackProps extends StackProps {
-  baseId: string
-}
+import { ITodoyStackProps } from '../types'
 
 export class TodoyTasksStack extends Stack {
   public readonly apiLambdaArn: string

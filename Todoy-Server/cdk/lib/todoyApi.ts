@@ -1,4 +1,4 @@
-import { App, Stack, StackProps } from 'aws-cdk-lib'
+import { App, Stack } from 'aws-cdk-lib'
 import {
   ApiKey,
   ApiKeySourceType,
@@ -10,14 +10,10 @@ import {
 } from 'aws-cdk-lib/aws-apigateway'
 import { ServicePrincipal } from 'aws-cdk-lib/aws-iam'
 import { Function } from 'aws-cdk-lib/aws-lambda'
-
-interface ITodoyApiStackProps extends StackProps {
-  baseId: string
-  tasksLambdaArn: string
-}
+import { ITodoyStackProps } from '../types'
 
 export class TodoyApiStack extends Stack {
-  constructor(scope: App, id: string, props: ITodoyApiStackProps) {
+  constructor(scope: App, id: string, props: ITodoyStackProps) {
     super(scope, id, props)
 
     const baseId = props.baseId
@@ -49,7 +45,7 @@ export class TodoyApiStack extends Stack {
     apiUsagePlan.addApiKey(apiKey)
 
     const tasksLambdaFunction = Function.fromFunctionAttributes(this, 'TasksLambdaFunction', {
-      functionArn: props.tasksLambdaArn,
+      functionArn: props.tasksLambdaArn!,
       sameEnvironment: true
     })
 
