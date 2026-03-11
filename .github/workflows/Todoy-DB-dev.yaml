@@ -6,6 +6,7 @@ on:
 env:
   AWS_REGION: eu-west-3
   ENV: dev
+  STAGE: latest
 
 jobs:
   deploy:
