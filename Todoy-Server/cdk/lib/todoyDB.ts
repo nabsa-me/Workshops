@@ -17,8 +17,6 @@ interface ITodoyStackProps extends StackProps {
 }
 
 export class TodoyDBStack extends Stack {
-  public readonly apiLambdaArn: string
-
   constructor(scope: App, id: string, props: ITodoyStackProps) {
     super(scope, id, props)
 
