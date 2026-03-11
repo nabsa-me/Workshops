@@ -1,6 +1,7 @@
 import { App, Stack, StackProps } from 'aws-cdk-lib'
 import { Architecture, CfnAlias, Runtime } from 'aws-cdk-lib/aws-lambda'
 import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs'
+import { Table, BillingMode, AttributeType } from 'aws-cdk-lib/aws-dynamodb'
 import path from 'path'
 
 interface ITodoyStackProps extends StackProps {
@@ -17,6 +18,7 @@ export class TodoyTasksStack extends Stack {
     const stage = process.env.STAGE
     const environment = process.env.ENV
 
+    //#region LAMBDA
     const lambda = new NodejsFunction(this, `${baseId}-Lambda-${environment}`, {
       functionName: `${baseId}-Lambda-${environment}`,
       runtime: Runtime.NODEJS_22_X,
@@ -35,5 +37,18 @@ export class TodoyTasksStack extends Stack {
     })
 
     this.apiLambdaArn = `${lambda.functionArn}:${stage}`
+    //#endregion
+
+    //#region DYNAMO DB
+    const tasksTable = new Table(this, `${baseId}-Table-${environment}`, {
+      tableName: `${baseId}-Table-${environment}`,
+      partitionKey: { name: 'id', type: AttributeType.NUMBER },
+      billingMode: BillingMode.PAY_PER_REQUEST
+    })
+
+    lambda.addEnvironment('TASKS_TABLE_NAME', tasksTable.tableName)
+
+    tasksTable.grantFullAccess(lambda)
+    //#endregion
   }
 }
