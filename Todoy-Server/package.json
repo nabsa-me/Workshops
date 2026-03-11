@@ -6,7 +6,8 @@
     "dev": "nodemon --watch src --watch local-server --exec ts-node local-server/server.ts",
     "build": "tsc",
     "start": "node dist/app.js",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "getTasks": "ts-node -e \"require('./src/services/tasks/handler').handler(require('./src/services/tasks/events/getTasks.json'), {})\""
   },
   "dependencies": {
     "aws-cdk-lib": "2.241.0",

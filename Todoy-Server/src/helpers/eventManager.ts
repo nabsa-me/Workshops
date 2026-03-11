@@ -26,7 +26,7 @@ export const getProcessEvent = ({
     pathParameters: event.pathParameters as pathParametersTypes,
     requestContext: { stage: event.requestContext?.stage as stageTypes },
     body: event.body as string | null,
-    functionName: context.functionName as string
+    functionName: (context?.functionName as string) || 'local-running-function'
   }
 
   return processEvent
