@@ -34,5 +34,3 @@ jobs:
       - name: Deploy CDK stack
         working-directory: ./Todoy-Server/cdk
         run: 'npx cdk deploy Todoy-Api-Stack-dev --require-approval never'
-        env: 
-          AWS_ACCOUNT_EMAIL: ${{vars.AWS_ACCOUNT_EMAIL}}
