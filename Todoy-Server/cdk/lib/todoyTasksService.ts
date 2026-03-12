@@ -23,7 +23,6 @@ export class TodoyTasksStack extends Stack {
       handler: 'handler',
       entry: path.join(__dirname, '../../src/services/tasks/handler.ts'),
       environment: {
-        AWS_REGION: process.env.AWS_REGION!,
         AWS_ACCESS_KEY: process.env.AWS_ACCESS_KEY!,
         AWS_ACCESS_SECRET: process.env.AWS_ACCESS_SECRET!
       }
