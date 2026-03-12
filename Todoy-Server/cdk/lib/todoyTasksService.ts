@@ -21,7 +21,12 @@ export class TodoyTasksStack extends Stack {
       runtime: Runtime.NODEJS_22_X,
       architecture: Architecture.ARM_64,
       handler: 'handler',
-      entry: path.join(__dirname, '../../src/services/tasks/handler.ts')
+      entry: path.join(__dirname, '../../src/services/tasks/handler.ts'),
+      environment: {
+        AWS_REGION: process.env.AWS_REGION!,
+        AWS_ACCESS_KEY: process.env.AWS_ACCESS_KEY!,
+        AWS_ACCESS_SECRET: process.env.AWS_ACCESS_SECRET!
+      }
     })
 
     const aliasVersion = stage === 'stage' ? lambda.currentVersion.version : '$LATEST'
