@@ -1,5 +1,4 @@
 import express, { Request, Response, NextFunction } from 'express'
-import { handler } from '../src/services/tasks/handler'
 import { APIGatewayProxyEvent, Context } from 'aws-lambda'
 import {
   httpMethodTypes,
@@ -12,6 +11,8 @@ import {
   resourceTypes,
   stageTypes
 } from '../src/types/lambdaTypes'
+import { lambdas } from './servicesIndex'
+import { serviceTypes } from '../src/types/servicesTypes'
 
 const router = express.Router()
 
@@ -19,7 +20,7 @@ const capitalize = (string: string) => string.charAt(0).toUpperCase() + string.s
 
 const lambdaHandler = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const serviceName = String(req.url).split('/')[1]
+    const serviceName = String(req.url).split('/')[1] as serviceTypes
     const formattedServiceName = capitalize(serviceName)
 
     const event: IExpressLambdaEvent = {
@@ -34,7 +35,7 @@ const lambdaHandler = async (req: Request, res: Response, next: NextFunction) =>
     }
     const context: IExpressLambdaContext = { functionName: `Todoy-${formattedServiceName}-Lambda-dev` }
 
-    const result = await handler(event as Partial<APIGatewayProxyEvent>, context as Partial<Context>)
+    const result = await lambdas[serviceName](event as Partial<APIGatewayProxyEvent>, context as Partial<Context>)
 
     res.status(result.statusCode || 200).send(result.body)
   } catch (error) {
