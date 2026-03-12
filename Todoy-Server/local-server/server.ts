@@ -1,9 +1,11 @@
 import express, { Application, Request, Response } from 'express'
 import routes from '../local-server/routes'
+import cors from 'cors'
 
 const app: Application = express()
 const PORT: number = Number(process.env.PORT) || 3030
 
+app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 

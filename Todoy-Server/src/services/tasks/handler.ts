@@ -30,7 +30,7 @@ export const handler = async (
       //   result = { message: 'GET TASKS', code: 200, response: tasks }
       //   break
 
-      // case 'PATCH':
+      // case 'PUT':
       //   await updateTask(processEvent.body)
       //   result = { message: 'PATCH TASKS', code: 200 }
       //   break
