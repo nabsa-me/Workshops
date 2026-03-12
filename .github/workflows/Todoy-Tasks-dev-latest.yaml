@@ -5,6 +5,8 @@ on:
 
 env:
   AWS_REGION: eu-west-3
+  AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
+  AWS_ACCESS_SECRET:  ${{ secrets.AWS_ACCESS_SECRET }}
   ENV: dev
   STAGE: latest
 
@@ -23,8 +25,8 @@ jobs:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
-          aws-secret-access-key: ${{ secrets.AWS_ACCESS_SECRET }}
+          aws-access-key-id: ${{ env.AWS_ACCESS_KEY }}
+          aws-secret-access-key: ${{ env.AWS_ACCESS_SECRET }}
           aws-region: ${{env.AWS_REGION}} 
       
       - name: Install packages
@@ -34,3 +36,7 @@ jobs:
       - name: Deploy CDK stack
         working-directory: ./Todoy-Server/cdk
         run: 'npx cdk deploy Todoy-Tasks-Stack-dev --require-approval never'
+        env: 
+          AWS_REGION: ${{env.AWS_REGION}}
+          AWS_ACCESS_KEY: ${{ env.AWS_ACCESS_KEY }}
+          AWS_ACCESS_SECRET:  ${{ env.AWS_ACCESS_SECRET }}

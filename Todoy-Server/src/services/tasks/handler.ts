@@ -12,6 +12,8 @@ export const handler = async (
   context: Partial<Context>
 ): Promise<APIGatewayProxyResult> => {
   const processEvent = getProcessEvent({ event, context })
+  console.log('TASKS HANDLER EVENT >>>>>>>>>>', processEvent)
+
   const bodyObject = processEvent.body !== null ? getBodyObject(processEvent.body!) : null
 
   const httpMethod: httpMethod =
@@ -20,8 +22,6 @@ export const handler = async (
       : null
 
   let result: ILambdaResult
-
-  console.log('TASKS HANDLER EVENT >>>>>>>>>>', processEvent)
 
   try {
     switch (httpMethod) {
