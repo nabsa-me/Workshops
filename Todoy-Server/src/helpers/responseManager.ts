@@ -10,6 +10,11 @@ export const lambdaResponseHandler = (result: ILambdaResult, event: IProcessEven
 
   return {
     statusCode: result.code,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Headers': 'Content-Type,x-api-key',
+      'Access-Control-Allow-Methods': 'OPTIONS,POST,GET,PUT,DELETE'
+    },
     body: JSON.stringify(bodyObject)
   }
 }
