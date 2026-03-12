@@ -1,13 +1,13 @@
-import { DynamoDBClient, PutItemCommand, PutItemCommandInput } from '@aws-sdk/client-dynamodb'
+import { DynamoDBClient, DynamoDBServiceException, PutItemCommand, PutItemCommandInput } from '@aws-sdk/client-dynamodb'
 import { marshall } from '@aws-sdk/util-dynamodb'
 import { awsConfig } from '../awsConfig'
 import { asyncResponse } from '../../helpers/responseManager'
-import { entityTypes } from '../../types/servicesTypes'
+import { IDynamoRequestProps } from './dynamoDBTypes'
 
 export class DynamoDBManager {
   private client = process.env.STAGE === 'local' ? new DynamoDBClient(awsConfig) : new DynamoDBClient()
 
-  async createItem<T extends Record<string, any>>(tableName: string, item: T, entity: entityTypes) {
+  async createItem<T extends Record<string, any>>({ tableName, item, entity }: IDynamoRequestProps<T>) {
     const params: PutItemCommandInput = {
       TableName: tableName,
       Item: marshall(item)
@@ -15,12 +15,13 @@ export class DynamoDBManager {
 
     try {
       await this.client.send(new PutItemCommand(params))
-      return asyncResponse(`Create item SUCCESS. ${entity}: ${item.id}`, 200)
+      return asyncResponse({ message: `Create item SUCCESS. ${entity}: ${item.id}`, code: 200 })
     } catch (error) {
-      const message = `Error creating item at DynamoDbManager. ERROR: ${error}`
-      console.error(message)
+      const err = error as DynamoDBServiceException
+      const message = `Error creating item at DynamoDbManager. ERROR: ${err.message}`
 
-      return asyncResponse(message, 500)
+      console.error(message)
+      return asyncResponse({ message, code: err?.$metadata?.httpStatusCode || 500, error: err })
     }
   }
 }

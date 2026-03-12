@@ -6,6 +6,6 @@ export class TasksTable {
   private tableName = `Todoy-Tasks-Table-${process.env.ENV}`
 
   async createTask(task: ITask) {
-    return await this.dynamoDB.createItem(this.tableName, task, 'task')
+    return await this.dynamoDB.createItem({ tableName: this.tableName, item: task, entity: 'task' })
   }
 }

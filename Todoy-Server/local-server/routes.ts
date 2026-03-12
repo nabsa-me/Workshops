@@ -30,7 +30,7 @@ const lambdaHandler = async (req: Request, res: Response, next: NextFunction) =>
       multiValueQueryStringParameters: req.query as multiValueQueryStringParametersTypes,
       pathParameters: req.params as pathParametersTypes,
       requestContext: { stage: 'local' as stageTypes },
-      body: req.body
+      body: JSON.stringify(req.body)
     }
     const context: IExpressLambdaContext = { functionName: `Todoy-${formattedServiceName}-Lambda-dev` }
 

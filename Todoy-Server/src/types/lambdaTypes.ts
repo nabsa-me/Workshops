@@ -1,3 +1,4 @@
+import { DynamoDBServiceException } from '@aws-sdk/client-dynamodb'
 import { APIGatewayProxyEvent } from 'aws-lambda'
 
 export const HTTP_METHODS = ['GET', 'PATCH', 'POST', 'DELETE', 'PUT', 'HEAD', 'ANY'] as const
@@ -40,9 +41,9 @@ export interface IProcessEvent {
   functionName: string
 }
 
-export type codeTypes = 200 | 400 | 404 | 500
 export interface ILambdaResult {
   message: string
-  code: codeTypes
-  response?: Record<string, any>
+  code: number
+  response?: Record<string, any> | undefined
+  error?: Record<string, any> | undefined | DynamoDBServiceException
 }
