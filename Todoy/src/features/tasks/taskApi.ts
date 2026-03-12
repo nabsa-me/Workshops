@@ -9,9 +9,9 @@ export const getTasks = async (): Promise<ITask[]> => {
 
 export const createTask = async (task: ITask): Promise<void> => {
   try {
-    const response = await axios.post('https://se7jbr5zg3.execute-api.eu-west-3.amazonaws.com/latest/tasks', task, {
+    const response = await axios.post('https://j2n7d1vffc.execute-api.eu-west-3.amazonaws.com/latest/tasks', task, {
       headers: {
-        'x-api-key': 'EJ92W6LXOZ7Qgi45UFgZK5KC5i37nDrR9g8wZd59'
+        'x-api-key': process.env.TODOY_API_KEY
       }
     })
 
