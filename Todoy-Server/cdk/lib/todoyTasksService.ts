@@ -21,7 +21,8 @@ export class TodoyTasksStack extends Stack {
       runtime: Runtime.NODEJS_22_X,
       architecture: Architecture.ARM_64,
       handler: 'handler',
-      entry: path.join(__dirname, '../../src/services/tasks/handler.ts')
+      entry: path.join(__dirname, '../../src/services/tasks/handler.ts'),
+      environment: { ENV: process.env.ENV! }
     })
 
     const aliasVersion = stage === 'stage' ? lambda.currentVersion.version : '$LATEST'
