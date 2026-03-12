@@ -1,17 +1,22 @@
 import { APIGatewayProxyEvent } from 'aws-lambda'
 
+export const HTTP_METHODS = ['GET', 'PATCH', 'POST', 'DELETE', 'PUT', 'HEAD', 'ANY'] as const
+
 export type resourceTypes = '/task' | '/users'
 export type pathTypes = '/task' | '/users'
-export type httpMethodTypes = 'GET' | 'PATCH' | 'POST' | 'DELETE'
 export type stageTypes = 'latest' | 'stage' | 'prod'
 export type queryStringParametersTypes = Record<string, string>
 export type multiValueQueryStringParametersTypes = Record<string, string[]>
 export type pathParametersTypes = Record<string, string>
+export type bodyObjectTypes = Record<string, any>
+
+export type httpMethodTypes = (typeof HTTP_METHODS)[number]
+export type httpMethod = httpMethodTypes | null
 
 export interface IExpressLambdaEvent {
   resource: resourceTypes
   path: pathTypes
-  httpMethod: httpMethodTypes
+  httpMethod: httpMethod
   queryStringParameters: queryStringParametersTypes
   multiValueQueryStringParameters: multiValueQueryStringParametersTypes
   pathParameters: pathParametersTypes
@@ -35,8 +40,9 @@ export interface IProcessEvent {
   functionName: string
 }
 
+export type codeTypes = 200 | 400 | 404 | 500
 export interface ILambdaResult {
   message: string
-  code: 200 | 400 | 404 | 500
+  code: codeTypes
   response?: Record<string, any>
 }
