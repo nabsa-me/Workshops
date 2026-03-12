@@ -2,6 +2,7 @@ import { App, Stack } from 'aws-cdk-lib'
 import {
   ApiKey,
   ApiKeySourceType,
+  Cors,
   EndpointType,
   LambdaIntegration,
   RestApi,
@@ -23,6 +24,7 @@ export class TodoyApiStack extends Stack {
       restApiName: `${baseId}-RestApi-${environment}`,
       description: 'Todoy Rest Api Service',
       endpointConfiguration: { types: [EndpointType.EDGE] },
+      defaultCorsPreflightOptions: { allowOrigins: Cors.ALL_ORIGINS, allowMethods: Cors.ALL_METHODS },
       apiKeySourceType: ApiKeySourceType.HEADER,
       cloudWatchRole: false,
       deploy: true,
