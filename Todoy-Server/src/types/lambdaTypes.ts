@@ -4,7 +4,7 @@ export const HTTP_METHODS = ['GET', 'PATCH', 'POST', 'DELETE', 'PUT', 'HEAD', 'A
 
 export type resourceTypes = '/task' | '/users'
 export type pathTypes = '/task' | '/users'
-export type stageTypes = 'latest' | 'stage' | 'prod'
+export type stageTypes = 'latest' | 'stage' | 'prod' | 'local'
 export type queryStringParametersTypes = Record<string, string>
 export type multiValueQueryStringParametersTypes = Record<string, string[]>
 export type pathParametersTypes = Record<string, string>

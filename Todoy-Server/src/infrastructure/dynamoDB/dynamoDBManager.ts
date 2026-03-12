@@ -5,7 +5,7 @@ import { asyncResponse } from '../../helpers/responseManager'
 import { entityTypes } from '../../types/servicesTypes'
 
 export class DynamoDBManager {
-  private client = new DynamoDBClient(awsConfig)
+  private client = process.env.STAGE === 'local' ? new DynamoDBClient(awsConfig) : new DynamoDBClient()
 
   async createItem<T extends Record<string, any>>(tableName: string, item: T, entity: entityTypes) {
     const params: PutItemCommandInput = {
