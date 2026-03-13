@@ -4,6 +4,7 @@ import { useShallow } from 'zustand/react/shallow'
 export const useTasks = () => {
   const {
     tasks,
+    storeTask,
     loadTasks,
     createTask,
     updateTask,
@@ -16,6 +17,7 @@ export const useTasks = () => {
   } = useTasksStore(
     useShallow((state) => ({
       tasks: state.tasks,
+      storeTask: state.storeTaskSelector,
       loadTasks: state.loadTasksSelector,
       createTask: state.createTaskSelector,
       updateTask: state.updateTaskSelector,
@@ -32,6 +34,7 @@ export const useTasks = () => {
 
   return {
     tasks,
+    storeTask,
     createTask,
     updateTask,
     deleteTask,

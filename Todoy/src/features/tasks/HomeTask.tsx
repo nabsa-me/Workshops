@@ -10,7 +10,7 @@ const HomeTask = ({ task, autofocus, onBlur, onFocus, handleTaskSubmit }: IHomeT
   const taskRef = useRef<HTMLDivElement | null>(null)
   const inputRef = useRef<HTMLInputElement | null>(null)
   const { doneEffect } = useHooks()
-  const { updateTask } = useTasks()
+  const { updateTask, storeTask } = useTasks()
 
   useEffect(() => {
     if (autofocus) {
@@ -31,8 +31,7 @@ const HomeTask = ({ task, autofocus, onBlur, onFocus, handleTaskSubmit }: IHomeT
     return () => document.removeEventListener('mouseup', handleClickOutside)
   }, [])
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) =>
-    updateTask(task.id, { title: event.target.value })
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => updateTask(task, { title: event.target.value })
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -51,7 +50,8 @@ const HomeTask = ({ task, autofocus, onBlur, onFocus, handleTaskSubmit }: IHomeT
 
   const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
     setSelectedTask('')
-    if (event?.target.value.trim() !== '') updateTask(task.id, { title: task.title.trim() })
+    if (event?.target.value.trim() !== '') storeTask(task)
+
     onBlur?.()
   }
 
