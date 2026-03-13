@@ -58,10 +58,9 @@ export class TodoyApiStack extends Stack {
     const tasksLambdaIntegration = new LambdaIntegration(tasksLambdaFunction, { proxy: true })
 
     const tasksApi = api.root.addResource('tasks')
+    const taskProxy = tasksApi.addResource('{proxy+}')
 
-    tasksApi.addMethod('GET', tasksLambdaIntegration, { apiKeyRequired: true })
-    tasksApi.addMethod('PUT', tasksLambdaIntegration, { apiKeyRequired: true })
-    tasksApi.addMethod('POST', tasksLambdaIntegration, { apiKeyRequired: true })
-    tasksApi.addMethod('DELETE', tasksLambdaIntegration, { apiKeyRequired: true })
+    tasksApi.addMethod('ANY', tasksLambdaIntegration, { apiKeyRequired: true })
+    taskProxy.addMethod('ANY', tasksLambdaIntegration, { apiKeyRequired: true })
   }
 }
