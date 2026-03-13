@@ -1,5 +1,4 @@
-import { TasksTable } from '../../../infrastructure/dynamoDB/tasksTable'
-// import { pathParametersTypes, queryStringParametersTypes } from '../../../types/lambdaTypes'
+import { TasksManager } from './tasksManager'
 import { ITask } from '../tasksTypes'
 
 // export const getTasks = async (queryStringParameters: queryStringParametersTypes) => {
@@ -7,13 +6,22 @@ import { ITask } from '../tasksTypes'
 //   return queryStringParameters
 // }
 
-// export const updateTask = async (body: string | null) => {
-//   console.log('UPDATE TASK METHOD', body)
-// }
+export const createTask = async (task: Partial<ITask>) => {
+  const tasksManager = new TasksManager()
 
-export const createTask = async (task: ITask) => {
-  const tasksTable = new TasksTable()
-  return await tasksTable.createTask(task)
+  const date = new Date().toISOString()
+  const taskToCreate = { ...task, createdAt: date, updatedAt: date }
+
+  return await tasksManager.createTask(taskToCreate)
+}
+
+export const updateTask = async (task: Partial<ITask>) => {
+  const tasksManager = new TasksManager()
+
+  const date = new Date().toISOString()
+  const dataToUpdate = { ...task, updatedAt: date }
+
+  return await tasksManager.updateTask(dataToUpdate)
 }
 
 // export const deleteTask = async (pathParameters: pathParametersTypes) => {

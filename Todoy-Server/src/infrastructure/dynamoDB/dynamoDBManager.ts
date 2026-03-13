@@ -1,4 +1,11 @@
-import { DynamoDBClient, DynamoDBServiceException, PutItemCommand, PutItemCommandInput } from '@aws-sdk/client-dynamodb'
+import {
+  DynamoDBClient,
+  DynamoDBServiceException,
+  PutItemCommand,
+  PutItemCommandInput,
+  UpdateItemCommand,
+  UpdateItemCommandInput
+} from '@aws-sdk/client-dynamodb'
 import { marshall } from '@aws-sdk/util-dynamodb'
 import { awsConfig } from '../awsConfig'
 import { asyncResponse } from '../../helpers/responseManager'
@@ -19,6 +26,38 @@ export class DynamoDBManager {
     } catch (error) {
       const err = error as DynamoDBServiceException
       const message = `Error creating item at DynamoDbManager. ERROR: ${err.message}`
+
+      console.error(message)
+      return asyncResponse({ message, code: err?.$metadata?.httpStatusCode || 500, error: err })
+    }
+  }
+
+  async updateItem<T extends Record<string, any>>({ tableName, item, updateKeys, entity }: IDynamoRequestProps<T>) {
+    const ExpressionAttributeNames: Record<string, string> = {}
+    const ExpressionAttributeValues: Record<string, any> = {}
+
+    const updateExpressions = updateKeys?.map((key: string) => {
+      const attrName = `#${key}`
+      const attrValue = `:${key}`
+      ExpressionAttributeNames[attrName] = key
+      ExpressionAttributeValues[attrValue] = item[key]
+      return `${attrName} = ${attrValue}`
+    })
+
+    const params: UpdateItemCommandInput = {
+      TableName: tableName,
+      Key: marshall({ id: item.id }),
+      UpdateExpression: `SET ${updateExpressions?.join(', ')}`,
+      ExpressionAttributeNames,
+      ExpressionAttributeValues: marshall(ExpressionAttributeValues)
+    }
+
+    try {
+      await this.client.send(new UpdateItemCommand(params))
+      return asyncResponse({ message: `Update item SUCCESS. ${entity}: ${item.id}`, code: 200 })
+    } catch (error) {
+      const err = error as DynamoDBServiceException
+      const message = `Error updating item at DynamoDbManager. ERROR: ${err.message}`
 
       console.error(message)
       return asyncResponse({ message, code: err?.$metadata?.httpStatusCode || 500, error: err })

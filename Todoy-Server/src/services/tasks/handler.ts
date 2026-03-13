@@ -1,27 +1,33 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult, Context } from 'aws-lambda'
 import { getBodyObject, getProcessEvent } from '../../helpers/eventManager'
-import { lambdaResponseHandler } from '../../helpers/responseManager'
-// import { getTasks, updateTask, createTask, deleteTask } from './methods/tasksMethods'
-import { createTask } from './methods/tasksMethods'
+import { asyncResponse, lambdaResponseHandler } from '../../helpers/responseManager'
+import { createTask, updateTask } from './methods/tasksMethods'
 
 import { HTTP_METHODS, httpMethod, httpMethodTypes, ILambdaResult } from '../../types/lambdaTypes'
 import { ITask } from './tasksTypes'
+import { GENERIC_ERROR_MESSAGE } from '../../helpers/constants'
 
 export const handler = async (
   event: Partial<APIGatewayProxyEvent>,
   context: Partial<Context>
 ): Promise<APIGatewayProxyResult> => {
   const processEvent = getProcessEvent({ event, context })
-  console.log('TASKS HANDLER EVENT >>>>>>>>>>', processEvent)
-
   const bodyObject = processEvent.body !== null ? getBodyObject(processEvent.body!) : null
-
   const httpMethod: httpMethod =
     processEvent.httpMethod !== null && HTTP_METHODS.includes(processEvent.httpMethod as httpMethodTypes)
       ? (processEvent.httpMethod as httpMethodTypes)
       : null
 
   let result: ILambdaResult
+
+  if (!bodyObject?.data?.id) {
+    result = asyncResponse({
+      message: "ERROR DATA: Task must have an 'id'",
+      userMessage: GENERIC_ERROR_MESSAGE,
+      code: 400
+    })
+    return lambdaResponseHandler(result, processEvent)
+  }
 
   try {
     switch (httpMethod) {
@@ -30,13 +36,14 @@ export const handler = async (
       //   result = { message: 'GET TASKS', code: 200, response: tasks }
       //   break
 
-      // case 'PUT':
-      //   await updateTask(processEvent.body)
-      //   result = { message: 'PATCH TASKS', code: 200 }
-      //   break
-
       case 'POST':
-        result = await createTask(bodyObject as ITask)
+        result = await createTask(bodyObject!.data as Partial<ITask>)
+        if (result.code !== 200) result = { ...result, userMessage: 'Error creating task' }
+        break
+
+      case 'PUT':
+        result = await updateTask(bodyObject!.data as Partial<ITask>)
+        if (result.code !== 200) result = { ...result, userMessage: 'Error updating task' }
         break
 
       // case 'DELETE':
@@ -50,7 +57,7 @@ export const handler = async (
         ).toUpperCase()}`
 
         console.error(message)
-        result = { message, code: 404 }
+        result = { message, userMessage: GENERIC_ERROR_MESSAGE, code: 404 }
     }
 
     return lambdaResponseHandler(result, processEvent)

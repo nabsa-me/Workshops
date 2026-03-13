@@ -5,7 +5,8 @@ export const lambdaResponseHandler = (result: ILambdaResult, event: IProcessEven
     message: result.message,
     event,
     ...(result.response && { response: result.response }),
-    ...(result.error && { error: result.error })
+    ...(result.error && { error: result.error }),
+    ...(result.userMessage && { userMessage: result.userMessage })
   }
 
   return {

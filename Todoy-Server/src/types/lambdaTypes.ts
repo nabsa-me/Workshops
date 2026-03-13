@@ -46,4 +46,5 @@ export interface ILambdaResult {
   code: number
   response?: Record<string, any> | undefined
   error?: Record<string, any> | undefined | DynamoDBServiceException
+  userMessage?: string
 }

@@ -3,4 +3,6 @@ export interface ITask {
   title: string
   completed: boolean
   deleted: boolean
+  createdAt: string
+  updatedAt: string
 }
