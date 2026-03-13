@@ -2,6 +2,7 @@ import axios from 'axios'
 import { updateTaskSelectorUpdateType } from '../../app/store/tasksStore'
 import { tasks } from './tasksFile'
 import { ITask } from './tasksTypes'
+import { API_URL } from '../../shared/constants'
 
 export const getTasks = async (): Promise<ITask[]> => {
   return await tasks
@@ -9,9 +10,9 @@ export const getTasks = async (): Promise<ITask[]> => {
 
 export const createTask = async (task: ITask): Promise<void> => {
   try {
-    const response = await axios.post('https://j2n7d1vffc.execute-api.eu-west-3.amazonaws.com/latest/tasks', task, {
+    const response = await axios.post(`${API_URL}/tasks`, task, {
       headers: {
-        'x-api-key': process.env.TODOY_API_KEY
+        'x-api-key': process.env.API_KEY
       }
     })
 
