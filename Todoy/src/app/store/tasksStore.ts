@@ -80,40 +80,32 @@ export const useTasksStore = create<ITaskState>((set) => ({
     }
   },
 
-  createTaskSelector: async ({ title, id, index }) => {
-    try {
-      const newTask = {
-        id,
-        title,
-        completed: false,
-        deleted: false
-      }
+  createTaskSelector: ({ title, id, index }) => {
+    const newTask = {
+      id,
+      title,
+      completed: false,
+      deleted: false
+    }
 
-      if (index !== undefined) {
-        set((state) => {
-          const safeIndex = Math.max(0, Math.min(index, state.tasks.length))
-          return {
-            tasks: [...state.tasks.slice(0, safeIndex), newTask, ...state.tasks.slice(safeIndex)]
-          }
-        })
-      } else {
-        set((state) => ({
-          tasks: [newTask, ...state.tasks]
-        }))
-      }
-    } catch (err) {
-      set({ error: err })
+    if (index !== undefined) {
+      set((state) => {
+        const safeIndex = Math.max(0, Math.min(index, state.tasks.length))
+        return {
+          tasks: [...state.tasks.slice(0, safeIndex), newTask, ...state.tasks.slice(safeIndex)]
+        }
+      })
+    } else {
+      set((state) => ({
+        tasks: [newTask, ...state.tasks]
+      }))
     }
   },
 
-  updateTaskSelector: async (taskToUpdate, updates) => {
-    try {
-      set((state) => ({
-        tasks: state.tasks.map((task) => (task.id === taskToUpdate.id ? { ...task, ...updates } : task))
-      }))
-    } catch (err) {
-      set({ error: err })
-    }
+  updateTaskSelector: (taskToUpdate, updates) => {
+    set((state) => ({
+      tasks: state.tasks.map((task) => (task.id === taskToUpdate.id ? { ...task, ...updates } : task))
+    }))
   },
 
   storeTaskSelector: async (taskToStore) => {
