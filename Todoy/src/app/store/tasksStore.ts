@@ -54,7 +54,7 @@ export interface ITaskState {
   createTaskSelector: ({ title, id, index }: { title: string; id: number; index?: number }) => void
   updateTaskSelector: (task: ITask, updates: Partial<ITask>) => void
   completeTaskSelector: ({ id, isCompleted }: { id: number; isCompleted: boolean }) => void
-  deleteTaskSelector: (id: number) => void
+  deleteTaskSelector: ({ id, isDeleted }: { id: number; isDeleted: boolean }) => void
   cleanTaskSelector: (id: number) => void
   filterTaskSelector: (text: string) => void
 }
@@ -147,14 +147,21 @@ export const useTasksStore = create<ITaskState>((set) => ({
     }))
   },
 
-  deleteTaskSelector: async (id) => {
+  deleteTaskSelector: async ({ id, isDeleted }) => {
+    set((state) => ({
+      tasks: state.tasks.map((task) => (task.id === id ? { ...task, deleted: !task.deleted } : task))
+    }))
+
     try {
-      set((state) => ({
-        tasks: state.tasks.map((task) => (task.id === id ? { ...task, deleted: !task.deleted } : task))
-      }))
-    } catch (err: any) {
-      set({ error: err })
+      await updateTask({ id, keysToUpdate: { deleted: !isDeleted } })
+    } catch (error) {
+      const axiosError = error as AxiosError<{ userMessage: string }>
+      set({ error: axiosError.response?.data.userMessage })
     }
+
+    set((state) => ({
+      storedTasks: state.storedTasks.map((task) => (task.id === id ? { ...task, deleted: !task.deleted } : task))
+    }))
   },
 
   cleanTaskSelector: (id) => {

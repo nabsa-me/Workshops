@@ -50,7 +50,7 @@ export const DeleteButton = ({ icon, doneTask, task, setDoneTask }: IDeleteButto
     }
 
     setDoneTask(doneTask === 'undone' ? '' : 'undone')
-    setTimeout(() => deleteTask(task.id), 750)
+    setTimeout(() => deleteTask({ id: task.id, isDeleted: task.deleted }), 750)
     setDoneEffect(doneEffect - 1)
   }
 
