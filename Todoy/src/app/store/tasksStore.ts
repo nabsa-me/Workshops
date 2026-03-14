@@ -1,32 +1,44 @@
 import { create } from 'zustand'
 import { ITask } from '../../features/tasks/tasksTypes'
-import { cleanTask, completeTask, createTask, deleteTask, getTasks, updateTask } from '../../features/tasks/taskApi'
+import { cleanTask, createTask, deleteTask, getTasks, updateTask } from '../../features/tasks/taskApi'
 
-function deepEqual(a: any, b: any): boolean {
-  if (a === b) return true
+function deepEqual(oldObj: any, newObj: any): Record<string, any> | boolean {
+  if (oldObj === newObj) return false
+  if (typeof oldObj !== typeof newObj) return { changedTo: newObj }
+  if (typeof oldObj !== 'object' || oldObj === null || newObj === null) return { changedTo: newObj }
 
-  if (typeof a !== typeof b) return false
-  if (typeof a !== 'object' || a === null || b === null) return false
-
-  if (Array.isArray(a) !== Array.isArray(b)) return false
-  if (Array.isArray(a)) {
-    if (a.length !== b.length) return false
-    for (let i = 0; i < a.length; i++) {
-      if (!deepEqual(a[i], b[i])) return false
+  if (Array.isArray(oldObj) !== Array.isArray(newObj)) return { changedTo: newObj }
+  if (Array.isArray(oldObj)) {
+    if (oldObj.length !== newObj.length) return { changedTo: newObj }
+    for (let i = 0; i < oldObj.length; i++) {
+      const elementDiff = deepEqual(oldObj[i], newObj[i])
+      if (elementDiff) return { changedTo: newObj }
     }
-    return true
+    return false
   }
 
-  const keysA = Object.keys(a)
-  const keysB = Object.keys(b)
-  if (keysA.length !== keysB.length) return false
+  const allKeys = Array.from(new Set([...Object.keys(oldObj), ...Object.keys(newObj)]))
+  const changes: Record<string, any> = {}
 
-  for (const key of keysA) {
-    if (!keysB.includes(key)) return false
-    if (!deepEqual(a[key], b[key])) return false
+  for (const key of allKeys) {
+    if (!(key in oldObj)) {
+      changes[key] = newObj[key]
+      continue
+    }
+    if (!(key in newObj)) {
+      changes[key] = undefined
+    }
+
+    const valueDiff = deepEqual(oldObj[key], newObj[key])
+    if (valueDiff) {
+      changes[key] =
+        typeof valueDiff === 'object' && !Array.isArray(valueDiff) && 'changedTo' in valueDiff
+          ? valueDiff.changedTo
+          : valueDiff
+    }
   }
 
-  return true
+  return Object.keys(changes).length > 0 ? changes : false
 }
 
 export interface ITaskState {
@@ -39,7 +51,7 @@ export interface ITaskState {
   loadTasksSelector: () => Promise<void>
   createTaskSelector: ({ title, id, index }: { title: string; id: number; index?: number }) => void
   updateTaskSelector: (task: ITask, updates: Partial<ITask>) => void
-  completeTaskSelector: (id: number) => void
+  completeTaskSelector: (task: ITask) => void
   deleteTaskSelector: (id: number) => void
   cleanTaskSelector: (id: number) => void
   filterTaskSelector: (text: string) => void
@@ -107,13 +119,14 @@ export const useTasksStore = create<ITaskState>((set) => ({
   storeTaskSelector: async (taskToStore) => {
     const { storedTasks } = useTasksStore.getState()
     const existing = storedTasks.find((task) => task.id === taskToStore.id)
+    const keysToUpdate = deepEqual(existing, taskToStore)
 
     try {
-      if (existing && deepEqual(existing, taskToStore)) {
-        return
-      }
+      if (existing && !keysToUpdate) return
+
       if (existing) {
-        await updateTask(taskToStore)
+        const keys = keysToUpdate as Partial<ITask>
+        await updateTask({ ...keys, id: taskToStore.id })
         set((state) => ({
           storedTasks: state.storedTasks.map((task) => (task.id === taskToStore.id ? taskToStore : task))
         }))
@@ -128,15 +141,23 @@ export const useTasksStore = create<ITaskState>((set) => ({
     }
   },
 
-  completeTaskSelector: async (id) => {
+  completeTaskSelector: async (task) => {
+    const newTask = { id: task.id, completed: !task.completed }
+    set((state) => ({
+      tasks: state.tasks.map((task) => (task.id === newTask.id ? { ...task, completed: !task.completed } : task))
+    }))
+
     try {
-      await completeTask(id)
-      set((state) => ({
-        tasks: state.tasks.map((task) => (task.id === id ? { ...task, completed: !task.completed } : task))
-      }))
+      await updateTask(newTask)
     } catch (err) {
       set({ error: err })
     }
+
+    set((state) => ({
+      storedTasks: state.storedTasks.map((task) =>
+        task.id === newTask.id ? { ...task, completed: !task.completed } : task
+      )
+    }))
   },
 
   deleteTaskSelector: async (id) => {

@@ -35,10 +35,6 @@ export const updateTask = async (task: Partial<ITask>): Promise<void> => {
   }
 }
 
-export const completeTask = async (id: number): Promise<void> => {
-  console.log('backend complete', id)
-}
-
 export const deleteTask = async (id: number): Promise<void> => {
   console.log('backend delete', id)
 }

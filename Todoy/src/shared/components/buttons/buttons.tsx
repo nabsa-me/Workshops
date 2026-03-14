@@ -9,13 +9,13 @@ export const TaskButton = ({ setDoneTask, doneTask, status, task }: ITaskButtonP
 
   const handleClick = () => {
     if (task.deleted) {
-      setTimeout(() => completeTask(task.id), 350)
+      setTimeout(() => completeTask(task), 350)
       return
     }
 
     if (task.completed) {
       setDoneTask(doneTask === 'undone' ? '' : 'undone')
-      setTimeout(() => completeTask(task.id), 350)
+      setTimeout(() => completeTask(task), 350)
       return
     }
 
@@ -26,7 +26,7 @@ export const TaskButton = ({ setDoneTask, doneTask, status, task }: ITaskButtonP
     }
 
     setDoneTask(doneTask === 'done' ? '' : 'done')
-    setTimeout(() => completeTask(task.id), 750)
+    setTimeout(() => completeTask(task), 750)
     setDoneEffect(doneEffect - 1)
   }
 
