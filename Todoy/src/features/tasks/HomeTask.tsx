@@ -51,7 +51,6 @@ const HomeTask = ({ task, autofocus, onBlur, onFocus, handleTaskSubmit }: IHomeT
   const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
     setSelectedTask('')
     if (event?.target.value.trim() !== '') storeTask(task)
-
     onBlur?.()
   }
 

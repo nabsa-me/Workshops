@@ -15,13 +15,12 @@ export const createTask = async (task: Partial<ITask>) => {
   return await tasksManager.createTask(taskToCreate)
 }
 
-export const updateTask = async (task: Partial<ITask>) => {
+export const updateTask = async ({ id, keysToUpdate }: { id: number; keysToUpdate: Partial<ITask> }) => {
   const tasksManager = new TasksManager()
 
   const date = new Date().toISOString()
-  const dataToUpdate = { ...task, updatedAt: date }
-
-  return await tasksManager.updateTask(dataToUpdate)
+  const dataToUpdate = { ...keysToUpdate, updatedAt: date }
+  return await tasksManager.updateTask({ id, keysToUpdate: dataToUpdate })
 }
 
 // export const deleteTask = async (pathParameters: pathParametersTypes) => {

@@ -21,10 +21,10 @@ export const createTask = async (task: ITask): Promise<void> => {
   }
 }
 
-export const updateTask = async (task: Partial<ITask>): Promise<void> => {
+export const updateTask = async ({ id, keysToUpdate }: { id: number; keysToUpdate: Partial<ITask> }): Promise<void> => {
   try {
     await axios.put(`${API_URL}/tasks`, {
-      data: task,
+      data: { id, keysToUpdate },
       headers: {
         'x-api-key': process.env.API_KEY
       }

@@ -3,7 +3,7 @@ import { ITask } from '../../features/tasks/tasksTypes'
 import { cleanTask, createTask, deleteTask, getTasks, updateTask } from '../../features/tasks/taskApi'
 import { NEW_TASK_TEMPLATE } from '../../shared/constants'
 
-function deepEqual(oldObj: any, newObj: any): Record<string, any> | boolean {
+function deepEqual(oldObj: any, newObj: any): Record<string, any> | false {
   if (oldObj === newObj) return false
   if (typeof oldObj !== typeof newObj) return { changedTo: newObj }
   if (typeof oldObj !== 'object' || oldObj === null || newObj === null) return { changedTo: newObj }
@@ -52,7 +52,7 @@ export interface ITaskState {
   loadTasksSelector: () => Promise<void>
   createTaskSelector: ({ title, id, index }: { title: string; id: number; index?: number }) => void
   updateTaskSelector: (task: ITask, updates: Partial<ITask>) => void
-  completeTaskSelector: (task: ITask) => void
+  completeTaskSelector: ({ id, isCompleted }: { id: number; isCompleted: boolean }) => void
   deleteTaskSelector: (id: number) => void
   cleanTaskSelector: (id: number) => void
   filterTaskSelector: (text: string) => void
@@ -112,9 +112,8 @@ export const useTasksStore = create<ITaskState>((set) => ({
     try {
       if (existing && !keysToUpdate) return
 
-      if (existing) {
-        const keys = keysToUpdate as Partial<ITask>
-        await updateTask({ ...keys, id: taskToStore.id })
+      if (existing && keysToUpdate) {
+        await updateTask({ keysToUpdate, id: taskToStore.id })
         set((state) => ({
           storedTasks: state.storedTasks.map((task) => (task.id === taskToStore.id ? taskToStore : task))
         }))
@@ -129,22 +128,19 @@ export const useTasksStore = create<ITaskState>((set) => ({
     }
   },
 
-  completeTaskSelector: async (task) => {
-    const newTask = { id: task.id, completed: !task.completed }
+  completeTaskSelector: async ({ id, isCompleted }) => {
     set((state) => ({
-      tasks: state.tasks.map((task) => (task.id === newTask.id ? { ...task, completed: !task.completed } : task))
+      tasks: state.tasks.map((task) => (task.id === id ? { ...task, completed: !task.completed } : task))
     }))
 
     try {
-      await updateTask(newTask)
+      await updateTask({ id, keysToUpdate: { completed: !isCompleted } })
     } catch (err) {
       set({ error: err })
     }
 
     set((state) => ({
-      storedTasks: state.storedTasks.map((task) =>
-        task.id === newTask.id ? { ...task, completed: !task.completed } : task
-      )
+      storedTasks: state.storedTasks.map((task) => (task.id === id ? { ...task, completed: !task.completed } : task))
     }))
   },
 

@@ -11,14 +11,7 @@ export class TasksManager {
     return await this.dynamoDB.createItem({ tableName: this.tableName, item: task, entity: this.entity })
   }
 
-  async updateTask(task: Partial<ITask>) {
-    const updateKeys = Object.keys(task).filter((key) => key !== 'id' && key !== 'createdAt')
-
-    return await this.dynamoDB.updateItem({
-      tableName: this.tableName,
-      item: task,
-      updateKeys,
-      entity: this.entity
-    })
+  async updateTask({ id, keysToUpdate }: { id: number; keysToUpdate: Partial<ITask> }) {
+    return await this.dynamoDB.updateItem({ tableName: this.tableName, item: id, keysToUpdate, entity: this.entity })
   }
 }

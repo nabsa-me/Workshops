@@ -42,7 +42,9 @@ export const handler = async (
         break
 
       case 'PUT':
-        result = await updateTask(bodyObject!.data as Partial<ITask>)
+        const { id, keysToUpdate }: { id: number; keysToUpdate: Partial<ITask> } = { ...bodyObject.data }
+        result = await updateTask({ id, keysToUpdate })
+
         if (result.code !== 200) result = { ...result, userMessage: 'Error updating task' }
         break
 
