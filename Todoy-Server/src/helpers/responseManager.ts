@@ -20,6 +20,6 @@ export const lambdaResponseHandler = (result: ILambdaResult, event: IProcessEven
   }
 }
 
-export const asyncResponse = ({ message, code, response, error }: ILambdaResult) => {
-  return { message, code, response, error }
+export const asyncResponse = ({ message, code, response, error, userMessage }: ILambdaResult) => {
+  return { message, code, response, error, userMessage }
 }

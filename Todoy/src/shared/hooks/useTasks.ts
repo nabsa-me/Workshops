@@ -13,7 +13,8 @@ export const useTasks = () => {
     completeTask,
     cleanTask,
     filter,
-    filterText
+    filterText,
+    error
   } = useTasksStore(
     useShallow((state) => ({
       tasks: state.tasks,
@@ -26,7 +27,8 @@ export const useTasks = () => {
       cleanTask: state.cleanTaskSelector,
       isLoading: state.isLoading,
       filter: state.filterTaskSelector,
-      filterText: state.filterText
+      filterText: state.filterText,
+      error: state.error
     }))
   )
 
@@ -44,6 +46,7 @@ export const useTasks = () => {
     completeTask,
     cleanTask,
     filter,
-    filterText
+    filterText,
+    error
   }
 }

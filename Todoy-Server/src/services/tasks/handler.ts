@@ -22,10 +22,11 @@ export const handler = async (
 
   if (!bodyObject?.data?.id) {
     result = asyncResponse({
-      message: "ERROR DATA: Task must have an 'id'",
+      message: 'Error at LAMBDA HANDLER: No id in data',
       userMessage: GENERIC_ERROR_MESSAGE,
       code: 400
     })
+    console.error(result.message)
     return lambdaResponseHandler(result, processEvent)
   }
 
@@ -37,14 +38,24 @@ export const handler = async (
       //   break
 
       case 'POST':
-        result = await createTask(bodyObject!.data as Partial<ITask>)
+        result = await createTask(bodyObject.data)
         if (result.code !== 200) result = { ...result, userMessage: 'Error creating task' }
         break
 
       case 'PUT':
         const { id, keysToUpdate }: { id: number; keysToUpdate: Partial<ITask> } = { ...bodyObject.data }
-        result = await updateTask({ id, keysToUpdate })
 
+        if (!keysToUpdate) {
+          result = asyncResponse({
+            message: 'Error at PUT case in TASKS LAMBDA HANDLER: No keysToUpdate',
+            userMessage: 'Error updating task',
+            code: 400
+          })
+          console.error(result.message)
+          break
+        }
+
+        result = await updateTask({ id, keysToUpdate })
         if (result.code !== 200) result = { ...result, userMessage: 'Error updating task' }
         break
 

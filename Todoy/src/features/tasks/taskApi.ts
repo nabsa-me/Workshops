@@ -1,4 +1,4 @@
-import axios, { AxiosError } from 'axios'
+import axios from 'axios'
 import { tasks } from './tasksFile'
 import { ITask } from './tasksTypes'
 import { API_URL } from '../../shared/constants'
@@ -8,31 +8,21 @@ export const getTasks = async (): Promise<ITask[]> => {
 }
 
 export const createTask = async (task: ITask): Promise<void> => {
-  try {
-    await axios.post(`${API_URL}/tasks`, {
-      data: task,
-      headers: {
-        'x-api-key': process.env.API_KEY
-      }
-    })
-  } catch (error) {
-    const axiosError = error as AxiosError<{ userMessage: string }>
-    console.error(axiosError.response?.data)
-  }
+  await axios.post(`${API_URL}/tasks`, {
+    data: task,
+    headers: {
+      'x-api-key': process.env.API_KEY
+    }
+  })
 }
 
 export const updateTask = async ({ id, keysToUpdate }: { id: number; keysToUpdate: Partial<ITask> }): Promise<void> => {
-  try {
-    await axios.put(`${API_URL}/tasks`, {
-      data: { id, keysToUpdate },
-      headers: {
-        'x-api-key': process.env.API_KEY
-      }
-    })
-  } catch (error) {
-    const axiosError = error as AxiosError<{ userMessage: string }>
-    console.error(axiosError.response?.data.userMessage)
-  }
+  await axios.put(`${API_URL}/tasks`, {
+    data: { id, keysToUpdate },
+    headers: {
+      'x-api-key': process.env.API_KEY
+    }
+  })
 }
 
 export const deleteTask = async (id: number): Promise<void> => {

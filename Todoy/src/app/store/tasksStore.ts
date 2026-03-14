@@ -2,6 +2,7 @@ import { create } from 'zustand'
 import { ITask } from '../../features/tasks/tasksTypes'
 import { cleanTask, createTask, deleteTask, getTasks, updateTask } from '../../features/tasks/taskApi'
 import { NEW_TASK_TEMPLATE } from '../../shared/constants'
+import { AxiosError } from 'axios'
 
 function deepEqual(oldObj: any, newObj: any): Record<string, any> | false {
   if (oldObj === newObj) return false
@@ -46,7 +47,7 @@ export interface ITaskState {
   tasks: ITask[]
   storedTasks: ITask[]
   isLoading: boolean
-  error: any
+  error: string | null
   filterText: string
   storeTaskSelector: (task: ITask) => void
   loadTasksSelector: () => Promise<void>
@@ -76,7 +77,7 @@ export const useTasksStore = create<ITaskState>((set) => ({
 
       set({ tasks, isLoading: false })
       set({ storedTasks })
-    } catch (err) {
+    } catch (err: any) {
       set({ error: err, isLoading: false })
     }
   },
@@ -123,8 +124,9 @@ export const useTasksStore = create<ITaskState>((set) => ({
           storedTasks: [...state.storedTasks, taskToStore]
         }))
       }
-    } catch (err) {
-      set({ error: err })
+    } catch (error) {
+      const axiosError = error as AxiosError<{ userMessage: string }>
+      set({ error: axiosError.response?.data.userMessage })
     }
   },
 
@@ -135,8 +137,9 @@ export const useTasksStore = create<ITaskState>((set) => ({
 
     try {
       await updateTask({ id, keysToUpdate: { completed: !isCompleted } })
-    } catch (err) {
-      set({ error: err })
+    } catch (error) {
+      const axiosError = error as AxiosError<{ userMessage: string }>
+      set({ error: axiosError.response?.data.userMessage })
     }
 
     set((state) => ({
@@ -150,7 +153,7 @@ export const useTasksStore = create<ITaskState>((set) => ({
       set((state) => ({
         tasks: state.tasks.map((task) => (task.id === id ? { ...task, deleted: !task.deleted } : task))
       }))
-    } catch (err) {
+    } catch (err: any) {
       set({ error: err })
     }
   },
@@ -161,7 +164,7 @@ export const useTasksStore = create<ITaskState>((set) => ({
       set((state) => ({
         tasks: state.tasks.filter((task) => task.id !== id)
       }))
-    } catch (err) {
+    } catch (err: any) {
       set({ error: err })
     }
   },
