@@ -6,3 +6,12 @@ export interface ITask {
   createdAt: string
   updatedAt: string
 }
+
+export const taskModel = {
+  id: 0,
+  title: '',
+  completed: false,
+  deleted: false,
+  createdAt: '',
+  updatedAt: ''
+} as const

@@ -27,7 +27,6 @@ export class DynamoDBManager {
       const err = error as DynamoDBServiceException
       const message = `Error creating item at DynamoDbManager. ERROR: ${err.message}`
 
-      console.error(message)
       return asyncResponse({ message, code: err?.$metadata?.httpStatusCode || 500, error: err })
     }
   }
@@ -61,8 +60,6 @@ export class DynamoDBManager {
     } catch (error) {
       const err = error as DynamoDBServiceException
       const message = `Error updating item at DynamoDbManager. ERROR: ${err.message}`
-
-      console.error(message)
 
       return asyncResponse({ message, code: err?.$metadata?.httpStatusCode || 500, error: err })
     }

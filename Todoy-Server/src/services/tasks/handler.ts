@@ -26,7 +26,7 @@ export const handler = async (
       userMessage: GENERIC_ERROR_MESSAGE,
       code: 400
     })
-    console.error(result.message)
+
     return lambdaResponseHandler(result, processEvent)
   }
 
@@ -44,19 +44,19 @@ export const handler = async (
 
       case 'PUT':
         const { id, keysToUpdate }: { id: number; keysToUpdate: Partial<ITask> } = { ...bodyObject.data }
+        const userMessage = 'Error updating task'
 
         if (!keysToUpdate) {
           result = asyncResponse({
             message: 'Error at PUT case in TASKS LAMBDA HANDLER: No keysToUpdate',
-            userMessage: 'Error updating task',
+            userMessage,
             code: 400
           })
-          console.error(result.message)
           break
         }
 
         result = await updateTask({ id, keysToUpdate })
-        if (result.code !== 200) result = { ...result, userMessage: 'Error updating task' }
+        if (result.code !== 200) result = { ...result, userMessage }
         break
 
       // case 'DELETE':

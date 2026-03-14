@@ -9,6 +9,8 @@ export const lambdaResponseHandler = (result: ILambdaResult, event: IProcessEven
     ...(result.userMessage && { userMessage: result.userMessage })
   }
 
+  console.error(result.message)
+
   return {
     statusCode: result.code,
     headers: {
