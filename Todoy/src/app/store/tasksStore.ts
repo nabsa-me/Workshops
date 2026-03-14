@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import { ITask } from '../../features/tasks/tasksTypes'
-import { cleanTask, createTask, deleteTask, getTasks, updateTask } from '../../features/tasks/taskApi'
+import { createTask, getTasks, updateTask } from '../../features/tasks/taskApi'
 import { NEW_TASK_TEMPLATE } from '../../shared/constants'
 import { AxiosError } from 'axios'
 
@@ -149,7 +149,6 @@ export const useTasksStore = create<ITaskState>((set) => ({
 
   deleteTaskSelector: async (id) => {
     try {
-      await deleteTask(id)
       set((state) => ({
         tasks: state.tasks.map((task) => (task.id === id ? { ...task, deleted: !task.deleted } : task))
       }))
@@ -158,15 +157,10 @@ export const useTasksStore = create<ITaskState>((set) => ({
     }
   },
 
-  cleanTaskSelector: async (id) => {
-    try {
-      await cleanTask(id)
-      set((state) => ({
-        tasks: state.tasks.filter((task) => task.id !== id)
-      }))
-    } catch (err: any) {
-      set({ error: err })
-    }
+  cleanTaskSelector: (id) => {
+    set((state) => ({
+      tasks: state.tasks.filter((task) => task.id !== id)
+    }))
   },
 
   filterTaskSelector: async (text) => {

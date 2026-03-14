@@ -24,11 +24,3 @@ export const updateTask = async ({ id, keysToUpdate }: { id: number; keysToUpdat
     }
   })
 }
-
-export const deleteTask = async (id: number): Promise<void> => {
-  console.log('backend delete', id)
-}
-
-export const cleanTask = async (id: number): Promise<void> => {
-  console.log('backend clean', id)
-}
