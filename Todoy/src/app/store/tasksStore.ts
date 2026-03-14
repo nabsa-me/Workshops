@@ -1,6 +1,7 @@
 import { create } from 'zustand'
 import { ITask } from '../../features/tasks/tasksTypes'
 import { cleanTask, createTask, deleteTask, getTasks, updateTask } from '../../features/tasks/taskApi'
+import { NEW_TASK_TEMPLATE } from '../../shared/constants'
 
 function deepEqual(oldObj: any, newObj: any): Record<string, any> | boolean {
   if (oldObj === newObj) return false
@@ -81,12 +82,7 @@ export const useTasksStore = create<ITaskState>((set) => ({
   },
 
   createTaskSelector: ({ title, id, index }) => {
-    const newTask = {
-      id,
-      title,
-      completed: false,
-      deleted: false
-    }
+    const newTask = { ...NEW_TASK_TEMPLATE, id, title }
 
     if (index !== undefined) {
       set((state) => {
